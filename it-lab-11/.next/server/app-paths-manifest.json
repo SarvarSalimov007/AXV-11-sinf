@@ -1,0 +1,8 @@
+{
+  "/darslar/page": "app/darslar/page.js",
+  "/page": "app/page.js",
+  "/code-editor/page": "app/code-editor/page.js",
+  "/loyihalar/page": "app/loyihalar/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/darslar/[moduleId]/[lessonId]/page": "app/darslar/[moduleId]/[lessonId]/page.js"
+}
