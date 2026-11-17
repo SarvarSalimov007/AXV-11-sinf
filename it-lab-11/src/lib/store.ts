@@ -101,13 +101,13 @@ export const useAppStore = create<AppState>()(
         const completedCount = progress.filter(
           (p) => p.lessonId.startsWith(moduleId) && p.completed
         ).length;
-        return completedCount / totalLessons;
+        return Math.round((completedCount / totalLessons) * 100);
       },
 
       getTotalProgress: () => {
         const { progress } = get();
         const completedCount = progress.filter((p) => p.completed).length;
-        return completedCount / TOTAL_LESSONS;
+        return Math.round((completedCount / TOTAL_LESSONS) * 100);
       },
 
       // Score

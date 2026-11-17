@@ -97,7 +97,7 @@ export default function HomePage() {
     useAppStore();
 
   const totalProgress = user ? getTotalProgress() : 0;
-  const totalPercent = Math.round(totalProgress * 100);
+  const totalPercent = totalProgress;
 
   /* ── collect featured lessons (first 2 from each module) ── */
   const featuredLessons = modules.flatMap((mod) =>
@@ -483,7 +483,7 @@ export default function HomePage() {
                         fill="none"
                         strokeLinecap="round"
                         strokeDasharray={`${2 * Math.PI * 78}`}
-                        strokeDashoffset={`${2 * Math.PI * 78 * (1 - totalProgress)}`}
+                        strokeDashoffset={`${2 * Math.PI * 78 * (1 - totalProgress / 100)}`}
                         className="transition-all duration-1000 ease-out"
                       />
                       <defs>
@@ -515,7 +515,7 @@ export default function HomePage() {
                   <div className="flex-1 w-full space-y-5">
                     {modules.map((mod) => {
                       const modProgress = getModuleProgress(mod.id);
-                      const modPercent = Math.round(modProgress * 100);
+                      const modPercent = modProgress;
                       return (
                         <div key={mod.id}>
                           <div className="flex items-center justify-between mb-1.5">
