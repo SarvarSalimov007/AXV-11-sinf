@@ -494,7 +494,7 @@ export default function CodeEditorPage() {
   ]);
   const [terminalInput, setTerminalInput] = useState('');
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalLogsContainerRef = useRef<HTMLDivElement>(null);
 
   // Listen for console messages from iframe sandbox
   useEffect(() => {
@@ -517,9 +517,11 @@ export default function CodeEditorPage() {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  // Auto scroll terminal to bottom
+  // Auto scroll ONLY the terminal container without scrolling the browser window
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (terminalLogsContainerRef.current) {
+      terminalLogsContainerRef.current.scrollTop = terminalLogsContainerRef.current.scrollHeight;
+    }
   }, [logs]);
 
   // Generate full preview document with interceptor script
@@ -740,12 +742,12 @@ export default function CodeEditorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white flex flex-col">
+    <div className="h-screen bg-slate-900 text-white flex flex-col overflow-hidden">
       <Navbar />
       <AuthModal />
 
       {/* Editor Control Header */}
-      <div className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 sticky top-16 z-20">
+      <div className="bg-slate-950 border-b border-slate-800 px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30">
             <Code2 className="w-5 h-5" />
@@ -779,7 +781,7 @@ export default function CodeEditorPage() {
 
           <button
             onClick={handleRun}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 transition-all"
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 transition-all cursor-pointer active:scale-95"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             Ishga tushirish (Run)
@@ -804,11 +806,11 @@ export default function CodeEditorPage() {
       </div>
 
       {/* Main Split Workspace */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 min-h-[calc(100vh-140px)]">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 min-h-0 overflow-hidden">
         {/* LEFT: Code Editor Pane */}
-        <div className="flex flex-col bg-slate-900">
+        <div className="flex flex-col h-full overflow-hidden bg-slate-900">
           {/* File Tabs */}
-          <div className="bg-slate-950 px-4 pt-2 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-slate-950 px-4 pt-2 border-b border-slate-800 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setActiveCodeTab('html')}
@@ -848,7 +850,7 @@ export default function CodeEditorPage() {
           </div>
 
           {/* Monaco Editor Component */}
-          <div className="flex-1 min-h-[400px] lg:min-h-full">
+          <div className="flex-1 min-h-0 relative h-full">
             {activeCodeTab === 'html' && (
               <Editor
                 height="100%"
@@ -906,9 +908,9 @@ export default function CodeEditorPage() {
         </div>
 
         {/* RIGHT: Live Preview & Terminal Pane */}
-        <div className="flex flex-col bg-slate-950">
+        <div className="flex flex-col h-full overflow-hidden bg-slate-950">
           {/* Right Pane Navigation Header */}
-          <div className="bg-slate-950 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-xs">
+          <div className="bg-slate-950 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0">
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setActiveRightTab('split')}
@@ -962,7 +964,7 @@ export default function CodeEditorPage() {
           </div>
 
           {/* Right Content Area */}
-          <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
             {/* PREVIEW FRAME */}
             {(activeRightTab === 'preview' || activeRightTab === 'split') && (
               <div className={`relative bg-white ${activeRightTab === 'split' ? 'h-1/2 border-b border-slate-800' : 'h-full'}`}>
@@ -979,9 +981,9 @@ export default function CodeEditorPage() {
 
             {/* TERMINAL / CONSOLE PANEL */}
             {(activeRightTab === 'terminal' || activeRightTab === 'split') && (
-              <div className={`flex flex-col bg-slate-950 font-mono ${activeRightTab === 'split' ? 'h-1/2' : 'h-full'}`}>
+              <div className={`flex flex-col bg-slate-950 font-mono ${activeRightTab === 'split' ? 'h-1/2' : 'h-full'} overflow-hidden`}>
                 {/* Terminal Header Bar */}
-                <div className="bg-slate-900/90 px-3.5 py-1.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 select-none">
+                <div className="bg-slate-900/90 px-3.5 py-1.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 select-none shrink-0">
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
@@ -998,7 +1000,7 @@ export default function CodeEditorPage() {
                 </div>
 
                 {/* Terminal Logs Output */}
-                <div className="flex-1 p-3.5 overflow-y-auto space-y-1.5 text-xs">
+                <div ref={terminalLogsContainerRef} className="flex-1 p-3.5 overflow-y-auto space-y-1.5 text-xs">
                   {logs.length === 0 ? (
                     <div className="text-slate-600 italic py-4 text-center">
                       Terminal bo&apos;sh. Kodni ishga tushiring yoki console.log yozing.
@@ -1036,13 +1038,12 @@ export default function CodeEditorPage() {
                       );
                     })
                   )}
-                  <div ref={terminalEndRef} />
                 </div>
 
                 {/* Interactive CLI Input Line */}
                 <form
                   onSubmit={handleTerminalSubmit}
-                  className="bg-slate-900/90 border-t border-slate-800 px-3 py-2 flex items-center gap-2"
+                  className="bg-slate-900/90 border-t border-slate-800 px-3 py-2 flex items-center gap-2 shrink-0"
                 >
                   <ChevronRight className="w-4 h-4 text-emerald-400 shrink-0" />
                   <input
@@ -1055,7 +1056,7 @@ export default function CodeEditorPage() {
                   <button
                     type="submit"
                     title="Buyruqni yuborish"
-                    className="p-1 rounded text-slate-400 hover:text-white"
+                    className="p-1 rounded text-slate-400 hover:text-white cursor-pointer"
                   >
                     <CornerDownLeft className="w-3.5 h-3.5" />
                   </button>
@@ -1065,8 +1066,6 @@ export default function CodeEditorPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
