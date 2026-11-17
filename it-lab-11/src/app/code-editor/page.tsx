@@ -1,30 +1,38 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { 
-  Play, RotateCcw, Trash2, Code2, Eye, Layout, 
-  Sparkles, Check, Download, Laptop 
+  Play, RotateCcw, Trash2, Code2, Eye, Terminal as TerminalIcon,
+  Layout, Sparkles, Check, Download, Laptop, Columns, 
+  Send, CornerDownLeft, AlertCircle, Info, ChevronRight
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { AuthModal } from '@/components/ui/AuthModal';
 
-// Dynamically import Monaco Editor to avoid SSR window issues
+// Dynamically import Monaco Editor
 const Editor = dynamic(() => import('@monaco-editor/react'), { 
   ssr: false,
   loading: () => (
     <div className="h-full flex items-center justify-center bg-slate-900 text-slate-400 font-mono text-sm">
       <div className="animate-pulse flex items-center gap-2">
         <Code2 className="w-5 h-5 text-blue-500 animate-spin" />
-        Kod muharriri yuklanmoqda...
+        Monaco kod muharriri yuklanmoqda...
       </div>
     </div>
   )
 });
 
-// Predefined templates in Uzbek
+interface LogEntry {
+  id: string;
+  type: 'log' | 'error' | 'warn' | 'info' | 'system';
+  message: string;
+  time: string;
+}
+
+// Predefined templates with Uzbek content
 const templates: Record<string, { html: string; css: string; js: string; title: string }> = {
   default: {
     title: 'Boshlang\'ich shablon',
@@ -115,10 +123,16 @@ button:hover {
 }`,
     js: `let sanagich = 0;
 
+console.log("IT LAB 11 dasturi muvaffaqiyatli ishga tushdi!");
+console.log("Boshlang'ich sanagich qiymati: " + sanagich);
+
 function tugmaBosildi() {
   sanagich++;
+  console.log("Tugma bosildi! Yangi hisob: " + sanagich);
   const natija = document.getElementById('natija');
-  natija.textContent = "Tugma " + sanagich + " marta bosildi! Tabriklaymiz, kod muvaffaqiyatli ishlayapti! 🎉";
+  if (natija) {
+    natija.textContent = "Tugma " + sanagich + " marta bosildi! 🎉";
+  }
 }`
   },
   portfolio: {
@@ -149,11 +163,11 @@ function tugmaBosildi() {
 
     <section class="projects">
       <h3>Mening Loyihalarim:</h3>
-      <div class="project-card">
+      <div class="project-card" onclick="loyihaTanlandi('IT LAB 11')">
         <h4>IT LAB 11 Platformasi</h4>
         <p>11-sinflar uchun interaktiv ta'lim portali.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card" onclick="loyihaTanlandi('Maktab Boti')">
         <h4>Maktab Telegram Boti</h4>
         <p>Dars jadvali va baholarni ko'rsatuvchi bot.</p>
       </div>
@@ -173,17 +187,17 @@ function tugmaBosildi() {
 
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 header h2 {
-  font-size: 28px;
+  font-size: 26px;
   color: #1e40af;
   margin-bottom: 6px;
 }
 
 main {
-  max-width: 500px;
+  max-width: 480px;
   width: 100%;
 }
 
@@ -191,7 +205,7 @@ main {
   display: inline-block;
   background: #dbeafe;
   color: #1d4ed8;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
@@ -204,14 +218,27 @@ main {
   border-radius: 12px;
   margin-top: 10px;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.project-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .project-card h4 {
   margin: 0 0 6px 0;
   color: #0f172a;
 }`,
-    js: `console.log("Portfolio sahifasi yuklandi!");`
+    js: `console.log("Portfolio sahifasi yuklandi.");
+console.info("Loyiha kartochkalaridan birini bosing...");
+
+function loyihaTanlandi(nomi) {
+  console.log("Tanlangan loyiha: " + nomi);
+  alert("Siz " + nomi + " loyihasini tanladingiz!");
+}`
   },
   calculator: {
     title: 'Interaktiv Kalkulyator',
@@ -305,20 +332,28 @@ button.equal {
   grid-row: span 2; 
   height: 110px; 
 }`,
-    js: `function belgiQosh(qiymat) {
-  document.getElementById('ekran').value += qiymat;
+    js: `console.log("Kalkulyator dasturi tayyor!");
+
+function belgiQosh(qiymat) {
+  const ekran = document.getElementById('ekran');
+  ekran.value += qiymat;
+  console.log("Kiritildi: " + qiymat + " | Joriy ifoda: " + ekran.value);
 }
 
 function tozala() {
   document.getElementById('ekran').value = '';
+  console.log("Ekran tozalandi.");
 }
 
 function hisobla() {
+  const ekran = document.getElementById('ekran');
   try {
-    const natija = eval(document.getElementById('ekran').value);
-    document.getElementById('ekran').value = natija;
+    const natija = eval(ekran.value);
+    console.log("Hisoblandi: " + ekran.value + " = " + natija);
+    ekran.value = natija;
   } catch (e) {
-    document.getElementById('ekran').value = 'Xatolik!';
+    console.error("Ifodada xatolik bor: " + e.message);
+    ekran.value = 'Xatolik!';
   }
 }`
   },
@@ -412,61 +447,194 @@ li:hover {
   background: #fee2e2;
   text-decoration: line-through;
 }`,
-    js: `function vazifaQosh() {
+    js: `console.log("To-do dasturi ishga tushirildi.");
+
+function vazifaQosh() {
   const input = document.getElementById('vazifaInput');
   const matn = input.value.trim();
-  if (!matn) return;
+  if (!matn) {
+    console.warn("Iltimos, vazifa matnini kiriting!");
+    return;
+  }
 
   const li = document.createElement('li');
   li.textContent = matn;
-  li.onclick = function() { this.remove(); };
+  li.onclick = function() { 
+    console.log("Vazifa bajarildi va o'chirildi: " + matn);
+    this.remove(); 
+  };
 
   document.getElementById('vazifalarListi').appendChild(li);
+  console.log("Yangi vazifa qo'shildi: " + matn);
   input.value = '';
 }`
   }
 };
 
 export default function CodeEditorPage() {
-  const { theme } = useAppStore();
   const [selectedTemplate, setSelectedTemplate] = useState('default');
   const [activeCodeTab, setActiveCodeTab] = useState<'html' | 'css' | 'js'>('html');
+  const [activeRightTab, setActiveRightTab] = useState<'preview' | 'terminal' | 'split'>('split');
   
   const [htmlCode, setHtmlCode] = useState(templates.default.html);
   const [cssCode, setCssCode] = useState(templates.default.css);
   const [jsCode, setJsCode] = useState(templates.default.js);
 
   const [previewSrc, setPreviewSrc] = useState('');
-  const [autoRun, setAutoRun] = useState(true);
+  const [runKey, setRunKey] = useState(0);
 
-  // Generate preview HTML
+  // Terminal state
+  const [logs, setLogs] = useState<LogEntry[]>([
+    {
+      id: 'init-1',
+      type: 'system',
+      message: 'IT LAB 11 Web Terminal v2.0 tayyor. Kodni ishga tushirish uchun "Ishga tushirish" tugmasini bosing.',
+      time: new Date().toLocaleTimeString()
+    }
+  ]);
+  const [terminalInput, setTerminalInput] = useState('');
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  // Listen for console messages from iframe sandbox
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.source === 'it-lab-code-sandbox') {
+        const { type, message, time } = event.data;
+        setLogs((prev) => [
+          ...prev,
+          {
+            id: Math.random().toString(),
+            type: type || 'log',
+            message: message || '',
+            time: time || new Date().toLocaleTimeString()
+          }
+        ]);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  // Auto scroll terminal to bottom
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [logs]);
+
+  // Generate full preview document with interceptor script
   const generatePreview = (h: string, c: string, j: string) => {
-    return `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <style>${c}</style>
-        </head>
-        <body>
-          ${h}
-          <script>
+    const consoleInterceptor = `
+      <script>
+        (function() {
+          function sendToParent(type, args) {
             try {
-              ${j}
-            } catch (err) {
-              console.error("JavaScript Xatoligi:", err);
-            }
-          </script>
-        </body>
-      </html>
+              var messages = Array.from(args).map(function(arg) {
+                if (arg === null) return "null";
+                if (arg === undefined) return "undefined";
+                if (typeof arg === 'object') {
+                  try { return JSON.stringify(arg); } catch(e) { return String(arg); }
+                }
+                return String(arg);
+              });
+              window.parent.postMessage({
+                source: 'it-lab-code-sandbox',
+                type: type,
+                message: messages.join(' '),
+                time: new Date().toLocaleTimeString()
+              }, '*');
+            } catch(e) {}
+          }
+
+          var _log = console.log;
+          var _error = console.error;
+          var _warn = console.warn;
+          var _info = console.info;
+
+          console.log = function() {
+            _log.apply(console, arguments);
+            sendToParent('log', arguments);
+          };
+          console.error = function() {
+            _error.apply(console, arguments);
+            sendToParent('error', arguments);
+          };
+          console.warn = function() {
+            _warn.apply(console, arguments);
+            sendToParent('warn', arguments);
+          };
+          console.info = function() {
+            _info.apply(console, arguments);
+            sendToParent('info', arguments);
+          };
+
+          window.onerror = function(msg, url, line) {
+            sendToParent('error', ['Xatolik yuz berdi (Qator ' + line + '): ' + msg]);
+          };
+        })();
+      </script>
     `;
+
+    const styleTag = `<style>${c}</style>`;
+    const userScriptTag = `
+      <script>
+        try {
+          ${j}
+        } catch (err) {
+          console.error("JavaScript Xatoligi: " + err.message);
+        }
+      </script>
+    `;
+
+    // If HTML already has document structure, insert intelligently
+    if (h.includes('<html') || h.includes('<body') || h.includes('<!DOCTYPE')) {
+      let doc = h;
+      if (doc.includes('<head>')) {
+        doc = doc.replace('<head>', `<head>${consoleInterceptor}${styleTag}`);
+      } else {
+        doc = consoleInterceptor + styleTag + doc;
+      }
+      if (doc.includes('</body>')) {
+        doc = doc.replace('</body>', `${userScriptTag}</body>`);
+      } else {
+        doc = doc + userScriptTag;
+      }
+      return doc;
+    }
+
+    // Default clean wrapper
+    return `<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${consoleInterceptor}
+  ${styleTag}
+</head>
+<body>
+  ${h}
+  ${userScriptTag}
+</body>
+</html>`;
   };
 
-  // Run manually or on mount
+  // Run manually
   const handleRun = () => {
+    setLogs((prev) => [
+      ...prev,
+      {
+        id: Math.random().toString(),
+        type: 'system',
+        message: '⚡ Kod qayta yuklandi va ishga tushirildi...',
+        time: new Date().toLocaleTimeString()
+      }
+    ]);
     const combined = generatePreview(htmlCode, cssCode, jsCode);
     setPreviewSrc(combined);
+    setRunKey((prev) => prev + 1);
   };
 
+  // Initial load
   useEffect(() => {
     handleRun();
   }, []);
@@ -479,7 +647,17 @@ export default function CodeEditorPage() {
       setHtmlCode(tmpl.html);
       setCssCode(tmpl.css);
       setJsCode(tmpl.js);
-      setPreviewSrc(generatePreview(tmpl.html, tmpl.css, tmpl.js));
+      setLogs([
+        {
+          id: Math.random().toString(),
+          type: 'system',
+          message: `"${tmpl.title}" shabloni yuklandi.`,
+          time: new Date().toLocaleTimeString()
+        }
+      ]);
+      const combined = generatePreview(tmpl.html, tmpl.css, tmpl.js);
+      setPreviewSrc(combined);
+      setRunKey((prev) => prev + 1);
     }
   };
 
@@ -490,15 +668,75 @@ export default function CodeEditorPage() {
       setHtmlCode(tmpl.html);
       setCssCode(tmpl.css);
       setJsCode(tmpl.js);
-      setPreviewSrc(generatePreview(tmpl.html, tmpl.css, tmpl.js));
+      setLogs([
+        {
+          id: Math.random().toString(),
+          type: 'system',
+          message: 'Kodingiz shablon holatiga qayta tiklandi.',
+          time: new Date().toLocaleTimeString()
+        }
+      ]);
+      const combined = generatePreview(tmpl.html, tmpl.css, tmpl.js);
+      setPreviewSrc(combined);
+      setRunKey((prev) => prev + 1);
     }
   };
 
   // Clear current tab
-  const handleClear = () => {
+  const handleClearCode = () => {
     if (activeCodeTab === 'html') setHtmlCode('');
     if (activeCodeTab === 'css') setCssCode('');
     if (activeCodeTab === 'js') setJsCode('');
+  };
+
+  // Clear Terminal
+  const handleClearTerminal = () => {
+    setLogs([
+      {
+        id: Math.random().toString(),
+        type: 'system',
+        message: 'Terminal tozalandi.',
+        time: new Date().toLocaleTimeString()
+      }
+    ]);
+  };
+
+  // Execute terminal input in iframe
+  const handleTerminalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!terminalInput.trim()) return;
+
+    const command = terminalInput.trim();
+    setTerminalInput('');
+
+    setLogs((prev) => [
+      ...prev,
+      {
+        id: Math.random().toString(),
+        type: 'system',
+        message: `> ${command}`,
+        time: new Date().toLocaleTimeString()
+      }
+    ]);
+
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        iframeRef.current.contentWindow.postMessage(
+          { source: 'eval-in-sandbox', code: command },
+          '*'
+        );
+      } catch (err: any) {
+        setLogs((prev) => [
+          ...prev,
+          {
+            id: Math.random().toString(),
+            type: 'error',
+            message: 'Buyruq bajarilmadi: ' + err.message,
+            time: new Date().toLocaleTimeString()
+          }
+        ]);
+      }
+    }
   };
 
   return (
@@ -514,13 +752,13 @@ export default function CodeEditorPage() {
           </div>
           <div>
             <h1 className="text-sm sm:text-base font-bold flex items-center gap-2">
-              Interaktiv Kod Muharriri (Sandbox)
+              Interaktiv Kod Muharriri & Terminal
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">
-                Jonli Preview
+                Jonli
               </span>
             </h1>
             <p className="text-xs text-slate-400 hidden sm:block">
-              HTML, CSS va JavaScript yozing — natijani real vaqtda ko&apos;ring.
+              HTML, CSS va JS yozing — natijani hamda terminaldagi chiqishlarni real vaqtda ko&apos;ring.
             </p>
           </div>
         </div>
@@ -544,7 +782,7 @@ export default function CodeEditorPage() {
             className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 transition-all"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            Ishga tushirish
+            Ishga tushirish (Run)
           </button>
 
           <button
@@ -556,8 +794,8 @@ export default function CodeEditorPage() {
           </button>
 
           <button
-            onClick={handleClear}
-            title="Ushbu kodni tozalash"
+            onClick={handleClearCode}
+            title="Kodni tozalash"
             className="p-2 rounded-xl bg-slate-800 hover:bg-rose-900/50 text-slate-300 hover:text-rose-400 text-xs transition-colors"
           >
             <Trash2 className="w-3.5 h-3.5" />
@@ -570,37 +808,43 @@ export default function CodeEditorPage() {
         {/* LEFT: Code Editor Pane */}
         <div className="flex flex-col bg-slate-900">
           {/* File Tabs */}
-          <div className="bg-slate-950 px-4 pt-2 border-b border-slate-800 flex items-center gap-1">
-            <button
-              onClick={() => setActiveCodeTab('html')}
-              className={`px-4 py-2 rounded-t-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                activeCodeTab === 'html'
-                  ? 'bg-slate-900 text-orange-400 border-t-2 border-orange-500'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              index.html
-            </button>
-            <button
-              onClick={() => setActiveCodeTab('css')}
-              className={`px-4 py-2 rounded-t-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                activeCodeTab === 'css'
-                  ? 'bg-slate-900 text-cyan-400 border-t-2 border-cyan-500'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              style.css
-            </button>
-            <button
-              onClick={() => setActiveCodeTab('js')}
-              className={`px-4 py-2 rounded-t-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                activeCodeTab === 'js'
-                  ? 'bg-slate-900 text-yellow-400 border-t-2 border-yellow-500'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              script.js
-            </button>
+          <div className="bg-slate-950 px-4 pt-2 border-b border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setActiveCodeTab('html')}
+                className={`px-4 py-2 rounded-t-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeCodeTab === 'html'
+                    ? 'bg-slate-900 text-orange-400 border-t-2 border-orange-500'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                index.html
+              </button>
+              <button
+                onClick={() => setActiveCodeTab('css')}
+                className={`px-4 py-2 rounded-t-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeCodeTab === 'css'
+                    ? 'bg-slate-900 text-cyan-400 border-t-2 border-cyan-500'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                style.css
+              </button>
+              <button
+                onClick={() => setActiveCodeTab('js')}
+                className={`px-4 py-2 rounded-t-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeCodeTab === 'js'
+                    ? 'bg-slate-900 text-yellow-400 border-t-2 border-yellow-500'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                script.js
+              </button>
+            </div>
+
+            <span className="text-[11px] text-slate-500 font-mono pr-2">
+              VS Code Monaco Editor
+            </span>
           </div>
 
           {/* Monaco Editor Component */}
@@ -661,25 +905,163 @@ export default function CodeEditorPage() {
           </div>
         </div>
 
-        {/* RIGHT: Live Preview Sandbox Pane */}
+        {/* RIGHT: Live Preview & Terminal Pane */}
         <div className="flex flex-col bg-slate-950">
-          <div className="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
-            <span className="flex items-center gap-2 font-semibold">
-              <Eye className="w-4 h-4 text-emerald-400" />
-              Natija oynasi (Preview):
-            </span>
-            <span className="text-[11px] text-slate-500 font-mono">
-              Sandbox muhofazalangan iframe
-            </span>
+          {/* Right Pane Navigation Header */}
+          <div className="bg-slate-950 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setActiveRightTab('split')}
+                className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all ${
+                  activeRightTab === 'split'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Columns className="w-3.5 h-3.5" />
+                Ikkalasi (Split)
+              </button>
+
+              <button
+                onClick={() => setActiveRightTab('preview')}
+                className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all ${
+                  activeRightTab === 'preview'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Eye className="w-3.5 h-3.5 text-emerald-400" />
+                Natija (Preview)
+              </button>
+
+              <button
+                onClick={() => setActiveRightTab('terminal')}
+                className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all relative ${
+                  activeRightTab === 'terminal'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <TerminalIcon className="w-3.5 h-3.5 text-yellow-400" />
+                Terminal
+                {logs.length > 0 && (
+                  <span className="w-4 h-4 rounded-full bg-slate-700 text-[10px] flex items-center justify-center font-bold">
+                    {logs.length}
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Clear Terminal button */}
+            <button
+              onClick={handleClearTerminal}
+              className="text-slate-400 hover:text-rose-400 text-[11px] font-semibold transition-colors"
+            >
+              Terminalni tozalash
+            </button>
           </div>
 
-          <div className="flex-1 bg-white relative min-h-[400px]">
-            <iframe
-              srcDoc={previewSrc}
-              title="Kodni sinash oynasi"
-              sandbox="allow-scripts allow-modals"
-              className="w-full h-full border-none absolute inset-0"
-            />
+          {/* Right Content Area */}
+          <div className="flex-1 flex flex-col min-h-0">
+            {/* PREVIEW FRAME */}
+            {(activeRightTab === 'preview' || activeRightTab === 'split') && (
+              <div className={`relative bg-white ${activeRightTab === 'split' ? 'h-1/2 border-b border-slate-800' : 'h-full'}`}>
+                <iframe
+                  ref={iframeRef}
+                  key={runKey}
+                  srcDoc={previewSrc}
+                  title="Kodni sinash oynasi"
+                  sandbox="allow-scripts allow-modals allow-same-origin"
+                  className="w-full h-full border-none absolute inset-0"
+                />
+              </div>
+            )}
+
+            {/* TERMINAL / CONSOLE PANEL */}
+            {(activeRightTab === 'terminal' || activeRightTab === 'split') && (
+              <div className={`flex flex-col bg-slate-950 font-mono ${activeRightTab === 'split' ? 'h-1/2' : 'h-full'}`}>
+                {/* Terminal Header Bar */}
+                <div className="bg-slate-900/90 px-3.5 py-1.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 select-none">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    </div>
+                    <span className="text-[11px] font-semibold text-slate-300 ml-2">
+                      JavaScript Terminal & Konsol
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-500">
+                    console.log chiqishlari
+                  </span>
+                </div>
+
+                {/* Terminal Logs Output */}
+                <div className="flex-1 p-3.5 overflow-y-auto space-y-1.5 text-xs">
+                  {logs.length === 0 ? (
+                    <div className="text-slate-600 italic py-4 text-center">
+                      Terminal bo&apos;sh. Kodni ishga tushiring yoki console.log yozing.
+                    </div>
+                  ) : (
+                    logs.map((log) => {
+                      let typeStyle = 'text-slate-300';
+                      let prefix = '[LOG]';
+                      if (log.type === 'error') {
+                        typeStyle = 'text-rose-400 font-bold bg-rose-950/30 px-2 py-0.5 rounded';
+                        prefix = '[XATO]';
+                      } else if (log.type === 'warn') {
+                        typeStyle = 'text-amber-400 font-semibold bg-amber-950/30 px-2 py-0.5 rounded';
+                        prefix = '[OGOH]';
+                      } else if (log.type === 'info') {
+                        typeStyle = 'text-cyan-400 font-semibold';
+                        prefix = '[INFO]';
+                      } else if (log.type === 'system') {
+                        typeStyle = 'text-blue-400/90 italic';
+                        prefix = '[TIZIM]';
+                      }
+
+                      return (
+                        <div key={log.id} className="flex items-start gap-2 leading-relaxed break-all">
+                          <span className="text-[10px] text-slate-600 shrink-0 select-none">
+                            {log.time}
+                          </span>
+                          <span className="text-[10px] font-bold text-slate-500 shrink-0 select-none">
+                            {prefix}
+                          </span>
+                          <span className={`flex-1 whitespace-pre-wrap ${typeStyle}`}>
+                            {log.message}
+                          </span>
+                        </div>
+                      );
+                    })
+                  )}
+                  <div ref={terminalEndRef} />
+                </div>
+
+                {/* Interactive CLI Input Line */}
+                <form
+                  onSubmit={handleTerminalSubmit}
+                  className="bg-slate-900/90 border-t border-slate-800 px-3 py-2 flex items-center gap-2"
+                >
+                  <ChevronRight className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <input
+                    type="text"
+                    value={terminalInput}
+                    onChange={(e) => setTerminalInput(e.target.value)}
+                    placeholder="Buyruq yoki funksiyani yozing (masalan: tugmaBosildi(), 2 + 2)..."
+                    className="flex-1 bg-transparent text-xs text-white placeholder:text-slate-600 focus:outline-none font-mono"
+                  />
+                  <button
+                    type="submit"
+                    title="Buyruqni yuborish"
+                    className="p-1 rounded text-slate-400 hover:text-white"
+                  >
+                    <CornerDownLeft className="w-3.5 h-3.5" />
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       </div>
