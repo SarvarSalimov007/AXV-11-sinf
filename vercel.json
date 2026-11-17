@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd it-lab-11 && npm run build",
-  "outputDirectory": "it-lab-11/.next",
-  "installCommand": "cd it-lab-11 && npm install",
-  "framework": "nextjs"
-}
