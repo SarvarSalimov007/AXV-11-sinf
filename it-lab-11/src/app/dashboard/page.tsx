@@ -174,6 +174,14 @@ export default function DashboardPage() {
                     <Clock className="w-3.5 h-3.5 text-slate-400" />
                     A&apos;zolik sanasi: {user.joinedAt || '2024'}
                   </p>
+
+                  <Link
+                    href="/sertifikat"
+                    className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer"
+                  >
+                    <Award className="w-3.5 h-3.5" />
+                    <span>Bitiruv Sertifikatini Olish</span>
+                  </Link>
                 </div>
               </div>
 

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import {
   Laptop, BookOpen, Code2, FolderGit2, LayoutDashboard,
-  Mail, MessageSquare, Github, Send, Sparkles, Heart
+  Mail, MessageSquare, Github, Send, Sparkles, Heart, Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +10,7 @@ const platformLinks = [
   { href: '/loyihalar', label: 'Amaliy Loyihalar', icon: FolderGit2 },
   { href: '/code-editor', label: 'Interaktiv Kod Muharriri', icon: Code2 },
   { href: '/dashboard', label: 'O\'quvchi Dashboardi', icon: LayoutDashboard },
+  { href: '/sertifikat', label: 'Rasmiy Sertifikat', icon: Award },
 ];
 
 const courseModules = [

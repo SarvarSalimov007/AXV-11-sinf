@@ -482,6 +482,7 @@ export default function CodeEditorPage() {
 
   const [previewSrc, setPreviewSrc] = useState('');
   const [runKey, setRunKey] = useState(0);
+  const [fontSize, setFontSize] = useState(13);
 
   // Terminal state
   const [logs, setLogs] = useState<LogEntry[]>([
@@ -703,6 +704,33 @@ export default function CodeEditorPage() {
     ]);
   };
 
+  // Download complete code bundle as single HTML file
+  const handleDownloadCode = () => {
+    const fullHtml = `<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>IT LAB 11 — Loyiham</title>
+  <style>
+${cssCode}
+  </style>
+</head>
+<body>
+${htmlCode}
+  <script>
+${jsCode}
+  </script>
+</body>
+</html>`;
+    const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'it-lab-loyiha.html';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   // Execute terminal input in iframe
   const handleTerminalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -787,6 +815,27 @@ export default function CodeEditorPage() {
             Ishga tushirish (Run)
           </button>
 
+          {/* Font Size Selector */}
+          <select
+            value={fontSize}
+            onChange={(e) => setFontSize(Number(e.target.value))}
+            className="px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+            title="Shrift o'lchami"
+          >
+            <option value={12}>12px</option>
+            <option value={13}>13px</option>
+            <option value={15}>15px</option>
+            <option value={17}>17px</option>
+          </select>
+
+          <button
+            onClick={handleDownloadCode}
+            title="Kodni HTML fayl sifatida yuklab olish"
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-emerald-400 text-xs transition-colors"
+          >
+            <Download className="w-3.5 h-3.5" />
+          </button>
+
           <button
             onClick={handleReset}
             title="Shablonni qayta tiklash"
@@ -860,7 +909,7 @@ export default function CodeEditorPage() {
                 onChange={(val) => setHtmlCode(val || '')}
                 options={{
                   minimap: { enabled: false },
-                  fontSize: 13,
+                  fontSize: fontSize,
                   lineNumbers: 'on',
                   wordWrap: 'on',
                   scrollBeyondLastLine: false,
@@ -878,7 +927,7 @@ export default function CodeEditorPage() {
                 onChange={(val) => setCssCode(val || '')}
                 options={{
                   minimap: { enabled: false },
-                  fontSize: 13,
+                  fontSize: fontSize,
                   lineNumbers: 'on',
                   wordWrap: 'on',
                   scrollBeyondLastLine: false,
@@ -896,7 +945,7 @@ export default function CodeEditorPage() {
                 onChange={(val) => setJsCode(val || '')}
                 options={{
                   minimap: { enabled: false },
-                  fontSize: 13,
+                  fontSize: fontSize,
                   lineNumbers: 'on',
                   wordWrap: 'on',
                   scrollBeyondLastLine: false,

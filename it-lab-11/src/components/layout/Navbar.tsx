@@ -7,7 +7,7 @@ import { useAppStore } from '@/lib/store';
 import {
   Laptop, Sun, Moon, Menu, X, BookOpen, Code2,
   FolderGit2, LayoutDashboard, User, LogOut, ChevronDown,
-  Home, Sparkles,
+  Home, Sparkles, Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,6 +18,7 @@ const navLinks = [
   { href: '/loyihalar', label: 'Loyihalar', icon: FolderGit2 },
   { href: '/code-editor', label: 'Kod Muharriri', icon: Code2 },
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/sertifikat', label: 'Sertifikat', icon: Award },
 ];
 
 export default function Navbar() {
