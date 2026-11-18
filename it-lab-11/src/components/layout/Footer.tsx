@@ -2,52 +2,61 @@ import Link from 'next/link';
 import {
   Laptop, BookOpen, Code2, FolderGit2, LayoutDashboard,
   FileText, HelpCircle, Shield, Mail, MessageSquare,
-  Github, Send,
+  Github, Send, Sparkles, Heart, Terminal
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const platformLinks = [
-  { href: '/darslar', label: 'Darslar', icon: BookOpen },
-  { href: '/loyihalar', label: 'Loyihalar', icon: FolderGit2 },
-  { href: '/code-editor', label: 'Kod Muharriri', icon: Code2 },
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/darslar', label: 'Darslar katalogi', icon: BookOpen },
+  { href: '/loyihalar', label: 'Amaliy Loyihalar', icon: FolderGit2 },
+  { href: '/code-editor', label: 'Interaktiv Kod Muharriri', icon: Code2 },
+  { href: '/dashboard', label: 'O\'quvchi Dashboardi', icon: LayoutDashboard },
 ];
 
-const resourceLinks = [
-  { href: '#', label: "Qo'llanma", icon: FileText },
-  { href: '#', label: "Ko'p so'raladigan savollar", icon: HelpCircle },
-  { href: '#', label: 'Maxfiylik siyosati', icon: Shield },
+const courseModules = [
+  { href: '/darslar/module-1', label: 'I-Bosqich: SDLC va Git/GitHub' },
+  { href: '/darslar/module-2', label: 'II-Bosqich: Linux va Docker' },
+  { href: '/darslar/module-3', label: 'III-Bosqich: Cloud va AWS' },
+  { href: '/darslar/module-4', label: 'IV-Bosqich: Freelance va Startap' },
 ];
 
 const contactLinks = [
   { href: 'mailto:info@itlab11.uz', label: 'info@itlab11.uz', icon: Mail },
-  { href: '#', label: 'Telegram', icon: Send },
-  { href: '#', label: 'GitHub', icon: Github },
+  { href: 'https://t.me', label: 'Telegram Hamjamiyat', icon: Send },
+  { href: 'https://github.com', label: 'GitHub Repozitoriy', icon: Github },
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950">
-      {/* Top gradient line */}
+    <footer className="relative border-t border-slate-800 bg-slate-950 text-slate-400 overflow-hidden">
+      {/* Top ambient glow line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Main grid */}
-        <div className="grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand column */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2 group">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105">
+        {/* Main 4-column Grid */}
+        <div className="grid grid-cols-1 gap-12 py-16 sm:grid-cols-2 lg:grid-cols-5">
+          
+          {/* Brand info (2 columns wide on large screens) */}
+          <div className="lg:col-span-2 space-y-5">
+            <Link href="/" className="inline-flex items-center gap-2.5 group">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105">
                 <Laptop className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-black bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent tracking-tight">
                 IT LAB 11
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-              O&apos;rgan. Amalda bajar. Yarat. Kelajakni qur.
+
+            <p className="max-w-sm text-sm leading-relaxed text-slate-400">
+              11-sinf o&apos;quvchilari uchun zamonaviy dasturiy ta&apos;minot, DevOps, Docker, Cloud va Startap ekotizimini o&apos;rgatuvchi interaktiv ta&apos;lim platformasi.
             </p>
-            <div className="mt-5 flex items-center gap-3">
+
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>O&apos;rgan · Amalda bajar · Yarat · Kelajakni qur.</span>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
               {[
                 { icon: Github, href: '#', label: 'GitHub' },
                 { icon: Send, href: '#', label: 'Telegram' },
@@ -57,11 +66,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className={cn(
-                    'flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200',
-                    'bg-gray-100 text-gray-500 hover:bg-blue-100 hover:text-blue-600',
-                    'dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-blue-900/30 dark:hover:text-blue-400'
-                  )}
+                  className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-blue-500/40 hover:bg-slate-800 transition-all duration-200"
                 >
                   <social.icon className="h-4 w-4" />
                 </a>
@@ -69,9 +74,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Platforma */}
+          {/* Platforma Linklari */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
+            <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-200">
               Platforma
             </h4>
             <ul className="space-y-3">
@@ -79,9 +84,9 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                    className="group flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-blue-400"
                   >
-                    <link.icon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    <link.icon className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-slate-500 group-hover:text-blue-400" />
                     {link.label}
                   </Link>
                 </li>
@@ -89,52 +94,56 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resurslar */}
+          {/* O'quv Modullari */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
-              Resurslar
+            <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-200">
+              O&apos;quv Bosqichlari
             </h4>
             <ul className="space-y-3">
-              {resourceLinks.map((link) => (
-                <li key={link.label}>
+              {courseModules.map((item) => (
+                <li key={item.label}>
                   <Link
-                    href={link.href}
-                    className="group flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                    href={item.href}
+                    className="text-xs text-slate-400 transition-colors hover:text-blue-400 block leading-relaxed"
                   >
-                    <link.icon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    {link.label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Bog'lanish */}
+          {/* Aloqa & Yordam */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
-              Bog&apos;lanish
+            <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-200">
+              Aloqa & Yordam
             </h4>
             <ul className="space-y-3">
               {contactLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                    className="group flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-blue-400"
                   >
-                    <link.icon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    <link.icon className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-slate-500 group-hover:text-blue-400" />
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
+
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-200 py-6 dark:border-gray-800">
-          <p className="text-center text-xs text-gray-400 dark:text-gray-500">
-            © {new Date().getFullYear()} IT LAB 11. Barcha huquqlar himoyalangan.
+        <div className="border-t border-slate-900 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <p>
+            © {new Date().getFullYear()} IT LAB 11 Platformasi. Barcha huquqlar himoyalangan.
           </p>
+          <div className="flex items-center gap-1 text-slate-400">
+            <span>11-sinf o&apos;quvchilari uchun mehr bilan yaratildi</span>
+            <Heart className="w-3.5 h-3.5 text-rose-500 fill-current ml-1" />
+          </div>
         </div>
       </div>
     </footer>

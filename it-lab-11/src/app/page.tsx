@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   BookOpen,
   Layers,
@@ -15,11 +15,23 @@ import {
   ArrowRight,
   ChevronRight,
   Clock,
-  Signal,
   Sparkles,
   Rocket,
   GraduationCap,
   Trophy,
+  CheckCircle2,
+  Terminal,
+  Play,
+  Zap,
+  ShieldCheck,
+  Award,
+  Users,
+  Star,
+  ExternalLink,
+  Laptop,
+  Check,
+  Copy,
+  ChevronDown
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { modules } from '@/data/courses';
@@ -52,9 +64,9 @@ function Reveal({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+      initial={{ opacity: 0, y: 35 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -62,44 +74,148 @@ function Reveal({
   );
 }
 
-/* ──────────────────────────── Stats Data ─────────────────────────────── */
-const stats = [
-  { icon: BookOpen, label: 'Darslar', value: '36+' },
-  { icon: Layers, label: 'Modul', value: '4' },
-  { icon: FolderGit2, label: 'Loyihalar', value: '12+' },
-  { icon: ClipboardCheck, label: 'Test savollari', value: '100+' },
-];
+/* ──────────────────────────── Animated Counter ──────────────────────── */
+function Counter({ value, suffix = '' }: { value: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-40px' });
 
-/* ──────────────────────────── Difficulty badge helper ────────────────── */
-function difficultyBadge(level: string) {
-  const colors: Record<string, string> = {
-    'boshlangich':
-      'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400',
-    'orta': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-400',
-    'yuqori':
-      'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400',
-  };
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const duration = 1600;
+    const startTime = performance.now();
+
+    const updateCount = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutExpo
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = Math.floor(ease * value);
+      setCount(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        setCount(value);
+      }
+    };
+
+    requestAnimationFrame(updateCount);
+  }, [isInView, value]);
+
   return (
-    <span
-      className={cn(
-        'px-2.5 py-0.5 rounded-full text-xs font-medium capitalize',
-        colors[level] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
-      )}
-    >
-      {level}
+    <span ref={ref} className="tabular-nums">
+      {count}
+      {suffix}
     </span>
   );
 }
 
-/* ════════════════════════════ PAGE COMPONENT ═════════════════════════ */
+/* ──────────────────────────── Code Snippets for Hero ────────────────── */
+const heroSnippets = [
+  {
+    id: 'git',
+    title: 'Git & Workflow',
+    lang: 'bash',
+    filename: 'terminal.sh',
+    code: `# Git branch ochish va yangi funksiya qo'shish
+git checkout -b feature/interactive-editor
+git add src/components/Editor.tsx
+git commit -m "feat: Monaco Editor integratsiyasi"
+git push origin feature/interactive-editor
+
+# Pull Request tekshirildi va merge qilindi ✅`
+  },
+  {
+    id: 'docker',
+    title: 'Docker Container',
+    lang: 'dockerfile',
+    filename: 'Dockerfile',
+    code: `FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --frozen-lockfile
+COPY . .
+RUN npm run build
+
+# Xavfsiz ishlab chiqarish konteyneri
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]`
+  },
+  {
+    id: 'cloud',
+    title: 'Cloud & Deploy',
+    lang: 'yaml',
+    filename: 'deploy-pipeline.yml',
+    code: `name: Production Deployment
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Test
+        run: npm run test:ci
+      - name: Deploy to Cloud (AWS EC2 / Vercel)
+        run: npx vercel --prod --token=\${{ secrets.VERCEL_TOKEN }}`
+  },
+  {
+    id: 'cleancode',
+    title: 'Clean Code (SOLID)',
+    lang: 'typescript',
+    filename: 'SOLID_Principles.ts',
+    code: `// Single Responsibility & Interface Segregation
+interface IStudentRepository {
+  save(student: Student): Promise<void>;
+  findById(id: string): Promise<Student>;
+}
+
+export class StudentService {
+  constructor(private readonly repo: IStudentRepository) {}
+
+  async completeLesson(studentId: string, lessonId: string): Promise<number> {
+    const student = await this.repo.findById(studentId);
+    student.addScore(50);
+    await this.repo.save(student);
+    return student.totalScore;
+  }
+}`
+  }
+];
+
+/* ──────────────────────────── Tech Badges ───────────────────────────── */
+const techStack = [
+  { name: 'TypeScript', color: 'from-blue-600 to-cyan-500' },
+  { name: 'Docker', color: 'from-blue-500 to-indigo-600' },
+  { name: 'Git & GitHub', color: 'from-orange-500 to-rose-600' },
+  { name: 'Next.js 14', color: 'from-slate-700 to-slate-950' },
+  { name: 'AWS Cloud', color: 'from-amber-500 to-orange-600' },
+  { name: 'CI/CD Actions', color: 'from-emerald-500 to-teal-600' },
+  { name: 'Linux Terminal', color: 'from-yellow-500 to-amber-600' },
+  { name: 'Agile & MVP', color: 'from-purple-600 to-pink-600' },
+];
+
 export default function HomePage() {
-  const { user, getTotalProgress, getModuleProgress, setShowAuthModal } =
-    useAppStore();
+  const { user, getTotalProgress, getModuleProgress, setShowAuthModal } = useAppStore();
+  const [activeSnippetIdx, setActiveSnippetIdx] = useState(0);
+  const [copied, setCopied] = useState(false);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const totalProgress = user ? getTotalProgress() : 0;
-  const totalPercent = totalProgress;
+  const activeSnippet = heroSnippets[activeSnippetIdx];
 
-  /* ── collect featured lessons (first 2 from each module) ── */
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(activeSnippet.code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  /* ── Featured lessons (first 2 from each module) ── */
   const featuredLessons = modules.flatMap((mod) =>
     mod.lessons.slice(0, 2).map((lesson) => ({
       ...lesson,
@@ -110,248 +226,476 @@ export default function HomePage() {
   );
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-blue-600 selection:text-white">
       <Navbar />
       <AuthModal />
 
-      {/* ═══════════════════ HERO SECTION ═══════════════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-purple-900">
-        {/* Decorative blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -top-32 -left-32 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
-          />
-          <motion.div
-            animate={{ x: [0, -25, 0], y: [0, 30, 0] }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-purple-500 rounded-full opacity-10 blur-3xl"
-          />
-          <motion.div
-            animate={{ x: [0, 20, 0], y: [0, 20, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-0 left-1/3 w-80 h-80 bg-cyan-400 rounded-full opacity-10 blur-3xl"
-          />
-          {/* grid pattern overlay */}
-          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03]" />
+      {/* ═══════════════════════════════════════════════════════════════════
+          1. HERO SECTION — High-Tech Glassmorphism & Interactive Terminal
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Animated Glow Blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[140px] animate-pulse-slow" />
+          <div className="absolute top-1/4 -right-40 w-[550px] h-[550px] bg-purple-600/20 rounded-full blur-[140px] animate-pulse-slow delay-1000" />
+          <div className="absolute -bottom-20 left-1/3 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[120px]" />
+          
+          {/* Subtle Cyber Grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b0a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-70" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-5xl px-4 py-32 text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur text-sm font-medium border border-white/10">
-              <Sparkles className="w-4 h-4 text-yellow-400" />
-              IT LAB 11 — Yangi avlod ta&apos;lim platformasi
-            </span>
-          </motion.div>
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            {/* Left Column: Hero Content */}
+            <div className="lg:col-span-7 text-center lg:text-left space-y-8">
+              
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md shadow-inner"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
+                  11-Sinf Maktab Ta&apos;lim Ekotizimi
+                </span>
+                <span className="text-slate-600 dark:text-slate-500">•</span>
+                <span className="text-xs font-bold text-slate-300">
+                  IT LAB 11 v2.0
+                </span>
+              </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight"
-          >
-            Kelajak kasblari{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              shu yerdan
-            </span>{' '}
-            boshlanadi
-          </motion.h1>
+              {/* Main Headline */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="space-y-4"
+              >
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]">
+                  Kelajak kasblari{' '}
+                  <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-300 bg-clip-text text-transparent drop-shadow-sm">
+                    shu yerdan
+                  </span>{' '}
+                  boshlanadi
+                </h1>
+                
+                <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                  Dasturiy ta&apos;minot arxitekturasi, Git, Docker, CI/CD, Cloud texnologiyalari va Startap ekotizimini <strong className="text-white font-semibold">100% amaliyot</strong> orqali o&apos;rganing.
+                </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-blue-100/80 leading-relaxed"
-          >
-            IT LAB 11 — 11-sinf o&apos;quvchilari uchun zamonaviy dasturlash va IT
-            ta&apos;lim platformasi
-          </motion.p>
+                {/* Slogan */}
+                <div className="flex items-center justify-center lg:justify-start gap-2 text-sm font-semibold text-blue-400/90 tracking-wide pt-1">
+                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>O&apos;rgan · Amalda bajar · Yarat · Kelajakni qur.</span>
+                </div>
+              </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="mt-3 text-base sm:text-lg text-blue-200/60 font-medium tracking-wide"
-          >
-            O&apos;rgan · Amalda bajar · Yarat · Kelajakni qur.
-          </motion.p>
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
+              >
+                <Link
+                  href="/darslar"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-base shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-300 group cursor-pointer"
+                >
+                  <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  Darslarni boshlash
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link
-              href="/darslar"
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.03] transition-all duration-300"
+                <Link
+                  href="/code-editor"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-base border border-slate-800 hover:border-slate-700 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer shadow-lg"
+                >
+                  <Code2 className="w-5 h-5 text-cyan-400" />
+                  Interaktiv Kod Muharriri
+                </Link>
+              </motion.div>
+
+              {/* Tech Badges Pill Row */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.35 }}
+                className="pt-4 border-t border-slate-800/80"
+              >
+                <p className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-3">
+                  O&apos;rganiladigan Asosiy Texnologiyalar:
+                </p>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                  {techStack.map((tech) => (
+                    <span
+                      key={tech.name}
+                      className="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-blue-500/40 transition-colors"
+                    >
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+
+            </div>
+
+            {/* Right Column: Live Interactive Cyber Terminal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="lg:col-span-5 w-full"
             >
-              <Rocket className="w-5 h-5" />
-              Darslarni boshlash
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <button
-              onClick={() => {
-                document
-                  .getElementById('modules-section')
-                  ?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-white/20 text-white font-semibold text-lg hover:bg-white/10 backdrop-blur transition-all duration-300"
-            >
-              Platformani ko&apos;rish
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </motion.div>
+              <div className="relative rounded-3xl p-1 bg-gradient-to-b from-blue-500/30 via-slate-800 to-purple-500/20 shadow-2xl shadow-blue-500/10">
+                <div className="rounded-[22px] bg-slate-950/95 border border-slate-800 overflow-hidden backdrop-blur-2xl">
+                  
+                  {/* Terminal Header */}
+                  <div className="bg-slate-900/80 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-rose-500/90" />
+                      <div className="w-3 h-3 rounded-full bg-amber-500/90" />
+                      <div className="w-3 h-3 rounded-full bg-emerald-500/90" />
+                      <span className="text-xs font-mono text-slate-400 ml-2 font-medium">
+                        it-lab-terminal — {activeSnippet.filename}
+                      </span>
+                    </div>
 
-          {/* Stats row */}
+                    <button
+                      onClick={handleCopyCode}
+                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors text-xs flex items-center gap-1 font-mono"
+                      title="Kodni nusxalash"
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-[10px] text-emerald-400 font-sans">Nusxalandi!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span className="text-[10px] font-sans">Nusxa</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Terminal Navigation Tabs */}
+                  <div className="bg-slate-950 px-3 pt-2 flex items-center gap-1 border-b border-slate-800/80 overflow-x-auto no-scrollbar">
+                    {heroSnippets.map((s, idx) => (
+                      <button
+                        key={s.id}
+                        onClick={() => setActiveSnippetIdx(idx)}
+                        className={cn(
+                          'px-3 py-1.5 rounded-t-lg text-xs font-mono font-semibold transition-all whitespace-nowrap flex items-center gap-1.5',
+                          activeSnippetIdx === idx
+                            ? 'bg-slate-900 text-blue-400 border-t-2 border-blue-500 shadow-sm'
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/50'
+                        )}
+                      >
+                        <Terminal className="w-3 h-3 text-cyan-400" />
+                        {s.title}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Terminal Code Body */}
+                  <div className="p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-300 min-h-[220px] overflow-x-auto bg-slate-950/90">
+                    <pre className="text-slate-200">
+                      <code>{activeSnippet.code}</code>
+                    </pre>
+                  </div>
+
+                  {/* Terminal Footer Action */}
+                  <div className="bg-slate-900/70 px-4 py-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                    <div className="flex items-center gap-2 text-emerald-400">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>Ready for production</span>
+                    </div>
+                    <Link
+                      href="/code-editor"
+                      className="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1 font-sans"
+                    >
+                      Muharrirda ochish
+                      <ExternalLink className="w-3 h-3" />
+                    </Link>
+                  </div>
+
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* ── Key Statistics Row ── */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto"
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
           >
-            {stats.map((stat) => (
+            {[
+              { label: "O'quv Darslari", value: 36, suffix: ' ta', desc: 'Real kod & nazariya', icon: BookOpen, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+              { label: 'Katta Modul', value: 4, suffix: ' bosqich', desc: 'SDLC, DevOps, Cloud, Startap', icon: Layers, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+              { label: 'Yakuniy Loyihalar', value: 4, suffix: ' ta MVP', desc: 'Portfolio, Docker, Cloud, Startap', icon: FolderGit2, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+              { label: 'Interaktiv Testlar', value: 100, suffix: '+ savol', desc: 'Tezkor ball va tekshiruv', icon: ClipboardCheck, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+            ].map((stat, i) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+                className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] shadow-lg"
               >
-                <stat.icon className="w-6 h-6 text-blue-400" />
-                <span className="text-2xl sm:text-3xl font-bold">{stat.value}</span>
-                <span className="text-sm text-blue-200/60">{stat.label}</span>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    {stat.label}
+                  </span>
+                  <div className={cn('p-2 rounded-xl', stat.bg)}>
+                    <stat.icon className={cn('w-4 h-4', stat.color)} />
+                  </div>
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-white">
+                  <Counter value={stat.value} suffix={stat.suffix} />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  {stat.desc}
+                </p>
               </div>
             ))}
           </motion.div>
-        </div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white dark:from-slate-900 to-transparent" />
+        </div>
       </section>
 
-      {/* ═══════════════════ MODULES SECTION ═══════════════════ */}
-      <section
-        id="modules-section"
-        className="relative py-24 sm:py-32 px-4 bg-white dark:bg-slate-900"
-      >
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4">
-              <Layers className="w-4 h-4" />
-              Modullar
+      {/* ═══════════════════════════════════════════════════════════════════
+          2. METHODOLOGY: 70% Amaliyot / 30% Nazariya Formula
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-slate-800/80 bg-slate-900/50">
+        <div className="max-w-7xl mx-auto">
+          <Reveal className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-4">
+              <Zap className="w-3.5 h-3.5" />
+              O&apos;qitish Metodologiyasi
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white">
-              O&apos;quv bosqichlari
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Quruq yodlash emas — Faqat haqiqiy amaliyot
             </h2>
-            <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-              Har bir modul sizni bosqichma-bosqich IT sohasining muhim
-              yo&apos;nalishlariga olib boradi
+            <p className="mt-3 text-slate-400 text-sm sm:text-base">
+              IT LAB 11 da har bir dars o&apos;quvchi o&apos;z qo&apos;li bilan kod yozishi, konteyner ko&apos;tarishi va serverga joylashi uchun mo&apos;ljallangan.
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {modules.map((mod, idx) => {
-              const IconComp = iconMap[mod.icon] ?? Code2;
-              return (
-                <Reveal key={mod.id} delay={idx * 0.1}>
-                  <div className="group relative rounded-2xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-700/50">
-                    {/* Gradient stripe */}
-                    <div
-                      className={cn('h-2', mod.gradient)}
-                    />
-                    <div className="p-6">
-                      <div
-                        className={cn(
-                          'w-14 h-14 rounded-2xl flex items-center justify-center mb-4',
-                          mod.gradient
-                        )}
-                      >
-                        <IconComp className="w-7 h-7 text-white" />
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Reveal delay={0.1}>
+              <div className="h-full p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/40 transition-all duration-300 relative group overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-black text-xl mb-6 border border-blue-500/30">
+                  30%
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  Sodda va Aniq Nazariya
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Murakkab tushunchalar kundalik hayotdagi misollar, vizual infografikalar va arxitektura sxemalari orqali 11-sinf o&apos;quvchisi tushunadigan tilda tushuntiriladi.
+                </p>
+              </div>
+            </Reveal>
 
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                        {mod.title}
-                      </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">
-                        {mod.description}
-                      </p>
+            <Reveal delay={0.2}>
+              <div className="h-full p-8 rounded-3xl bg-gradient-to-b from-blue-900/30 to-slate-900 border border-blue-500/40 relative group overflow-hidden shadow-xl shadow-blue-500/5">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-black text-xl mb-6 shadow-lg shadow-blue-500/30">
+                  70%
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                  Amaliy Kod va Terminal
+                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-500/30 text-blue-300">
+                    Asosiy
+                  </span>
+                </h3>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  Har bir mavzuda jonli kod sinovlari, kompyuterda bajariladigan topshiriqlar va interaktiv Monaco muharririda to&apos;g&apos;ridan-to&apos;g&apos;ri ishga tushirish imkoniyati.
+                </p>
+              </div>
+            </Reveal>
 
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-3 py-1 rounded-full">
-                          <BookOpen className="w-3.5 h-3.5" />
-                          {mod.lessons.length} ta dars
-                        </span>
-                        <Link
-                          href={`/darslar/${mod.id}/${mod.lessons[0]?.id ?? ''}`}
-                          className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group-hover:gap-2"
-                        >
-                          Boshlash
-                          <ArrowRight className="w-4 h-4" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
+            <Reveal delay={0.3}>
+              <div className="h-full p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/40 transition-all duration-300 relative group overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-black text-xl mb-6 border border-purple-500/30">
+                  100%
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  Mustaqil Portfolio
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  O&apos;quvchi kurs yakunida bo&apos;sh qo&apos;l bilan chiqmaydi: uning shaxsiy GitHub profili, Docker loyihasi, jonli veb-sayti va Startup MVP loyihasi tayyor bo&apos;ladi.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════ FEATURED LESSONS ═══════════════════ */}
-      <section className="py-24 sm:py-32 px-4 bg-slate-50 dark:bg-slate-800/50">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-semibold mb-4">
-              <GraduationCap className="w-4 h-4" />
-              Tanlangan darslar
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white">
-              Tavsiya etilgan darslar
-            </h2>
-            <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-              Eng muhim mavzulardan tanlangan darslar bilan tanishing
-            </p>
+      {/* ═══════════════════════════════════════════════════════════════════
+          3. MODULES SECTION — 4 Ta Katta Bosqich
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section id="modules-section" className="py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <Reveal className="text-center max-w-3xl mx-auto mb-20">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-4">
+            <Layers className="w-3.5 h-3.5" />
+            O&apos;quv Dasturi
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            4 ta Katta O&apos;quv Bosqichi
+          </h2>
+          <p className="mt-4 text-slate-400 text-base sm:text-lg">
+            Noldan boshlab Senior arxitekturagacha — bosqichma-bosqich tizimli o&apos;rganish rejasi
+          </p>
+        </Reveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {modules.map((mod, idx) => {
+            const IconComp = iconMap[mod.icon] ?? Code2;
+            const romanNums = ['I', 'II', 'III', 'IV'];
+
+            return (
+              <Reveal key={mod.id} delay={idx * 0.1}>
+                <div className="group relative rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-1">
+                  
+                  {/* Top Gradient Stripe */}
+                  <div className={cn('h-2.5 w-full bg-gradient-to-r', mod.gradient)} />
+
+                  <div className="p-8 sm:p-10">
+                    <div className="flex items-start justify-between gap-4 mb-6">
+                      <div className="flex items-center gap-4">
+                        <div className={cn(
+                          'w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg',
+                          mod.gradient
+                        )}>
+                          <IconComp className="w-7 h-7 text-white" />
+                        </div>
+                        <div>
+                          <span className="text-xs font-black uppercase tracking-widest text-blue-400">
+                            {romanNums[idx]}-BOSQICH
+                          </span>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-blue-300 transition-colors">
+                            {mod.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-300 border border-slate-700 shrink-0">
+                        {mod.lessons.length} dars
+                      </span>
+                    </div>
+
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                      {mod.description}
+                    </p>
+
+                    {/* Quick Lesson Preview Chips */}
+                    <div className="space-y-2 mb-8">
+                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                        Mavzular namunasi:
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {mod.lessons.slice(0, 4).map((l) => (
+                          <span
+                            key={l.id}
+                            className="text-xs px-2.5 py-1 rounded-lg bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium"
+                          >
+                            {l.title.split('—')[0].trim()}
+                          </span>
+                        ))}
+                        {mod.lessons.length > 4 && (
+                          <span className="text-xs px-2.5 py-1 rounded-lg bg-slate-800/40 text-slate-400">
+                            +{mod.lessons.length - 4} ta mavzu
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Action Bar */}
+                    <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <Clock className="w-3.5 h-3.5 text-blue-400" />
+                        <span>Davomiyligi: ~{mod.lessons.length * 45} daqiqa</span>
+                      </div>
+
+                      <Link
+                        href={`/darslar/${mod.id}`}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600 text-blue-300 hover:text-white font-bold text-xs border border-blue-500/30 transition-all duration-300 group-hover:border-blue-500"
+                      >
+                        Modulni boshlash
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          4. FEATURED LESSONS SECTION
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto">
+          <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+            <div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-500/10 border border-purple-500/20 text-purple-400 mb-3">
+                <GraduationCap className="w-3.5 h-3.5" />
+                Darslar Katalogi
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                Tavsiya etilgan darslar
+              </h2>
+            </div>
+            <Link
+              href="/darslar"
+              className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300"
+            >
+              Barcha 36 ta darsni ko&apos;rish
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredLessons.map((lesson, idx) => (
               <Reveal key={`${lesson.moduleId}-${lesson.id}`} delay={idx * 0.05}>
                 <Link
                   href={`/darslar/${lesson.moduleId}/${lesson.id}`}
-                  className="group block rounded-2xl bg-white dark:bg-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-700/50"
+                  className="group flex flex-col justify-between h-full rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  {/* Top color accent */}
-                  <div className={cn('h-1.5', lesson.moduleGradient)} />
-                  <div className="p-5">
-                    <span
-                      className={cn(
-                        'inline-block px-2.5 py-0.5 rounded-md text-xs font-medium mb-3 text-white',
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className={cn(
+                        'text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg text-white',
                         lesson.moduleGradient
-                      )}
-                    >
-                      {lesson.moduleTitle}
-                    </span>
-                    <h4 className="text-base font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      )}>
+                        {lesson.moduleTitle.split(' ')[0]}
+                      </span>
+                      <span className="text-xs text-slate-400 font-medium">
+                        {lesson.duration || '45 daq'}
+                      </span>
+                    </div>
+
+                    <h4 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
                       {lesson.title}
                     </h4>
-                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                      <span className="inline-flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        {lesson.duration ?? '45 daq'}
-                      </span>
-                      {lesson.difficulty ? (
-                        difficultyBadge(lesson.difficulty)
-                      ) : (
-                        <span className="inline-flex items-center gap-1">
-                          <Signal className="w-3.5 h-3.5" />
-                          Standart
-                        </span>
-                      )}
-                    </div>
+
+                    <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed mb-4">
+                      {lesson.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-blue-400 group-hover:text-blue-300">
+                    <span>Darsga o&apos;tish</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Link>
               </Reveal>
@@ -360,230 +704,189 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════════════ PROJECTS SECTION ═══════════════════ */}
-      <section className="py-24 sm:py-32 px-4 bg-white dark:bg-slate-900">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-sm font-semibold mb-4">
-              <FolderGit2 className="w-4 h-4" />
-              Loyihalar
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white">
-              Amaliy loyihalar
-            </h2>
-            <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-              Har bir modulda real loyiha orqali o&apos;rgangan bilimlaringizni
-              mustahkamlang
-            </p>
-          </Reveal>
+      {/* ═══════════════════════════════════════════════════════════════════
+          5. CAPSTONE PROJECTS — 4 Ta Amaliy Loyiha
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <Reveal className="text-center max-w-3xl mx-auto mb-20">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-4">
+            <FolderGit2 className="w-3.5 h-3.5" />
+            Amaliy Natija
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Modul Yakunidagi Real Loyihalar
+          </h2>
+          <p className="mt-4 text-slate-400 text-base sm:text-lg">
+            Nazariya bilan cheklanmaymiz — har bir modul mustaqil himoya qilinadigan loyiha bilan yakunlanadi
+          </p>
+        </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {modules.map((mod, idx) => {
-              const project = mod.project;
-              if (!project) return null;
-              const IconComp = iconMap[mod.icon] ?? Code2;
-              return (
-                <Reveal key={mod.id} delay={idx * 0.1}>
-                  <div className="group relative rounded-2xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-700/50">
-                    {/* Gradient accent bar */}
-                    <div className={cn('h-1.5', mod.gradient)} />
-                    <div className="p-6 sm:p-8">
-                      <div className="flex items-start gap-4">
-                        <div
-                          className={cn(
-                            'w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0',
-                            mod.gradient
-                          )}
-                        >
-                          <IconComp className="w-6 h-6 text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
-                            {project.title}
-                          </h3>
-                          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-2">
-                            {project.description}
-                          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {modules.map((mod, idx) => {
+            const project = mod.project;
+            if (!project) return null;
+            const IconComp = iconMap[mod.icon] ?? Code2;
 
-                          {/* Tech badges */}
-                          {project.technologies && project.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {project.technologies.map((t: string) => (
-                                <span
-                                  key={t}
-                                  className="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300"
-                                >
-                                  {t}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          <Link
-                            href={`/loyihalar/${mod.id}`}
-                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-                          >
-                            Batafsil
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </Link>
-                        </div>
+            return (
+              <Reveal key={mod.id} delay={idx * 0.1}>
+                <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between h-full group">
+                  <div>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className={cn(
+                        'w-12 h-12 rounded-xl flex items-center justify-center shadow-lg',
+                        mod.gradient
+                      )}>
+                        <IconComp className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+                          Amaliy Loyiha #{idx + 1}
+                        </span>
+                        <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">
+                          {project.title}
+                        </h3>
                       </div>
                     </div>
+
+                    <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Badges */}
+                    {project.technologies && (
+                      <div className="mb-6">
+                        <span className="text-xs font-semibold text-slate-400 block mb-2">
+                          Texnologik Stek:
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((t: string) => (
+                            <span
+                              key={t}
+                              className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700/60"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </Reveal>
-              );
-            })}
+
+                  <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
+                    <span className="text-xs text-slate-400">
+                      GitHub orqali topshiriladi
+                    </span>
+                    <Link
+                      href={`/loyihalar`}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white font-bold text-xs border border-emerald-500/30 transition-all duration-300"
+                    >
+                      Loyiha topshirig&apos;i
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          6. FAQ SECTION — Savol-Javoblar
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-900/40">
+        <div className="max-w-4xl mx-auto">
+          <Reveal className="text-center mb-16">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-4">
+              Ko&apos;p So&apos;raladigan Savollar
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Platforma haqida savollaringiz bormi?
+            </h2>
+          </Reveal>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: "11-sinf o'quvchisi IT ni bilmasa ham o'rgana oladimi?",
+                a: "Albatta! Kurs SDLC va kompyuter savodxonligidan boshlab bosqichma-bosqich eng murakkab Cloud va Docker texnologiyalarigacha olib boradi. Har bir mavzu sodda hayotiy misollar orqali tushuntirilgan."
+              },
+              {
+                q: "Kod yozish uchun kompyuterga qo'shimcha dastur o'rnatish shartmi?",
+                a: "Yo'q! Platformamiz ichida to'liq ishlaydigan Monaco Editor (VS Code bazasida) va JavaScript interaktiv terminali mavjud. O'quvchi to'g'ridan-to'g'ri brauzerda kod yozib natijasini ko'rishi mumkin."
+              },
+              {
+                q: "O'qituvchi o'quvchilar natijalarini qanday tekshiradi?",
+                a: "Alohida Teacher Dashboard mavjud. O'qituvchi sinflar kesimida (11-A, 11-B, 11-C) har bir o'quvchining o'zlashtirish foizini, test natijalarini ko'radi va topshiriqlarga to'g'ridan-to'g'ri izoh/baho qo'yishi mumkin."
+              },
+              {
+                q: "Kursni tugatgach o'quvchi qanday natijaga erishadi?",
+                a: "O'quvchi 4 ta haqiqiy portfolioga ega bo'ladi: Shaxsiy veb-sayt, Docker konteyneri, Cloud hostingiga deploy qilingan veb-dastur va maktab uchun Startup MVP loyihasi."
+              }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden"
+              >
+                <button
+                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-blue-400 transition-colors"
+                >
+                  <span>{item.q}</span>
+                  <ChevronDown className={cn(
+                    'w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0',
+                    activeFaq === index ? 'rotate-180 text-blue-400' : ''
+                  )} />
+                </button>
+                {activeFaq === index && (
+                  <div className="px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-4">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════ PROGRESS SECTION (logged-in only) ════════ */}
-      {user && (
-        <section className="py-24 sm:py-32 px-4 bg-slate-50 dark:bg-slate-800/50">
-          <div className="mx-auto max-w-4xl">
-            <Reveal className="text-center mb-16">
-              <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-sm font-semibold mb-4">
-                <Trophy className="w-4 h-4" />
-                Yutuqlar
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white">
-                O&apos;zlashtirish
-              </h2>
-              <p className="mt-4 text-lg text-slate-500 dark:text-slate-400">
-                Umumiy progressingiz va har bir modul bo&apos;yicha natijalar
-              </p>
-            </Reveal>
+      {/* ═══════════════════════════════════════════════════════════════════
+          7. HIGH-IMPACT CALL TO ACTION
+         ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Glow backdrop */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-700 via-indigo-900 to-purple-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.3)_0,transparent_70%)]" />
 
-            <Reveal>
-              <div className="rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-slate-700/50 p-8 sm:p-12">
-                <div className="flex flex-col md:flex-row items-center gap-10">
-                  {/* Circular progress SVG */}
-                  <div className="relative flex-shrink-0">
-                    <svg
-                      width="180"
-                      height="180"
-                      viewBox="0 0 180 180"
-                      className="transform -rotate-90"
-                    >
-                      <circle
-                        cx="90"
-                        cy="90"
-                        r="78"
-                        stroke="currentColor"
-                        strokeWidth="12"
-                        fill="none"
-                        className="text-slate-200 dark:text-slate-700"
-                      />
-                      <circle
-                        cx="90"
-                        cy="90"
-                        r="78"
-                        stroke="url(#progressGrad)"
-                        strokeWidth="12"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeDasharray={`${2 * Math.PI * 78}`}
-                        strokeDashoffset={`${2 * Math.PI * 78 * (1 - totalProgress / 100)}`}
-                        className="transition-all duration-1000 ease-out"
-                      />
-                      <defs>
-                        <linearGradient
-                          id="progressGrad"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="100%"
-                        >
-                          <stop offset="0%" stopColor="#3B82F6" />
-                          <stop offset="100%" stopColor="#8B5CF6" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
-                          {totalPercent}%
-                        </span>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                          Bajarildi
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Module progress bars */}
-                  <div className="flex-1 w-full space-y-5">
-                    {modules.map((mod) => {
-                      const modProgress = getModuleProgress(mod.id);
-                      const modPercent = modProgress;
-                      return (
-                        <div key={mod.id}>
-                          <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                              {mod.title}
-                            </span>
-                            <span className="text-sm font-bold text-slate-900 dark:text-white">
-                              {modPercent}%
-                            </span>
-                          </div>
-                          <div className="h-3 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${modPercent}%` }}
-                              transition={{
-                                duration: 1,
-                                delay: 0.2,
-                                ease: 'easeOut',
-                              }}
-                              className={cn('h-full rounded-full', mod.gradient)}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-      {/* ═══════════════════ CTA SECTION ═══════════════════ */}
-      <section className="relative py-24 sm:py-32 px-4 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700" />
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -top-20 -right-20 w-80 h-80 bg-white rounded-full opacity-10 blur-3xl"
-          />
-          <motion.div
-            animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400 rounded-full opacity-10 blur-3xl"
-          />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-3xl text-center text-white">
+        <div className="relative z-10 max-w-4xl mx-auto text-center text-white space-y-8">
           <Reveal>
-            <Sparkles className="w-10 h-10 mx-auto mb-6 text-yellow-300" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
-              Hoziroq boshlang!
+            <div className="inline-flex p-3 rounded-2xl bg-white/10 backdrop-blur-md mb-2 border border-white/20 shadow-inner">
+              <Trophy className="w-8 h-8 text-amber-300" />
+            </div>
+
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+              Kelajagingizni bugun yaratishni boshlang!
             </h2>
-            <p className="mt-6 text-lg sm:text-xl text-blue-100/80 leading-relaxed max-w-xl mx-auto">
-              Dasturlash, IT infratuzilmasi, bulutli texnologiyalar va startup
-              loyihalar bo&apos;yicha bilimlaringizni oshiring. Kelajak IT
-              mutaxassislari safiga qo&apos;shiling!
+
+            <p className="mt-4 text-lg sm:text-xl text-blue-100/90 max-w-2xl mx-auto font-normal leading-relaxed">
+              11-sinf o&apos;quvchilari uchun maxsus yaratilgan professional IT ta&apos;lim platformasi sizni kutmoqda.
             </p>
-            <button
-              onClick={() => setShowAuthModal(true)}
-              className="mt-10 inline-flex items-center gap-2 px-10 py-4 rounded-xl bg-white text-blue-700 font-bold text-lg shadow-xl shadow-blue-900/30 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300"
-            >
-              <GraduationCap className="w-6 h-6" />
-              Ro&apos;yxatdan o&apos;tish
-            </button>
+
+            <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/darslar"
+                className="w-full sm:w-auto px-10 py-4 rounded-2xl bg-white text-blue-900 font-extrabold text-base shadow-2xl hover:bg-blue-50 hover:scale-105 active:scale-95 transition-all duration-300"
+              >
+                Darslarni Hoziroq Boshlash
+              </Link>
+              {!user && (
+                <button
+                  onClick={() => setShowAuthModal(true)}
+                  className="w-full sm:w-auto px-9 py-4 rounded-2xl bg-blue-950/60 hover:bg-blue-950 text-white font-bold text-base border border-white/20 backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
+                >
+                  Ro&apos;yxatdan O&apos;tish
+                </button>
+              )}
+            </div>
           </Reveal>
         </div>
       </section>
@@ -592,5 +895,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-
