@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import {
   BookOpen,
   Layers,
@@ -13,22 +13,14 @@ import {
   Cloud,
   Briefcase,
   ArrowRight,
-  ChevronRight,
   Clock,
   Sparkles,
   Rocket,
   GraduationCap,
   Trophy,
-  CheckCircle2,
   Terminal,
-  Play,
   Zap,
-  ShieldCheck,
-  Award,
-  Users,
-  Star,
   ExternalLink,
-  Laptop,
   Check,
   Copy,
   ChevronDown
@@ -89,7 +81,6 @@ function Counter({ value, suffix = '' }: { value: number; suffix?: string }) {
     const updateCount = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutExpo
       const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       const current = Math.floor(ease * value);
       setCount(current);
@@ -190,23 +181,22 @@ export class StudentService {
 
 /* ──────────────────────────── Tech Badges ───────────────────────────── */
 const techStack = [
-  { name: 'TypeScript', color: 'from-blue-600 to-cyan-500' },
-  { name: 'Docker', color: 'from-blue-500 to-indigo-600' },
-  { name: 'Git & GitHub', color: 'from-orange-500 to-rose-600' },
-  { name: 'Next.js 14', color: 'from-slate-700 to-slate-950' },
-  { name: 'AWS Cloud', color: 'from-amber-500 to-orange-600' },
-  { name: 'CI/CD Actions', color: 'from-emerald-500 to-teal-600' },
-  { name: 'Linux Terminal', color: 'from-yellow-500 to-amber-600' },
-  { name: 'Agile & MVP', color: 'from-purple-600 to-pink-600' },
+  { name: 'TypeScript' },
+  { name: 'Docker' },
+  { name: 'Git & GitHub' },
+  { name: 'Next.js 14' },
+  { name: 'AWS Cloud' },
+  { name: 'CI/CD Actions' },
+  { name: 'Linux Terminal' },
+  { name: 'Agile & MVP' },
 ];
 
 export default function HomePage() {
-  const { user, getTotalProgress, getModuleProgress, setShowAuthModal } = useAppStore();
+  const { user, getTotalProgress, setShowAuthModal } = useAppStore();
   const [activeSnippetIdx, setActiveSnippetIdx] = useState(0);
   const [copied, setCopied] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
-  const totalProgress = user ? getTotalProgress() : 0;
   const activeSnippet = heroSnippets[activeSnippetIdx];
 
   const handleCopyCode = () => {
@@ -226,22 +216,23 @@ export default function HomePage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden selection:bg-blue-600 selection:text-white">
       <Navbar />
       <AuthModal />
 
       {/* ═══════════════════════════════════════════════════════════════════
-          1. HERO SECTION — High-Tech Glassmorphism & Interactive Terminal
+          1. HERO SECTION — Dual-Theme Modern Hero & Cyber Terminal
          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Animated Glow Blobs */}
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-blue-50/80 via-indigo-50/30 to-slate-50 dark:from-slate-950 dark:via-blue-950/25 dark:to-slate-950 transition-colors duration-300">
+        
+        {/* Ambient Glow Blobs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[140px] animate-pulse-slow" />
-          <div className="absolute top-1/4 -right-40 w-[550px] h-[550px] bg-purple-600/20 rounded-full blur-[140px] animate-pulse-slow delay-1000" />
-          <div className="absolute -bottom-20 left-1/3 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[120px]" />
+          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-400/20 dark:bg-blue-600/20 rounded-full blur-[140px] animate-pulse-slow" />
+          <div className="absolute top-1/4 -right-40 w-[550px] h-[550px] bg-purple-400/15 dark:bg-purple-600/20 rounded-full blur-[140px] animate-pulse-slow delay-1000" />
+          <div className="absolute -bottom-20 left-1/3 w-[500px] h-[500px] bg-cyan-400/15 dark:bg-cyan-500/15 rounded-full blur-[120px]" />
 
-          {/* Subtle Cyber Grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b0a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-70" />
+          {/* Grid pattern overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#64748b12_1px,transparent_1px),linear-gradient(to_bottom,#64748b12_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-70" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
@@ -255,18 +246,18 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md shadow-inner"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 shadow-sm backdrop-blur-md"
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                 </span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-blue-700 dark:text-blue-400">
                   11-Sinf Maktab Ta&apos;lim Ekotizimi
                 </span>
-                <span className="text-slate-600 dark:text-slate-500">•</span>
-                <span className="text-xs font-bold text-slate-300">
-                  IT LAB 11 v2.0
+                <span className="text-slate-400 dark:text-slate-600">•</span>
+                <span className="text-xs font-extrabold text-slate-700 dark:text-slate-300">
+                  IT LAB 11
                 </span>
               </motion.div>
 
@@ -277,21 +268,21 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="space-y-4"
               >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-slate-900 dark:text-white">
                   Kelajak kasblari{' '}
-                  <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-300 bg-clip-text text-transparent drop-shadow-sm">
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-400 dark:to-cyan-300 bg-clip-text text-transparent">
                     shu yerdan
                   </span>{' '}
                   boshlanadi
                 </h1>
 
-                <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                  Dasturiy ta&apos;minot arxitekturasi, Git, Docker, CI/CD, Cloud texnologiyalari va Startap ekotizimini <strong className="text-white font-semibold">100% amaliyot</strong> orqali o&apos;rganing.
+                <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                  Dasturiy ta&apos;minot arxitekturasi, Git, Docker, CI/CD, Cloud texnologiyalari va Startap ekotizimini <strong className="text-slate-900 dark:text-white font-bold">100% amaliyot</strong> orqali o&apos;rganing.
                 </p>
 
                 {/* Slogan */}
-                <div className="flex items-center justify-center lg:justify-start gap-2 text-sm font-semibold text-blue-400/90 tracking-wide pt-1">
-                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                <div className="flex items-center justify-center lg:justify-start gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 tracking-wide pt-1">
+                  <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
                   <span>O&apos;rgan · Amalda bajar · Yarat · Kelajakni qur.</span>
                 </div>
               </motion.div>
@@ -314,9 +305,9 @@ export default function HomePage() {
 
                 <Link
                   href="/code-editor"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-base border border-slate-800 hover:border-slate-700 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer shadow-lg"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-bold text-base border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer"
                 >
-                  <Code2 className="w-5 h-5 text-cyan-400" />
+                  <Code2 className="w-5 h-5 text-cyan-500 dark:text-cyan-400" />
                   Interaktiv Kod Muharriri
                 </Link>
               </motion.div>
@@ -326,16 +317,16 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.35 }}
-                className="pt-4 border-t border-slate-800/80"
+                className="pt-4 border-t border-slate-200 dark:border-slate-800/80"
               >
-                <p className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-3">
+                <p className="text-xs uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider mb-3">
                   O&apos;rganiladigan Asosiy Texnologiyalar:
                 </p>
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                   {techStack.map((tech) => (
                     <span
                       key={tech.name}
-                      className="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-blue-500/40 transition-colors"
+                      className="px-3 py-1 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 shadow-sm hover:border-blue-500/40 transition-colors"
                     >
                       {tech.name}
                     </span>
@@ -352,11 +343,11 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="lg:col-span-5 w-full"
             >
-              <div className="relative rounded-3xl p-1 bg-gradient-to-b from-blue-500/30 via-slate-800 to-purple-500/20 shadow-2xl shadow-blue-500/10">
-                <div className="rounded-[22px] bg-slate-950/95 border border-slate-800 overflow-hidden backdrop-blur-2xl">
+              <div className="relative rounded-3xl p-1 bg-gradient-to-b from-blue-500/30 via-slate-700/40 dark:via-slate-800 to-purple-500/20 shadow-2xl shadow-blue-500/10">
+                <div className="rounded-[22px] bg-slate-950 text-slate-100 border border-slate-800 overflow-hidden shadow-2xl">
 
                   {/* Terminal Header */}
-                  <div className="bg-slate-900/80 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                  <div className="bg-slate-900/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-rose-500/90" />
                       <div className="w-3 h-3 rounded-full bg-amber-500/90" />
@@ -368,7 +359,7 @@ export default function HomePage() {
 
                     <button
                       onClick={handleCopyCode}
-                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors text-xs flex items-center gap-1 font-mono"
+                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors text-xs flex items-center gap-1 font-mono"
                       title="Kodni nusxalash"
                     >
                       {copied ? (
@@ -412,7 +403,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Terminal Footer Action */}
-                  <div className="bg-slate-900/70 px-4 py-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                  <div className="bg-slate-900/80 px-4 py-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
                     <div className="flex items-center gap-2 text-emerald-400">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                       <span>Ready for production</span>
@@ -440,27 +431,27 @@ export default function HomePage() {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
           >
             {[
-              { label: "O'quv Darslari", value: 36, suffix: ' ta', desc: 'Real kod & nazariya', icon: BookOpen, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-              { label: 'Katta Modul', value: 4, suffix: ' bosqich', desc: 'SDLC, DevOps, Cloud, Startap', icon: Layers, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-              { label: 'Yakuniy Loyihalar', value: 4, suffix: ' ta MVP', desc: 'Portfolio, Docker, Cloud, Startap', icon: FolderGit2, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
-              { label: 'Interaktiv Testlar', value: 100, suffix: '+ savol', desc: 'Tezkor ball va tekshiruv', icon: ClipboardCheck, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-            ].map((stat, i) => (
+              { label: "O'quv Darslari", value: 36, suffix: ' ta', desc: 'Real kod & nazariya', icon: BookOpen, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-100 dark:bg-blue-500/10' },
+              { label: 'Katta Modul', value: 4, suffix: ' bosqich', desc: 'SDLC, DevOps, Cloud, Startap', icon: Layers, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-500/10' },
+              { label: 'Yakuniy Loyihalar', value: 4, suffix: ' ta MVP', desc: 'Portfolio, Docker, Cloud, Startap', icon: FolderGit2, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-100 dark:bg-cyan-500/10' },
+              { label: 'Interaktiv Testlar', value: 100, suffix: '+ savol', desc: 'Tezkor ball va tekshiruv', icon: ClipboardCheck, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-500/10' },
+            ].map((stat) => (
               <div
                 key={stat.label}
-                className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] shadow-lg"
+                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {stat.label}
                   </span>
                   <div className={cn('p-2 rounded-xl', stat.bg)}>
                     <stat.icon className={cn('w-4 h-4', stat.color)} />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white">
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
                   <Counter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
                   {stat.desc}
                 </p>
               </div>
@@ -473,62 +464,62 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════════
           2. METHODOLOGY: 70% Amaliyot / 30% Nazariya Formula
          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-slate-800/80 bg-slate-900/50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-100 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-400 mb-4">
               <Zap className="w-3.5 h-3.5" />
               O&apos;qitish Metodologiyasi
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Quruq yodlash emas — Faqat haqiqiy amaliyot
             </h2>
-            <p className="mt-3 text-slate-400 text-sm sm:text-base">
+            <p className="mt-3 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
               IT LAB 11 da har bir dars o&apos;quvchi o&apos;z qo&apos;li bilan kod yozishi, konteyner ko&apos;tarishi va serverga joylashi uchun mo&apos;ljallangan.
             </p>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Reveal delay={0.1}>
-              <div className="h-full p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/40 transition-all duration-300 relative group overflow-hidden">
-                <div className="w-14 h-14 rounded-2xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-black text-xl mb-6 border border-blue-500/30">
+              <div className="h-full p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500/40 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-600/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-xl mb-6 border border-blue-200 dark:border-blue-500/30">
                   30%
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                   Sodda va Aniq Nazariya
                 </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Murakkab tushunchalar kundalik hayotdagi misollar, vizual infografikalar va arxitektura sxemalari orqali 11-sinf o&apos;quvchisi tushunadigan tilda tushuntiriladi.
                 </p>
               </div>
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="h-full p-8 rounded-3xl bg-gradient-to-b from-blue-900/30 to-slate-900 border border-blue-500/40 relative group overflow-hidden shadow-xl shadow-blue-500/5">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-black text-xl mb-6 shadow-lg shadow-blue-500/30">
+              <div className="h-full p-8 rounded-3xl bg-gradient-to-b from-blue-50 to-white dark:from-blue-900/30 dark:to-slate-900 border border-blue-300 dark:border-blue-500/40 shadow-md hover:shadow-xl relative group overflow-hidden transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-black text-xl mb-6 shadow-md shadow-blue-500/30">
                   70%
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                   Amaliy Kod va Terminal
-                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-500/30 text-blue-300">
+                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-500/30 text-blue-700 dark:text-blue-300">
                     Asosiy
                   </span>
                 </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                   Har bir mavzuda jonli kod sinovlari, kompyuterda bajariladigan topshiriqlar va interaktiv Monaco muharririda to&apos;g&apos;ridan-to&apos;g&apos;ri ishga tushirish imkoniyati.
                 </p>
               </div>
             </Reveal>
 
             <Reveal delay={0.3}>
-              <div className="h-full p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/40 transition-all duration-300 relative group overflow-hidden">
-                <div className="w-14 h-14 rounded-2xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-black text-xl mb-6 border border-purple-500/30">
+              <div className="h-full p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-400 dark:hover:border-purple-500/40 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-600/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-black text-xl mb-6 border border-purple-200 dark:border-purple-500/30">
                   100%
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                   Mustaqil Portfolio
                 </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   O&apos;quvchi kurs yakunida bo&apos;sh qo&apos;l bilan chiqmaydi: uning shaxsiy GitHub profili, Docker loyihasi, jonli veb-sayti va Startup MVP loyihasi tayyor bo&apos;ladi.
                 </p>
               </div>
@@ -542,14 +533,14 @@ export default function HomePage() {
          ═══════════════════════════════════════════════════════════════════ */}
       <section id="modules-section" className="py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto mb-20">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-700 dark:text-blue-400 mb-4">
             <Layers className="w-3.5 h-3.5" />
             O&apos;quv Dasturi
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
             4 ta Katta O&apos;quv Bosqichi
           </h2>
-          <p className="mt-4 text-slate-400 text-base sm:text-lg">
+          <p className="mt-4 text-slate-600 dark:text-slate-400 text-base sm:text-lg">
             Noldan boshlab Senior arxitekturagacha — bosqichma-bosqich tizimli o&apos;rganish rejasi
           </p>
         </Reveal>
@@ -561,7 +552,7 @@ export default function HomePage() {
 
             return (
               <Reveal key={mod.id} delay={idx * 0.1}>
-                <div className="group relative rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-1">
+                <div className="group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1">
 
                   {/* Top Gradient Stripe */}
                   <div className={cn('h-2.5 w-full bg-gradient-to-r', mod.gradient)} />
@@ -576,40 +567,40 @@ export default function HomePage() {
                           <IconComp className="w-7 h-7 text-white" />
                         </div>
                         <div>
-                          <span className="text-xs font-black uppercase tracking-widest text-blue-400">
+                          <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
                             {romanNums[idx]}-BOSQICH
                           </span>
-                          <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-blue-300 transition-colors">
+                          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {mod.title}
                           </h3>
                         </div>
                       </div>
 
-                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-300 border border-slate-700 shrink-0">
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shrink-0">
                         {mod.lessons.length} dars
                       </span>
                     </div>
 
-                    <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
                       {mod.description}
                     </p>
 
                     {/* Quick Lesson Preview Chips */}
                     <div className="space-y-2 mb-8">
-                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                         Mavzular namunasi:
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {mod.lessons.slice(0, 4).map((l) => (
                           <span
                             key={l.id}
-                            className="text-xs px-2.5 py-1 rounded-lg bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium"
+                            className="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 font-medium"
                           >
                             {l.title.split('—')[0].trim()}
                           </span>
                         ))}
                         {mod.lessons.length > 4 && (
-                          <span className="text-xs px-2.5 py-1 rounded-lg bg-slate-800/40 text-slate-400">
+                          <span className="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/40 text-slate-500 dark:text-slate-400 font-medium">
                             +{mod.lessons.length - 4} ta mavzu
                           </span>
                         )}
@@ -617,15 +608,15 @@ export default function HomePage() {
                     </div>
 
                     {/* Action Bar */}
-                    <div className="flex items-center justify-between pt-6 border-t border-slate-800">
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <Clock className="w-3.5 h-3.5 text-blue-400" />
+                    <div className="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800">
+                      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                        <Clock className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
                         <span>Davomiyligi: ~{mod.lessons.length * 45} daqiqa</span>
                       </div>
 
                       <Link
                         href={`/darslar/${mod.id}`}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600 text-blue-300 hover:text-white font-bold text-xs border border-blue-500/30 transition-all duration-300 group-hover:border-blue-500"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-600 dark:bg-blue-600/20 dark:hover:bg-blue-600 text-blue-700 hover:text-white dark:text-blue-300 dark:hover:text-white font-bold text-xs border border-blue-200 dark:border-blue-500/30 transition-all duration-300"
                       >
                         Modulni boshlash
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -643,21 +634,21 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════════
           4. FEATURED LESSONS SECTION
          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-900/30">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/30 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-500/10 border border-purple-500/20 text-purple-400 mb-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-100 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 text-purple-700 dark:text-purple-400 mb-3">
                 <GraduationCap className="w-3.5 h-3.5" />
                 Darslar Katalogi
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                 Tavsiya etilgan darslar
               </h2>
             </div>
             <Link
               href="/darslar"
-              className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300"
+              className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline"
             >
               Barcha 36 ta darsni ko&apos;rish
               <ArrowRight className="w-4 h-4" />
@@ -669,7 +660,7 @@ export default function HomePage() {
               <Reveal key={`${lesson.moduleId}-${lesson.id}`} delay={idx * 0.05}>
                 <Link
                   href={`/darslar/${lesson.moduleId}/${lesson.id}`}
-                  className="group flex flex-col justify-between h-full rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex flex-col justify-between h-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 p-6 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
@@ -679,21 +670,21 @@ export default function HomePage() {
                       )}>
                         {lesson.moduleTitle.split(' ')[0]}
                       </span>
-                      <span className="text-xs text-slate-400 font-medium">
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                         {lesson.duration || '45 daq'}
                       </span>
                     </div>
 
-                    <h4 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
+                    <h4 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
                       {lesson.title}
                     </h4>
 
-                    <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed mb-4">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4">
                       {lesson.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-blue-400 group-hover:text-blue-300">
+                  <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400">
                     <span>Darsga o&apos;tish</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -709,14 +700,14 @@ export default function HomePage() {
          ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto mb-20">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 mb-4">
             <FolderGit2 className="w-3.5 h-3.5" />
             Amaliy Natija
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
             Modul Yakunidagi Real Loyihalar
           </h2>
-          <p className="mt-4 text-slate-400 text-base sm:text-lg">
+          <p className="mt-4 text-slate-600 dark:text-slate-400 text-base sm:text-lg">
             Nazariya bilan cheklanmaymiz — har bir modul mustaqil himoya qilinadigan loyiha bilan yakunlanadi
           </p>
         </Reveal>
@@ -729,7 +720,7 @@ export default function HomePage() {
 
             return (
               <Reveal key={mod.id} delay={idx * 0.1}>
-                <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between h-full group">
+                <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between h-full group shadow-sm hover:shadow-xl">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
                       <div className={cn(
@@ -739,30 +730,30 @@ export default function HomePage() {
                         <IconComp className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+                        <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
                           Amaliy Loyiha #{idx + 1}
                         </span>
-                        <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                           {project.title}
                         </h3>
                       </div>
                     </div>
 
-                    <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                       {project.description}
                     </p>
 
                     {/* Tech Badges */}
                     {project.technologies && (
                       <div className="mb-6">
-                        <span className="text-xs font-semibold text-slate-400 block mb-2">
+                        <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block mb-2">
                           Texnologik Stek:
                         </span>
                         <div className="flex flex-wrap gap-2">
                           {project.technologies.map((t: string) => (
                             <span
                               key={t}
-                              className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700/60"
+                              className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700/60"
                             >
                               {t}
                             </span>
@@ -772,13 +763,13 @@ export default function HomePage() {
                     )}
                   </div>
 
-                  <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
-                    <span className="text-xs text-slate-400">
+                  <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       GitHub orqali topshiriladi
                     </span>
                     <Link
                       href={`/loyihalar`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white font-bold text-xs border border-emerald-500/30 transition-all duration-300"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-600 dark:bg-emerald-600/20 dark:hover:bg-emerald-600 text-emerald-700 hover:text-white dark:text-emerald-300 dark:hover:text-white font-bold text-xs border border-emerald-200 dark:border-emerald-500/30 transition-all duration-300"
                     >
                       Loyiha topshirig&apos;i
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -794,13 +785,13 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════════
           6. FAQ SECTION — Savol-Javoblar
          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-900/40">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 transition-colors duration-300">
         <div className="max-w-4xl mx-auto">
           <Reveal className="text-center mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-700 dark:text-blue-400 mb-4">
               Ko&apos;p So&apos;raladigan Savollar
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Platforma haqida savollaringiz bormi?
             </h2>
           </Reveal>
@@ -826,20 +817,20 @@ export default function HomePage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden"
+                className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
               >
                 <button
                   onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-blue-400 transition-colors"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   <span>{item.q}</span>
                   <ChevronDown className={cn(
                     'w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0',
-                    activeFaq === index ? 'rotate-180 text-blue-400' : ''
+                    activeFaq === index ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
                   )} />
                 </button>
                 {activeFaq === index && (
-                  <div className="px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-4">
+                  <div className="px-6 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-4">
                     {item.a}
                   </div>
                 )}
@@ -854,8 +845,8 @@ export default function HomePage() {
          ═══════════════════════════════════════════════════════════════════ */}
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Glow backdrop */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-700 via-indigo-900 to-purple-950" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.3)_0,transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 dark:from-blue-700 dark:via-indigo-900 dark:to-purple-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15)_0,transparent_70%)]" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center text-white space-y-8">
           <Reveal>
