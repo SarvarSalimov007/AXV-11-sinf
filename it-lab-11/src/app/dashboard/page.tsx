@@ -6,7 +6,8 @@ import {
   Award, BookOpen, CheckCircle2, Clock, Code2, 
   Layers, Trophy, Star, ShieldCheck, Flame, User,
   ChevronRight, ArrowRight, BarChart3, Sparkles,
-  Zap, Target, Terminal, Compass, Check
+  Zap, Target, Terminal, Compass, Check, CreditCard,
+  QrCode, Calendar, School
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '@/lib/store';
@@ -73,7 +74,7 @@ export default function DashboardPage() {
   const { 
     user, progress, totalScore, badges, 
     getTotalProgress, getModuleProgress, setShowAuthModal,
-    addBadge
+    addBadge, schoolName
   } = useAppStore();
 
   const [mounted, setMounted] = useState(false);
@@ -215,6 +216,117 @@ export default function DashboardPage() {
                 </div>
               </div>
 
+            </div>
+          </div>
+        )}
+
+        {/* ── Virtual Student ID Card (Elektron Guvohnoma) ── */}
+        {user && mounted && (
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <CreditCard className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  Elektron O&apos;quvchi Guvohnomasi (Digital ID Card)
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  IT LAB 11 platformasi tomonidan tasdiqlangan rasmiy raqamli o&apos;quvchi kartasi
+                </p>
+              </div>
+
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                TASDIQLANGAN
+              </span>
+            </div>
+
+            {/* The Cyber Holographic Card Container */}
+            <div className="relative max-w-xl mx-auto rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 text-white shadow-2xl border-2 border-indigo-500/30 overflow-hidden">
+              {/* Background Holographic Glow & Patterns */}
+              <div className="absolute -top-24 -right-24 w-60 h-60 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.05)_0%,transparent_50%,rgba(255,255,255,0.02)_100%)] pointer-events-none" />
+
+              {/* Card Header */}
+              <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-4 mb-5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center font-black text-white shadow-md text-sm border border-white/20">
+                    IT
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-sm sm:text-base tracking-wide text-white">
+                      IT LAB 11 ACADEMY
+                    </h3>
+                    <p className="text-[10px] text-blue-200 uppercase tracking-widest font-semibold">
+                      O&apos;zbekiston Respublikasi • Raqamli Ta&apos;lim
+                    </p>
+                  </div>
+                </div>
+
+                {/* EMV Gold Smart Chip Graphic */}
+                <div className="w-11 h-8 rounded-md bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 border border-amber-300 shadow-inner flex items-center justify-center">
+                  <div className="w-8 h-5 border border-amber-800/40 rounded flex flex-col justify-around px-0.5">
+                    <div className="w-full h-px bg-amber-800/30" />
+                    <div className="w-full h-px bg-amber-800/30" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Body: Student details & Avatar */}
+              <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-xl border-2 border-white/20">
+                    {user.firstName ? user.firstName.charAt(0).toUpperCase() : user.name.charAt(0).toUpperCase()}
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-300 block">
+                      O&apos;quvchi Ism-Familiyasi
+                    </span>
+                    <h4 className="text-lg sm:text-xl font-black text-white tracking-wide">
+                      {user.lastName ? `${user.lastName} ${user.firstName}` : user.name}
+                    </h4>
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-blue-100">
+                      <span className="bg-white/10 px-2.5 py-0.5 rounded-md font-semibold border border-white/10">
+                        Sinf: {user.grade || '11-A'}
+                      </span>
+                      {user.birthDate && (
+                        <span className="bg-white/10 px-2.5 py-0.5 rounded-md font-semibold border border-white/10 flex items-center gap-1">
+                          <Calendar className="w-3 h-3 text-cyan-400" />
+                          {user.birthDate}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* QR Code Graphic Mockup */}
+                <div className="sm:text-right flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto border-t sm:border-t-0 border-white/10 pt-3 sm:pt-0">
+                  <div className="p-2 rounded-xl bg-white text-slate-900 shadow-lg">
+                    <QrCode className="w-10 h-10" />
+                  </div>
+                  <span className="text-[9px] font-mono text-blue-200 mt-1.5 block">
+                    SCAN TO VERIFY
+                  </span>
+                </div>
+              </div>
+
+              {/* Card Footer */}
+              <div className="relative z-10 mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-blue-200">
+                <div>
+                  <span className="text-slate-400 text-[10px] block font-sans">Karta Raqami:</span>
+                  <span className="font-bold text-white tracking-wider">
+                    ID: UZ-IT11-{user.id ? user.id.slice(-6).toUpperCase() : '8842'}
+                  </span>
+                </div>
+
+                <div className="text-right">
+                  <span className="text-slate-400 text-[10px] block font-sans">O&apos;quv Muassasasi:</span>
+                  <span className="font-semibold text-white">
+                    {schoolName || '11-sonli ixtisoslashtirilgan maktab'}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         )}

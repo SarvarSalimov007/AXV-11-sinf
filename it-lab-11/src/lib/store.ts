@@ -1,20 +1,37 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface UserProgress {
+export interface UserProgress {
   lessonId: string;
   completed: boolean;
   quizScore: number | null;
   completedAt: string | null;
 }
 
-interface User {
+export interface User {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  name: string; // `${firstName} ${lastName}`
+  birthDate: string; // YYYY-MM-DD
   role: 'student' | 'teacher';
   avatar?: string;
   grade: string;
   joinedAt: string;
+}
+
+export interface RegisterUserData {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  grade: string;
+  role: 'student' | 'teacher';
+}
+
+export interface AuthResult {
+  success: boolean;
+  message: string;
+  user?: User;
 }
 
 interface AppState {
@@ -22,6 +39,14 @@ interface AppState {
   toggleTheme: () => void;
   user: User | null;
   setUser: (user: User | null) => void;
+  registeredUsers: User[];
+  registerUser: (data: RegisterUserData) => AuthResult;
+  loginUser: (data: { firstName: string; lastName: string; birthDate?: string }) => AuthResult;
+  logoutUser: () => void;
+  teacherName: string;
+  setTeacherName: (name: string) => void;
+  schoolName: string;
+  setSchoolName: (name: string) => void;
   progress: UserProgress[];
   updateProgress: (lessonId: string, completed: boolean, quizScore?: number) => void;
   getLessonProgress: (lessonId: string) => UserProgress | undefined;
@@ -46,6 +71,29 @@ const MODULE_LESSON_COUNTS: Record<string, number> = {
 
 const TOTAL_LESSONS = 36;
 
+const INITIAL_REGISTERED_USERS: User[] = [
+  {
+    id: 'demo-sarvar-007',
+    firstName: 'Sarvar',
+    lastName: 'Salimov',
+    name: 'Sarvar Salimov',
+    birthDate: '2007-04-12',
+    role: 'student',
+    grade: '11-A',
+    joinedAt: '2024-09-01',
+  },
+  {
+    id: 'demo-rustam-teacher',
+    firstName: 'Rustam',
+    lastName: 'Karimov',
+    name: 'Rustam Karimov',
+    birthDate: '1988-10-25',
+    role: 'teacher',
+    grade: '11-A',
+    joinedAt: '2024-09-01',
+  }
+];
+
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
@@ -54,9 +102,110 @@ export const useAppStore = create<AppState>()(
       toggleTheme: () =>
         set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
 
-      // User
+      // User & Auth State
       user: null,
       setUser: (user) => set({ user }),
+      registeredUsers: INITIAL_REGISTERED_USERS,
+
+      registerUser: (data) => {
+        const cleanFirst = data.firstName.trim();
+        const cleanLast = data.lastName.trim();
+        const cleanDate = data.birthDate.trim();
+
+        if (!cleanFirst || !cleanLast) {
+          return {
+            success: false,
+            message: "Iltimos, ism va familiyangizni to'liq kiriting!",
+          };
+        }
+
+        if (!cleanDate) {
+          return {
+            success: false,
+            message: "Iltimos, tug'ilgan sanangizni tanlang!",
+          };
+        }
+
+        // Check if user already exists (case-insensitive name check)
+        const normFirst = cleanFirst.toLowerCase();
+        const normLast = cleanLast.toLowerCase();
+
+        const alreadyExists = get().registeredUsers.some(
+          (u) =>
+            u.firstName.trim().toLowerCase() === normFirst &&
+            u.lastName.trim().toLowerCase() === normLast
+        );
+
+        if (alreadyExists) {
+          return {
+            success: false,
+            message: "Bu foydalanuvchi oldin ro'yxatdan o'tgan",
+          };
+        }
+
+        const newUser: User = {
+          id: 'user-' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6),
+          firstName: cleanFirst,
+          lastName: cleanLast,
+          name: `${cleanFirst} ${cleanLast}`,
+          birthDate: cleanDate,
+          role: data.role || 'student',
+          grade: data.grade || '11-A',
+          joinedAt: new Date().toISOString().split('T')[0],
+        };
+
+        set((state) => ({
+          registeredUsers: [...state.registeredUsers, newUser],
+          user: newUser,
+          showAuthModal: false,
+        }));
+
+        return {
+          success: true,
+          message: "Ro'yxatdan muvaffaqiyatli o'tdingiz!",
+          user: newUser,
+        };
+      },
+
+      loginUser: (data) => {
+        const cleanFirst = data.firstName.trim().toLowerCase();
+        const cleanLast = data.lastName.trim().toLowerCase();
+
+        if (!cleanFirst || !cleanLast) {
+          return {
+            success: false,
+            message: "Iltimos, ism va familiyangizni kiriting!",
+          };
+        }
+
+        const foundUser = get().registeredUsers.find(
+          (u) =>
+            u.firstName.trim().toLowerCase() === cleanFirst &&
+            u.lastName.trim().toLowerCase() === cleanLast
+        );
+
+        if (!foundUser) {
+          return {
+            success: false,
+            message: "Bunday foydalanuvchi topilmadi! Iltimos, oldin ro'yxatdan o'ting.",
+          };
+        }
+
+        set({ user: foundUser, showAuthModal: false });
+        return {
+          success: true,
+          message: "Xush kelibsiz!",
+          user: foundUser,
+        };
+      },
+
+      logoutUser: () => set({ user: null }),
+
+      // Teacher & School details for Certificates
+      teacherName: 'Rustam Karimov',
+      setTeacherName: (name) => set({ teacherName: name }),
+      schoolName: '11-sonli ixtisoslashtirilgan umumta\'lim maktabi',
+      setSchoolName: (name) => set({ schoolName: name }),
 
       // Progress
       progress: [],

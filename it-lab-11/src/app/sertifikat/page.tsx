@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { 
   Award, Download, Printer, Share2, CheckCircle2, 
   Sparkles, ShieldCheck, ArrowLeft, User, QrCode,
-  Calendar, School, Check
+  Calendar, School, Check, UserCheck, Edit3
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import Navbar from '@/components/layout/Navbar';
@@ -13,10 +13,16 @@ import Footer from '@/components/layout/Footer';
 import AuthModal from '@/components/ui/AuthModal';
 
 export default function SertifikatPage() {
-  const { user, totalScore, getTotalProgress, badges } = useAppStore();
+  const { 
+    user, totalScore, getTotalProgress, badges,
+    teacherName, setTeacherName, schoolName, setSchoolName
+  } = useAppStore();
+
   const [studentName, setStudentName] = useState(user?.name || 'Salimov Sarvar');
   const [studentGrade, setStudentGrade] = useState(user?.grade || '11-A sinf');
-  const [certId, setCertId] = useState('ITLAB-2024-8842');
+  const [localTeacherName, setLocalTeacherName] = useState(teacherName || 'Rustam Karimov');
+  const [localSchoolName, setLocalSchoolName] = useState(schoolName || '11-sonli ixtisoslashtirilgan maktab');
+  const [certId, setCertId] = useState('ITLAB-11-8842');
   const [copiedLink, setCopiedLink] = useState(false);
   const [currentDate, setCurrentDate] = useState('');
 
@@ -27,11 +33,28 @@ export default function SertifikatPage() {
     if (user?.grade) {
       setStudentGrade(user.grade);
     }
+    if (teacherName) {
+      setLocalTeacherName(teacherName);
+    }
+    if (schoolName) {
+      setLocalSchoolName(schoolName);
+    }
+    
     // Generate deterministic or stable ID
     const randomNum = Math.floor(1000 + Math.random() * 9000);
     setCertId(`ITLAB-11-${randomNum}`);
     setCurrentDate(new Date().toLocaleDateString('uz-UZ', { year: 'numeric', month: 'long', day: 'numeric' }));
-  }, [user]);
+  }, [user, teacherName, schoolName]);
+
+  const handleTeacherChange = (val: string) => {
+    setLocalTeacherName(val);
+    setTeacherName(val);
+  };
+
+  const handleSchoolChange = (val: string) => {
+    setLocalSchoolName(val);
+    setSchoolName(val);
+  };
 
   const handlePrint = () => {
     window.print();
@@ -55,7 +78,7 @@ export default function SertifikatPage() {
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 py-8">
         
         {/* Top Controls Bar (hidden during printing) */}
-        <div className="print:hidden mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="print:hidden mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
           <div>
             <Link
               href="/dashboard"
@@ -97,28 +120,67 @@ export default function SertifikatPage() {
           </div>
         </div>
 
-        {/* Customization input bar for demo (hidden during printing) */}
-        <div className="print:hidden mb-8 p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <div className="flex items-center gap-2 text-blue-800 dark:text-blue-300 font-medium">
+        {/* Customization input bar (hidden during printing) */}
+        <div className="print:hidden mb-8 p-5 rounded-3xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/60 text-xs shadow-sm space-y-3">
+          <div className="flex items-center gap-2 text-blue-900 dark:text-blue-200 font-bold">
             <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-            <span>Sertifikatdagi ism va sinfni xohlagancha o&apos;zgartirishingiz mumkin:</span>
+            <span>Sertifikat ma&apos;lumotlarini moslashtirish (Ustoz, O&apos;quvchi va Maktab):</span>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <input
-              type="text"
-              value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
-              placeholder="O'quvchi ismi va familiyasi"
-              className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="text"
-              value={studentGrade}
-              onChange={(e) => setStudentGrade(e.target.value)}
-              placeholder="Sinfi"
-              className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1 uppercase tracking-wider">
+                O&apos;quvchi Ism-Familiyasi:
+              </label>
+              <input
+                type="text"
+                value={studentName}
+                onChange={(e) => setStudentName(e.target.value)}
+                placeholder="Sarvar Salimov"
+                className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1 uppercase tracking-wider">
+                Sinfi:
+              </label>
+              <input
+                type="text"
+                value={studentGrade}
+                onChange={(e) => setStudentGrade(e.target.value)}
+                placeholder="11-A sinf"
+                className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-blue-700 dark:text-blue-400 mb-1 uppercase tracking-wider flex items-center gap-1">
+                <UserCheck className="w-3.5 h-3.5" />
+                Ustoz Ismi Familiyasi:
+              </label>
+              <input
+                type="text"
+                value={localTeacherName}
+                onChange={(e) => handleTeacherChange(e.target.value)}
+                placeholder="Rustam Karimov"
+                className="w-full px-3 py-2 rounded-xl border-2 border-blue-400 dark:border-blue-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1 uppercase tracking-wider flex items-center gap-1">
+                <School className="w-3.5 h-3.5" />
+                Maktab nomi:
+              </label>
+              <input
+                type="text"
+                value={localSchoolName}
+                onChange={(e) => handleSchoolChange(e.target.value)}
+                placeholder="11-sonli maktab"
+                className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
           </div>
         </div>
 
@@ -151,10 +213,10 @@ export default function SertifikatPage() {
               </div>
 
               <span className="text-xs sm:text-sm font-black tracking-[0.25em] text-blue-900 uppercase">
-                O&apos;ZBEKISTON RESPUBLIKASI MAKTAB TA&apos;LIMI
+                O&apos;ZBEKISTON RESPUBLIKASI MAKTAB VA MAKTABGACHA TA&apos;LIM VAZIRLIGI
               </span>
               <p className="text-[11px] font-bold text-slate-500 tracking-wider uppercase">
-                IT LAB 11 — Raqamli Texnologiyalar va Dasturlash Akademiyasi
+                {localSchoolName || '11-sinf'} • IT LAB 11 Raqamli Texnologiyalar Akademiyasi
               </p>
             </div>
 
@@ -171,11 +233,11 @@ export default function SertifikatPage() {
 
             {/* Recipient Name */}
             <div className="py-2">
-              <h3 className="text-2xl sm:text-4xl font-extrabold text-blue-900 border-b-2 border-slate-300 pb-2 inline-block min-w-[320px] max-w-full px-6 font-serif">
-                {studentName || 'O\'quvchi Ismi'}
+              <h3 className="text-2xl sm:text-4xl font-extrabold text-blue-900 border-b-2 border-slate-300 pb-2 inline-block min-w-[320px] max-w-full px-6 font-serif tracking-wide">
+                {studentName || 'O\'quvchi Ismi va Familiyasi'}
               </h3>
               <p className="text-xs sm:text-sm font-semibold text-slate-600 mt-2">
-                {studentGrade} o&apos;quvchisi
+                {studentGrade} o&apos;quvchisi {user?.birthDate ? `(Tug'ilgan sana: ${user.birthDate})` : ''}
               </p>
             </div>
 
@@ -199,12 +261,12 @@ export default function SertifikatPage() {
             {/* Footer Signatures, Seal & QR Code */}
             <div className="pt-10 flex flex-col sm:flex-row items-center justify-between gap-8 border-t border-slate-200/80 max-w-3xl mx-auto">
               
-              {/* Left Signature */}
+              {/* Left Signature: Teacher Name */}
               <div className="text-center sm:text-left">
-                <div className="font-serif italic text-base text-blue-900 font-bold mb-1">
-                  Rustam Karimov
+                <div className="font-serif italic text-base sm:text-lg text-blue-900 font-bold mb-1">
+                  {localTeacherName || 'Informatika Ustozi'}
                 </div>
-                <div className="w-36 h-0.5 bg-slate-400 mx-auto sm:mx-0 mb-1" />
+                <div className="w-40 h-0.5 bg-slate-400 mx-auto sm:mx-0 mb-1" />
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
                   Informatika fani ustozi
                 </span>
@@ -225,10 +287,10 @@ export default function SertifikatPage() {
 
               {/* Right Signature & Date */}
               <div className="text-center sm:text-right">
-                <div className="font-serif italic text-base text-blue-900 font-bold mb-1">
+                <div className="font-serif italic text-base sm:text-lg text-blue-900 font-bold mb-1">
                   IT LAB 11 Kengashi
                 </div>
-                <div className="w-36 h-0.5 bg-slate-400 mx-auto sm:ml-auto mb-1" />
+                <div className="w-40 h-0.5 bg-slate-400 mx-auto sm:ml-auto mb-1" />
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
                   Berilgan sana: {currentDate || '2024-yil'}
                 </span>
