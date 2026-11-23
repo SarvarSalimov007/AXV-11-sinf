@@ -66,30 +66,40 @@ chmod +x script.sh`,
         },
         quiz: [
           {
-            id: 'm2l1-q1',
-            question: 'Linux fayllar tizimining eng yuqori ildiz (root) belgisi qaysi?',
-            options: ['C:\\', '/', '/root', '~'],
-            correctAnswer: 1,
-            explanation: 'Linuxda barcha papkalar va disklar yagona "/" (slash) ildiz katalogidan boshlanadi.'
-          },
-          {
-            id: 'm2l1-q2',
-            question: 'Linuxda "rwxr-xr--" huquqi nimani anglatadi?',
+            id: "m2l1-q1",
+            question: "Linux operatsion tizimi fayllar iyerarxiyasining eng yuqori ildiz (root) belgisi qaysi?",
             options: [
-              'Fayl butunlay o\'chirilgan',
-              'Egasi: o\'qish, yozish, ishga tushirish; Guruh: o\'qish va ishga tushirish; Boshqalar: faqat o\'qish',
-              'Faqat parolli foydalanuvchi kira oladi',
-              'Fayl hajmi 10 MB dan katta'
+              "C:\\ drayveri",
+              "~ (tilda)",
+              "/ (slash)",
+              "/root papkasi"
             ],
-            correctAnswer: 1,
-            explanation: 'r = read (4), w = write (2), x = execute (1). rwx = egasining to\'liq huquqi.'
+            correctAnswer: 2,
+            explanation: "Linuxda barcha papka va qurilmalar yagona ildiz — '/' (slash) papkasidan boshlanadi."
           },
           {
-            id: 'm2l1-q3',
-            question: 'Fayl huquqlarini o\'zgartirish uchun qaysi buyruq qo\'llaniladi?',
-            options: ['chmod', 'chown', 'mkdir', 'rmdir'],
+            id: "m2l1-q2",
+            question: "Linuxda fayl huquqlaridagi \"rwxr-xr--\" yozuvi nimani anglatadi?",
+            options: [
+              "Egasi: o'qish, yozish, ishga tushirish; Guruh: o'qish va ishga tushirish; Boshqalar: faqat o'qish",
+              "Faqat tizim ma'muri (root) faylni o'qiy oladi, boshqa barcha foydalanuvchilar uchun yopiq",
+              "Fayl internet orqali barcha foydalanuvchilar tomonidan erkin tahrirlanishi mumkin",
+              "Fayl shifrlangan bo'lib, uni ochish uchun maxsus xavfsizlik paroli talab qilinadi"
+            ],
             correctAnswer: 0,
-            explanation: '\'chmod\' (change mode) fayl yoki papkaning o\'qish, yozish va ishga tushirish ruxsatlarini o\'zgartiradi.'
+            explanation: "rwx (7 - egasi), r-x (5 - guruh), r-- (4 - boshqalar) huquqlarini ifodalaydi."
+          },
+          {
+            id: "m2l1-q3",
+            question: "Linuxda fayl yoki papkaning kirish huquqlarini (masalan, 755 yoki +x) o'zgartirish buyrug'i qaysi?",
+            options: [
+              "chown buyrug'i",
+              "chroot buyrug'i",
+              "mkdir buyrug'i",
+              "chmod buyrug'i"
+            ],
+            correctAnswer: 3,
+            explanation: "'chmod' (change mode) fayl huquqlarini o'zgartiradi, 'chown' esa fayl egasini o'zgartiradi."
           }
         ],
         summary: 'Linux — zamonaviy backend va DevOps muhandislarining ikkinchi ona tili. Serverlar dunyosiga kirish Linuxdan boshlanadi.'
@@ -135,25 +145,40 @@ tail -f /var/log/nginx/access.log`,
         },
         quiz: [
           {
-            id: 'm2l2-q1',
-            question: 'Matnli fayl ichidan aniq so\'zni qidirish uchun qaysi buyruq ishlatiladi?',
-            options: ['search', 'findword', 'grep', 'locate-text'],
-            correctAnswer: 2,
-            explanation: '\'grep\' buyrug\'i qatorlar ichidan berilgan matn andozasini (regex) qidirib topadi.'
-          },
-          {
-            id: 'm2l2-q2',
-            question: 'Papkani ichidagi barcha fayllari bilan birga to\'liq o\'chiruvchi xavfli buyruq qaysi?',
-            options: ['delete all', 'rm -rf <papka>', 'clear -f', 'remove -dir'],
+            id: "m2l2-q1",
+            question: "Katta hajmli matnli fayl yoki loglar ichidan kerakli so'zni qidirib topish uchun qaysi buyruq qo'llaniladi?",
+            options: [
+              "search buyrug'i",
+              "grep buyrug'i",
+              "findword buyrug'i",
+              "locate-text buyrug'i"
+            ],
             correctAnswer: 1,
-            explanation: '\'rm -rf\' rekursiv (r) va majburiy (f - force) tarzda jildni o\'chiradi.'
+            explanation: "'grep' matn ichidan muntazam ifodalar (regex) yoki aniq so'zlarni qidirishda eng kuchli vositadir."
           },
           {
-            id: 'm2l2-q3',
-            question: 'Tizimda ishlab turgan dasturlarni (jarayonlarni) real vaqtda ko\'rish buyrug\'i qaysi?',
-            options: ['htop', 'view', 'monitor', 'programs'],
+            id: "m2l2-q2",
+            question: "Papkani ichidagi barcha fayl va ichki papkalari bilan birga to'liq o'chirib tashlash buyrug'i qaysi?",
+            options: [
+              "rm -rf <papka>",
+              "delete --all <papka>",
+              "clear -f <papka>",
+              "remove -dir <papka>"
+            ],
             correctAnswer: 0,
-            explanation: '\'htop\' interaktiv tarzda CPU, RAM va har bir jarayon yuklamasini ko\'rsatadi.'
+            explanation: "'rm -rf' (recursive and force) papkani barcha ichki elementlari bilan so'rovsiz o'chiradi."
+          },
+          {
+            id: "m2l2-q3",
+            question: "Tizimda ishlab turgan dasturlar (jarayonlar) va xotira sarfini real vaqtda kuzatish dasturi qaysi?",
+            options: [
+              "sys-viewer buyrug'i",
+              "program-list vositasi",
+              "htop interfeysi",
+              "task-status dasturi"
+            ],
+            correctAnswer: 2,
+            explanation: "'htop' (yoki top) serverdagi protsessor, operativ xotira va faol jarayonlarni rang-barang interfeysda ko'rsatadi."
           }
         ],
         summary: 'Terminal buyruqlarini o\'zlashtirish — IT dunyosida super-kuchga ega bo\'lish demakdir. Har bir buyruq sizning vaqtingizni tejaydi.'
@@ -199,30 +224,40 @@ server {
         },
         quiz: [
           {
-            id: 'm2l3-q1',
-            question: 'SSH ulanishining standart port raqami nechchi?',
-            options: ['80', '443', '22', '3306'],
-            correctAnswer: 2,
-            explanation: 'SSH protokoli sukut bo\'yicha (default) 22-port orqali xavfsiz aloqa o\'rnatadi.'
+            id: "m2l3-q1",
+            question: "Masofaviy Linux serveriga xavfsiz ulanish (SSH) standarti odatda qaysi port orqali amalga oshiriladi?",
+            options: [
+              "80-port (HTTP)",
+              "443-port (HTTPS)",
+              "3306-port (MySQL)",
+              "22-port (SSH)"
+            ],
+            correctAnswer: 3,
+            explanation: "SSH protokoli standart bo'yicha 22-port orqali shifrlangan aloqa o'rnatadi."
           },
           {
-            id: 'm2l3-q2',
-            question: 'Nginx ning Reverse Proxy sifatidagi asosiy vazifasi nima?',
+            id: "m2l3-q2",
+            question: "Nginx veb-serverining Reverse Proxy sifatidagi eng asosiy xizmati nimadan iborat?",
             options: [
-              'Kompyuterga o\'yinlar o\'rnatish',
-              'Tashqi so\'rovlarni ichki server va portlarga xavfsiz va samarali yo\'naltirish',
-              'Ma\'lumotlar bazasini o\'chirib tashlash',
-              'Faqat HTML fayllarni tahrirlash'
+              "Serverdagi barcha ma'lumotlar bazalarini avtomatik arxivlash",
+              "Tashqi so'rovlarni ichki server portlariga xavfsiz yo'naltirish",
+              "Foydalanuvchilar kompyuteriga yangi dasturlarni o'rnatish",
+              "Dasturchi yozgan frontend kodlarini avtomatik kompilyatsiya qilish"
             ],
             correctAnswer: 1,
-            explanation: 'Reverse Proxy tashqi mijozlar bilan ichki backend ilovalar o\'rtasida xavfsiz vositachidir.'
+            explanation: "Reverse Proxy tashqi 80/443 so'rovlarni qabul qilib, ichki 3000, 8000 kabi portlarga yo'naltiradi."
           },
           {
-            id: 'm2l3-q3',
-            question: 'SSH orqali parolsiz, xavfsiz ulanish uchun nima ishlatiladi?',
-            options: ['SMS kod', 'SSH ochiq va yopiq kalitlar juftligi (Key Pair)', 'Faqat email manzil', 'Telegram bot'],
-            correctAnswer: 1,
-            explanation: 'Asimmetrik kriptografiyaga asoslangan SSH kalitlar parollarga qaraganda 100 barobar xavfsizroq.'
+            id: "m2l3-q3",
+            question: "SSH orqali parolsiz va buzib kirishdan himoyalangan eng xavfsiz ulanish usuli nima?",
+            options: [
+              "Doimiy ravishda 4 xonali oddiy PIN-koddan foydalanish",
+              "Faqat bitta umumiy login va parolni jamoada tarqatish",
+              "SSH ochiq va yopiq kalitlar juftligi (Key Pair) orqali ulanish",
+              "Serverga har gal kirishda SMS tasdiqlash kodini kiritish"
+            ],
+            correctAnswer: 2,
+            explanation: "SSH kalitlar juftligi (Public/Private key) parolli ulanishdan 100 barobar xavfsizroqdir."
           }
         ],
         summary: 'SSH serverlarni masofadan xavfsiz boshqarish vositasi, Nginx esa saytingizni millionlab foydalanuvchilarga yetkazib beruvchi tezyurar poezddir.'
@@ -265,35 +300,40 @@ docker images`,
         },
         quiz: [
           {
-            id: 'm2l4-q1',
-            question: 'Docker konteyneri va an\'anaviy Virtual Mashina o\'rtasidagi asosiy farq nima?',
+            id: "m2l4-q1",
+            question: "Docker konteyneri bilan an'anaviy Virtual Mashina (VMware, VirtualBox) o'rtasidagi bosh farq nima?",
             options: [
-              'Virtual mashinalar tezroq',
-              'Konteynerlar alohida og\'ir OS o\'rnatmasdan asosiy tizim yadrosidan foydalanadi va ancha yengil',
-              'Docker faqat matnli fayllar uchun',
-              'Hech qanday farq yo\'q'
+              "Konteynerlar alohida og'ir OS o'rnatmasdan asosiy yadro orqali ishlaydi va juda yengil bo'ladi",
+              "Virtual mashinalar Docker konteynerlariga qaraganda 10 barobar tezroq ishga tushadi",
+              "Docker faqat oddiy matnli fayllarni arxivlash uchun xizmat qiladi, dasturlarni yurita olmaydi",
+              "Virtual mashinalar hech qanday operatsion tizim yadrosiga muhtoj bo'lmagan yagona vositadir"
             ],
-            correctAnswer: 1,
-            explanation: 'Docker operatsion tizim yadrosini (kernel) bo\'lishish orqali xotirani minimal darajada ishlatadi.'
-          },
-          {
-            id: 'm2l4-q2',
-            question: 'Dasturchilarning "Mening kompyuterimda ishlayotgan edi" degan bahonasini Docker qanday yo\'qotadi?',
-            options: [
-              'Dasturchilarga bir xil noutbuk berish orqali',
-              'Dastur va uning barcha muhitini har qanday joyda bir xil ishlaydigan standart konteynerga o\'rash orqali',
-              'Kodni internetga yuklamaslik orqali',
-              'Xatolarni yashirish orqali'
-            ],
-            correctAnswer: 1,
-            explanation: 'Docker muhitning har qanday kompyuter va serverda 100% bir xilligini kafolatlaydi.'
-          },
-          {
-            id: 'm2l4-q3',
-            question: 'Dunyo bo\'ylab tayyor Docker tasvirlari saqlanadigan rasmiy portal nima deb ataladi?',
-            options: ['Docker Hub', 'GitHub', 'NPM', 'Docker Store'],
             correctAnswer: 0,
-            explanation: 'Docker Hub — rasmiy ochiq kutubxona bo\'lib, millionlab tayyor tasvirlar (Ubuntu, Node, Python, Postgres) u yerda saqlanadi.'
+            explanation: "Docker xost OS yadrosini umumiy ishlatadi, VM esa har bir tizim uchun to'liq OS o'rnatadi."
+          },
+          {
+            id: "m2l4-q2",
+            question: "Dasturchilarning \"Mening kompyuterimda ishlagan edi, serverda ishlamayapti\" muammosini Docker qanday hal qiladi?",
+            options: [
+              "Serverdagi barcha operatsion tizim kutubxonalari va eski dasturlarni butunlay o'chirib tashlash orqali",
+              "Dasturchiga serverda qanday noutbuk bo'lsa xuddi shunday apparat ta'minotli noutbuk berib ishlash orqali",
+              "Kodni internet tarmog'iga yuklamasdan faqat lokal kompyuterda sinovdan o'tkazib ko'rsatish orqali",
+              "Dastur va uning barcha muhitini har qanday tizimda bir xil ishlaydigan konteynerga o'rash orqali"
+            ],
+            correctAnswer: 3,
+            explanation: "Docker dastur uchun kerakli barcha kutubxonalarni bitta barqaror konteynerga joylaydi."
+          },
+          {
+            id: "m2l4-q3",
+            question: "Dunyo bo'ylab tayyor Docker imagelarini saqlash va yuklab olish uchun qaysi rasmiy servis xizmat qiladi?",
+            options: [
+              "GitHub Actions repozitoriysi",
+              "Docker Hub (hub.docker.com)",
+              "Node Package Manager (NPM)",
+              "Ubuntu Launchpad tizimi"
+            ],
+            correctAnswer: 1,
+            explanation: "Docker Hub — rasmiy ommaviy imagelar (Node.js, Python, PostgreSQL, Nginx) saqlanadigan platformadir."
           }
         ],
         summary: 'Docker bugungi kunda har qanday zamonaviy backend va DevOps mutaxassisi bilishi shart bo\'lgan standart texnologiyadir.'
@@ -346,30 +386,40 @@ CMD ["node", "src/index.js"]`,
         },
         quiz: [
           {
-            id: 'm2l5-q1',
-            question: 'Docker Image va Container o\'rtasidagi munosabat qanday?',
+            id: "m2l5-q1",
+            question: "Docker Image va Docker Container tushunchalari o'rtasidagi o'zaro munosabat qanday?",
             options: [
-              'Image bu — qolip (chizma), Container esa — ishlayotgan nusxa',
-              'Ikkalasi bir xil narsa',
-              'Container avval yaratiladi, keyin Image qilinadi',
-              'Image faqat Windows da ishlaydi'
+              "Container avval yaratiladi, keyin undan qolip sifatida Image yasaladi",
+              "Ikkalasi aynan bitta tushuncha bo'lib, faqat nomlanishi turlicha qo'llaniladi",
+              "Image — dastur qolipi (blueprint), Container esa uning xotirada ishlayotgan nusxasidir",
+              "Image faqat matnli fayllar uchun, Container esa faqat rasmlar uchun xizmat qiladi"
+            ],
+            correctAnswer: 2,
+            explanation: "Image bu dastur chizmasi (qolip), Container esa o'sha chizmadan yaratilgan tirik nusxadir."
+          },
+          {
+            id: "m2l5-q2",
+            question: "Dockerfile ichida konteyner ishga tushganda bajariladigan asosiy buyruq qaysi kalit so'z bilan yoziladi?",
+            options: [
+              "CMD [ \"npm\", \"start\" ]",
+              "FROM node:18-alpine",
+              "WORKDIR /usr/src/app",
+              "COPY package*.json ./"
             ],
             correctAnswer: 0,
-            explanation: 'Image o\'zgarmas shablon, Container esa uning xotiradagi tirik jarayonidir.'
+            explanation: "CMD (yoki ENTRYPOINT) konteyner ishga tushganda bajariladigan asosiy buyruqni belgilaydi."
           },
           {
-            id: 'm2l5-q2',
-            question: 'Dockerfile da qaysi buyruq konteyner ishga tushganda bajariladigan asosiy jarayonni belgilaydi?',
-            options: ['FROM', 'RUN', 'CMD', 'WORKDIR'],
-            correctAnswer: 2,
-            explanation: 'CMD (Command) konteyner ishga tushganda bajariladigan boshlang\'ich buyruqni beradi.'
-          },
-          {
-            id: 'm2l5-q3',
-            question: 'Konteynerning ichki 3000-portini kompyuterning 8080-portiga qanday bog\'laymiz?',
-            options: ['-p 8080:3000', '-port 3000->8080', '--connect 3000', '-net open'],
-            correctAnswer: 0,
-            explanation: '-p <tashqi_port>:<ichki_port> orqali portlar xaritasi (mapping) amalga oshiriladi.'
+            id: "m2l5-q3",
+            question: "Konteynerning ichki 3000-portini tashqi kompyuterning 8080-portiga bog'lash parametri qaysi?",
+            options: [
+              "-net open:8080",
+              "--connect 3000->8080",
+              "-p 3000:8080",
+              "-p 8080:3000"
+            ],
+            correctAnswer: 3,
+            explanation: "'-p <host_port>:<container_port>' sintaksisi orqali tashqi port ichki portga yo'naltiriladi."
           }
         ],
         summary: 'Dockerfile yozishni bilish — butun dasturiy ta\'minotni bir necha soniyada har qanday serverda ishga tushirish imkonini beradi.'
@@ -426,30 +476,40 @@ volumes:
         },
         quiz: [
           {
-            id: 'm2l6-q1',
-            question: 'Docker Volume ning asosiy vazifasi nima?',
+            id: "m2l6-q1",
+            question: "Docker Volume xususiyati konteynerlashtirish arxitekturasida nima maqsadda qo'llaniladi?",
             options: [
-              'Ovoz balandligini oshirish',
-              'Konteyner o\'chirilganda ham ma\'lumotlar (masalan, baza) yo\'qolmasdan doimiy saqlanishini ta\'minlash',
-              'Konteynerni internetga ulash',
-              'Kod xatolarini tekshirish'
+              "Konteynerdagi audio fayllarning ovoz balandligini avtomatik sozlash uchun",
+              "Konteyner o'chirilganda ham ma'lumotlar xavfsiz saqlanib qolishini ta'minlash uchun",
+              "Konteynerlar orasidagi internet trafigini to'xtatib qo'yish uchun",
+              "Dastur kodidagi sintaksis xatoliklarni avtomatik tuzatish uchun"
             ],
             correctAnswer: 1,
-            explanation: 'Volume konteynerdan mustaqil ravishda doimiy ma\'lumotlar saqlovchisi hisoblanadi.'
+            explanation: "Volume konteyner ichidagi ma'lumotlarni (masalan, SQL baza) xost tizimida doimiy saqlab qoladi."
           },
           {
-            id: 'm2l6-q2',
-            question: 'Ko\'p konteynerli ilovalarni bitta faylda e\'lon qilish va 1 ta buyruq bilan ko\'tarish uchun nima ishlatiladi?',
-            options: ['Docker Hub', 'Docker Compose (docker-compose.yml)', 'Nginx', 'GitHub'],
-            correctAnswer: 1,
-            explanation: 'Docker Compose barcha servislar, tarmoqlar va volumlarni yagona YAML fayl orqali orkestratsiya qiladi.'
+            id: "m2l6-q2",
+            question: "Bir nechta bog'liq konteynerlarni (Frontend, Backend, Baza) bitta fayl orqali boshqarish vositasi qaysi?",
+            options: [
+              "Docker Hub bulut ombori",
+              "Nginx Reverse Proxy moduli",
+              "Docker Compose (docker-compose.yml)",
+              "Kubernetes Ingress kontrolleri"
+            ],
+            correctAnswer: 2,
+            explanation: "Docker Compose bitta buyruq bilan ko'p servisli butun ekotizimni ishga tushirish imkonini beradi."
           },
           {
-            id: 'm2l6-q3',
-            question: 'Docker Compose bilan barcha servislarni fonda (background) ishga tushirish buyrug\'i qaysi?',
-            options: ['docker-compose start', 'docker-compose up -d', 'docker-compose run', 'docker build .'],
-            correctAnswer: 1,
-            explanation: '\'docker-compose up -d\' servislarni orqa fonda (detached rejimda) ko\'taradi.'
+            id: "m2l6-q3",
+            question: "Docker Compose orqali barcha servislarni fonda (detatched mode) yurgizish qaysi buyruq bilan qilinadi?",
+            options: [
+              "docker-compose up -d",
+              "docker-compose start --all",
+              "docker-compose run --silent",
+              "docker-compose build --force"
+            ],
+            correctAnswer: 0,
+            explanation: "'docker-compose up -d' barcha konteynerlarni orqa fonda (background) uzluksiz ishga tushiradi."
           }
         ],
         summary: 'Volume va Compose texnologiyalari konteynerlarni o\'yinchoq holatdan haqiqiy korporativ ishlab chiqarish quroliga aylantiradi.'
@@ -507,30 +567,40 @@ jobs:
         },
         quiz: [
           {
-            id: 'm2l7-q1',
-            question: 'GitHub Actions sozlamalari repozitoriyning qaysi papkasida saqlanadi?',
-            options: ['/config/actions', '.github/workflows/', '/scripts/ci/', '.git/hooks/'],
-            correctAnswer: 1,
-            explanation: 'Barcha workflow fayllari repozitoriyning ildizidagi \'.github/workflows/\' katalogida joylashishi shart.'
-          },
-          {
-            id: 'm2l7-q2',
-            question: 'Workflow fayllari qaysi tilda yoziladi?',
-            options: ['PHP', 'Python', 'YAML (.yml)', 'HTML'],
-            correctAnswer: 2,
-            explanation: 'GitHub Actions sozlamalari inson o\'qishi uchun qulay bo\'lgan YAML sintaksisida yoziladi.'
-          },
-          {
-            id: 'm2l7-q3',
-            question: 'GitHub Actions nima uchun juda foydali?',
+            id: "m2l7-q1",
+            question: "GitHub Actions workflow sozlama fayllari loyiha repozitoriyasining qaysi maxsus papkasida saqlanadi?",
             options: [
-              'Saytga tashrif buyuruvchilarni ko\'paytiradi',
-              'Koddagi xatolarni avtomatik tarzda, inson omilisiz zudlik bilan aniqlaydi',
-              'Kompyuterga virus tushishini kafolatlaydi',
-              'Faqat rasmlarni siqish uchun kerak'
+              "/config/actions/ papkasida",
+              "/scripts/ci-cd/ papkasida",
+              ".git/hooks/workflows/ ichida",
+              ".github/workflows/ papkasida"
+            ],
+            correctAnswer: 3,
+            explanation: "GitHub o'z CI/CD skriptlarini aynan '.github/workflows/' papkasidagi YAML fayllardan o'qiydi."
+          },
+          {
+            id: "m2l7-q2",
+            question: "GitHub Actions workflow konfiguratsiya fayllari asosan qaysi formatda yoziladi?",
+            options: [
+              "JSON (.json) formatida",
+              "YAML (.yml yoki .yaml) tilida",
+              "XML (.xml) belgilash tilida",
+              "INI (.ini) konfiguratsiya tilida"
             ],
             correctAnswer: 1,
-            explanation: 'Har bir o\'zgarishda avtomatik testlar o\'tkazish sifatni yuqori darajada ushlab turadi.'
+            explanation: "GitHub Actions vazifalar ketma-ketligi qat'iy indentatsiyaga asoslangan YAML tilida tuziladi."
+          },
+          {
+            id: "m2l7-q3",
+            question: "Avtomatlashtirilgan CI (Continuous Integration) amaliyotining eng katta amaliy foydasi nima?",
+            options: [
+              "Saytga tashrif buyuruvchilar sonini avtomatik ravishda oshirib boradi",
+              "Dasturchi kompyuteriga yangi operatsion tizimlarni mustaqil yuklab beradi",
+              "Koddagi xatolarni avtomatik tarzda, inson omilisiz har bir pushda zudlik bilan aniqlaydi",
+              "Dasturchilarning barcha shaxsiy parollarini internetda ochiq e'lon qilib boradi"
+            ],
+            correctAnswer: 2,
+            explanation: "CI koddagi xatolarni real vaqtda avtomatik testlar orqali topib, asosiy tarmoq buzilishini oldini oladi."
           }
         ],
         summary: 'GitHub Actions - zamonaviy dasturlashning sehrli tayog\'i. U qo\'l mehnati sarflanadigan zerikarli ishlarni to\'liq robotlarga yuklaydi.'
@@ -579,35 +649,40 @@ test('Manfiy sonlarni to\'g\'ri qo\'shish', () => {
         },
         quiz: [
           {
-            id: 'm2l8-q1',
-            question: 'CI (Continuous Integration) ning asosiy maqsadi nima?',
+            id: "m2l8-q1",
+            question: "CD (Continuous Deployment) amaliyoti dasturiy ta'minotni yetkazib berishda nimani anglatadi?",
             options: [
-              'Dasturchilarga dam berish',
-              'Koddagi o\'zgarishlarni tez-tez va avtomatik testlar orqali tekshirib umumiy tarmoqqa qo\'shib borish',
-              'Foydalanuvchilardan pul yig\'ish',
-              'Sayt dizaynini har kuni o\'zgartirish'
+              "Barcha testlardan muvaffaqiyatli o'tgan kodni avtomatik ravishda jonli serverga deploy qilish",
+              "Dastur kodini fleshkaga ko'chirib, server xonasidagi kompyuterga qo'lda o'rnatish",
+              "Har kuni kechasi serverdagi barcha ma'lumotlar bazalarini butunlay tozalab tashlash",
+              "Loyiha kodini har safar o'zgarganda boshqa dasturlash tiliga qo'lda o'girib chiqish"
             ],
-            correctAnswer: 1,
-            explanation: 'CI jamoaviy ishlashdagi to\'qnashuvlarni minimallashtiradi va erta bosqichda xatolarni aniqlaydi.'
-          },
-          {
-            id: 'm2l8-q2',
-            question: 'CD (Continuous Deployment) amaliyoti nimani anglatadi?',
-            options: [
-              'Kodni qo\'lda fleshkaga ko\'chirib serverga olib borish',
-              'Barcha testlardan o\'tgan kodni avtomatik tarzda jonli serverga (production) deploy qilish',
-              'Har kuni kompyuterni formatlash',
-              'Dasturni o\'chirib tashlash'
-            ],
-            correctAnswer: 1,
-            explanation: 'Continuous Deployment yangiliklarni foydalanuvchilarga yetkazib berish vaqtini soatlardan daqiqalarga qisqartiradi.'
-          },
-          {
-            id: 'm2l8-q3',
-            question: 'Alohida kichik funksiyani tekshiruvchi test qanday ataladi?',
-            options: ['Unit test (birlik testi)', 'Stress test', 'Beta test', 'Manual test'],
             correctAnswer: 0,
-            explanation: 'Unit test — dasturning eng kichik ajralmas qismini (funksiya, metod) izolyatsiyalangan holda tekshiradi.'
+            explanation: "CD orqali testdan o'tgan har bir yangi commit zudlik bilan jonli (production) tizimga chiqariladi."
+          },
+          {
+            id: "m2l8-q2",
+            question: "Dasturdagi alohida kichik funksiya yoki modulning to'g'ri ishlashini tekshiruvchi test qanday ataladi?",
+            options: [
+              "Stress test (yuklama sinovi)",
+              "Beta test (ommaviy sinov)",
+              "Manual test (qo'lda sinash)",
+              "Unit test (birlik testi)"
+            ],
+            correctAnswer: 3,
+            explanation: "Unit testlar (masalan, Jest yoki PyTest) funksiyalarni alohida izolyatsiyalangan holda sinaydi."
+          },
+          {
+            id: "m2l8-q3",
+            question: "Dasturiy ta'minotda avtomatlashtirilgan testlar piramidasi qanday iyerarxiyaga asoslanadi?",
+            options: [
+              "Faqat qo'lda tekshiriladigan testlar eng ko'p bo'lishi shart",
+              "Ko'p sonli tezkor Unit testlar, o'rtacha Integration va kam sonli E2E testlar",
+              "Faqat og'ir vizual End-to-End testlar butun tizimni qamrab olishi kerak",
+              "Test yozish shart emas, barcha xatolarni foydalanuvchilar o'zi topishi kerak"
+            ],
+            correctAnswer: 1,
+            explanation: "Test piramidasi poydevori arzon va tezkor Unit testlardan, cho'qqisi esa E2E testlardan iborat."
           }
         ],
         summary: 'CI/CD konveyeri yordamida Netflix yoki Amazon kabi gigantlar kuniga 1000 martalab yangi versiyalarni foydalanuvchilarga uzilishsiz yetkazib beradi.'

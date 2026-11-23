@@ -61,40 +61,40 @@ vercel --prod`,
         },
         quiz: [
           {
-            id: 'm3l1-q1',
-            question: 'IT sohasida "Production" muhiti nimani anglatadi?',
+            id: "m3l1-q1",
+            question: "IT sohasida \"Production\" (Prod) serveri qanday muhitni anglatadi?",
             options: [
-              'Dasturchining uyidagi noutbuki',
-              'Haqiqiy foydalanuvchilar tashrif buyuradigan jonli, asosiy tizim',
-              'Qoralama matn yozilgan daftar',
-              'O\'chirilgan kompyuter'
+              "Dasturchining uyidagi noutbukida kod sinovdan o'tkaziladigan lokal muhit",
+              "Faqat dizaynerlar yangi maketlarni chizib saqlaydigan grafik muhit",
+              "Haqiqiy foydalanuvchilar tashrif buyuradigan jonli, asosiy tizim serveri",
+              "Kompaniya ofisidagi barcha kompyuterlarni internetga ulovchi router"
             ],
-            correctAnswer: 1,
-            explanation: 'Production (Prod) — foydalanuvchilar real xizmat ko\'rsatiladigan eng mas\'uliyatli server muhiti.'
+            correctAnswer: 2,
+            explanation: "Production — bu real mijozlar har kuni ishlatadigan rasmiy, jonli ishchi muhitdir."
           },
           {
-            id: 'm3l1-q2',
-            question: 'Nega "localhost:3000" manzilini do\'stingiz o\'z telefonida ocholmaydi?',
+            id: "m3l1-q2",
+            question: "Nima sababdan dasturchining kompyuteridagi \"localhost:3000\" ga boshqalar tashqaridan kira olmaydi?",
             options: [
-              'Chunki do\'stingiz internetga ulanmagan',
-              'Chunki localhost faqat sizning shaxsiy kompyuteringizning ichki manzilidir',
-              'Chunki telefonlarda dasturlash mumkin emas',
-              'Chunki 3000 raqami taqiqlangan'
+              "Chunki localhost faqat sizning shaxsiy kompyuteringizning ichki tarmoq manzilidir",
+              "Chunki mobil telefonlarda veb-sahifalarni ochish operatsion tizim tomonidan taqiqlangan",
+              "Chunki 3000 raqami barcha xalqaro brauzerlar tomonidan bloklangan port hisoblanadi",
+              "Chunki do'stingizning kompyuteriga maxsus dasturlash litsenziyasi o'rnatilmagan"
             ],
-            correctAnswer: 1,
-            explanation: 'Localhost (127.0.0.1) faqat joriy qurilmaning ichki aylanma tarmoq interfeysiga ishora qiladi.'
+            correctAnswer: 0,
+            explanation: "localhost (127.0.0.1) faqat ayni qurilmaning o'ziga xos bo'lib, tashqi internetga ulanmagan."
           },
           {
-            id: 'm3l1-q3',
-            question: 'Zamonaviy Git-based deployment platformalarining afzalligi nima?',
+            id: "m3l1-q3",
+            question: "Zamonaviy Git-based deployment platformalarining (Vercel, Render) eng katta afzalligi nima?",
             options: [
-              'Faqat Windows da ishlaydi',
-              'Kodni Git ga push qilish bilan avtomatik tarzda yangi versiya serverga joylanadi',
-              'Pullik va juda sekin',
-              'Dasturchiga kerak emas'
+              "Faqat Windows tizimida ishlaydi va kompyuterga hech qanday dastur talab qilmaydi",
+              "Saytga tashrif buyurgan barcha foydalanuvchilarga bepul internet tarqatib beradi",
+              "Har safar saytni yangilash uchun server xonasiga borib kompyuterni o'chirib yoqish kerak",
+              "Kodni Git ga push qilish bilan avtomatik tarzda yangi versiya serverga joylanadi"
             ],
-            correctAnswer: 1,
-            explanation: 'Avtomatlashtirilgan deploy har safar kod o\'zgarganda serverni bir necha soniyada yangilaydi.'
+            correctAnswer: 3,
+            explanation: "Git-based CI/CD platformalari yangi commitni avtomatik build qilib bir necha soniyada deploy qiladi."
           }
         ],
         summary: 'Deployment — dasturingizning tug\'ilish lahzasi. Haqiqiy dasturchi kodi faqat o\'zida emas, millionlab odamlarning ekranida ishlaganda lazzat oladi.'
@@ -141,30 +141,40 @@ console.log("Bazaga muvaffaqiyatli ulanildi!");`,
         },
         quiz: [
           {
-            id: 'm3l2-q1',
-            question: '.env faylini GitHub repozitoriyiga yuklash nima uchun qat\'iyan taqiqlanadi?',
+            id: "m3l2-q1",
+            question: ".env faylini GitHub ochiq repozitoriyiga yuklash nima sababdan qat'iyan taqiqlanadi?",
             options: [
-              'Chunki GitHub faqat rasm fayllarni qabul qiladi',
-              'Chunki .env ichidagi maxfiy parollar va tokenlar ommaga fosh bo\'lib, xakerlar hujumiga sabab bo\'ladi',
-              'Fayl hajmi juda katta bo\'lgani uchun',
-              'Hech qanday zarari yo\'q'
+              "Chunki .env ichidagi maxfiy parollar va tokenlar ommaga fosh bo'lib, xakerlar hujumiga sabab bo'ladi",
+              "Chunki GitHub repozitoriysi faqat rasm, video va PDF formatidagi katta hajmli fayllarni qabul qiladi",
+              "Chunki .env faylining hajmi me'yordan juda katta bo'lib, serverdagi xotira resursini to'ldirib qo'yadi",
+              "Chunki bu fayl yuklanganda GitHub ning xalqaro veb-serverlari vaqtincha ishlamay qolishi mumkin"
+            ],
+            correctAnswer: 0,
+            explanation: ".env faylida ma'lumotlar bazasi parollari, API tokenlar va maxfiy kalitlar saqlanadi."
+          },
+          {
+            id: "m3l2-q2",
+            question: "Keraksiz yoki maxfiy fayllarni Git e'tiboridan chetda qoldirish uchun qaysi fayldan foydalaniladi?",
+            options: [
+              ".gitrules fayli",
+              ".gitignore fayli",
+              ".gitprotect fayli",
+              ".gitsecret fayli"
             ],
             correctAnswer: 1,
-            explanation: 'Maxfiy kalitlar ochiq repozitoriyga tushishi zudlik bilan xavfsizlik fojiasiga olib keladi.'
+            explanation: ".gitignore faylida yozilgan barcha yo'l va fayllar Git tomonidan qat'iy e'tiborsiz qoldiriladi."
           },
           {
-            id: 'm3l2-q2',
-            question: 'Keraksiz yoki maxfiy fayllarni Git e\'tiboridan chetda qoldirish uchun qaysi fayl xizmat qiladi?',
-            options: ['.gitsettings', '.gitignore', 'secrets.txt', 'config.json'],
-            correctAnswer: 1,
-            explanation: '.gitignore faylida ko\'rsatilgan barcha fayl va jildlar Git tomonidan butunlay e\'tiborsiz qoldiriladi.'
-          },
-          {
-            id: 'm3l2-q3',
-            question: 'Node.js da muhit o\'zgaruvchilariga qanday murojaat qilinadi?',
-            options: ['window.env.NAME', 'process.env.NAME', 'system.get("NAME")', 'global.env.NAME'],
-            correctAnswer: 1,
-            explanation: 'Node.js global "process.env" obyekti orqali tizim o\'zgaruvchilarini taqdim etadi.'
+            id: "m3l2-q3",
+            question: "Node.js dasturlash muhitida tizim o'zgaruvchilariga qaysi standart global obyekt orqali murojaat qilinadi?",
+            options: [
+              "system.environment.VARIABLE",
+              "window.env.VARIABLE",
+              "global.settings.VARIABLE",
+              "process.env.VARIABLE"
+            ],
+            correctAnswer: 3,
+            explanation: "Node.js da 'process.env.<NOM>' orqali yuklangan barcha muhit o'zgaruvchilariga kirish mumkin."
           }
         ],
         summary: 'Xavfsizlik 1-o\'rinda! Maxfiy ma\'lumotlarni hech qachon kodga yozmang, doimo .env va muhit o\'zgaruvchilaridan foydalaning.'
@@ -207,30 +217,40 @@ Bulut xizmatlari turlari:
         },
         quiz: [
           {
-            id: 'm3l3-q1',
-            question: 'Bulutli hisoblashning (Cloud Computing) eng asosiy iqtisodiy afzalligi nima?',
+            id: "m3l3-q1",
+            question: "Bulutli hisoblash texnologiyasining (Cloud Computing) eng asosiy iqtisodiy foydasi nima?",
             options: [
-              'Qimmatbaho server xonalarini qurmasdan, faqat ishlatilgan resurs uchun to\'lash (Pay-as-you-go)',
-              'Faqat bepul xizmat ko\'rsatishi',
-              'Internet bo\'lmasa ham ishlashi',
-              'O\'yinlarni bepul yuklab berishi'
+              "Qimmatbaho server xonalarini qurmasdan, faqat ishlatilgan resurs uchun to'lash (Pay-as-you-go)",
+              "Barcha xizmatlarning butun dunyo bo'ylab doimo mutlaqo bepul taqdim etilishi",
+              "Serverlarning umuman internet tarmog'i mavjud bo'lmaganda ham bemalol ishlashi",
+              "Kompyuter o'yinlarini hech qanday cheklovlarsiz yuqori tezlikda yuklab berishi"
             ],
             correctAnswer: 0,
-            explanation: 'Bulut qimmat boshlang\'ich xarajatlarni yo\'qotib, resurslarni egiluvchan ijaraga beradi.'
+            explanation: "Bulutli provayderlar infratuzilma xarajatlarini tejaydi va faqat sarflangan daqiqalar uchun pul oladi."
           },
           {
-            id: 'm3l3-q2',
-            question: 'Quyidagilardan qaysi biri dunyodagi eng yirik bulut provayderi hisoblanadi?',
-            options: ['Telegram', 'AWS (Amazon Web Services)', 'Twitter', 'Photoshop'],
+            id: "m3l3-q2",
+            question: "Bugungi kunda butun dunyo bo'yicha eng yirik va yetakchi bulutli provayder qaysi kompaniyaga tegishli?",
+            options: [
+              "Telegram Cloud xizmati",
+              "AWS (Amazon Web Services)",
+              "Twitter Datacenter tarmog'i",
+              "Adobe Cloud platformasi"
+            ],
             correctAnswer: 1,
-            explanation: 'AWS dunyodagi eng birinchi va bugungi kungacha eng yirik bulut platformasidir.'
+            explanation: "Amazon Web Services (AWS) dunyodagi eng katta va eng ko'p servislarga ega bulutli ekotizimdir."
           },
           {
-            id: 'm3l3-q3',
-            question: 'SaaS (Software as a Service) modeliga qaysi biri misol bo\'la oladi?',
-            options: ['Figma yoki Google Docs', 'Ubuntu o\'rnatilgan bo\'sh disk', 'Tarmoq kabeli', 'Protsessor'],
-            correctAnswer: 0,
-            explanation: 'Figma va Google Docs brauzer orqali to\'g\'ridan-to\'g\'ri ishlatiladigan tayyor dasturlardir (SaaS).'
+            id: "m3l3-q3",
+            question: "SaaS (Software as a Service) bulutli xizmat ko'rsatish modeliga qaysi biri eng to'g'ri misol bo'ladi?",
+            options: [
+              "Kompyuterga o'rnatilgan bo'sh qattiq disk (HDD)",
+              "Serverlar xonasini sovutish uchun qo'yilgan konditsioner",
+              "Brauzerda ishlatiladigan Google Docs yoki Figma xizmati",
+              "Lokal tarmoqni ulash uchun xizmat qiladigan optik kabel"
+            ],
+            correctAnswer: 2,
+            explanation: "SaaS — bu dasturni o'rnatmasdan to'g'ridan-to'g'ri veb orqali tayyor xizmat sifatida ishlatishdir."
           }
         ],
         summary: 'Bulutlar — barcha zamonaviy texnologiyalarning poydevori. Bulutni tushunish sizga global miqyosdagi tizimlarni boshqarish eshigini ochadi.'
@@ -280,40 +300,40 @@ async function uploadAvatar(fileBuffer, fileName) {
         },
         quiz: [
           {
-            id: 'm3l4-q1',
-            question: 'AWS S3 xizmatining asosiy vazifasi nima?',
+            id: "m3l4-q1",
+            question: "AWS S3 (Simple Storage Service) bulutli servisining asosiy vazifasi nima?",
             options: [
-              'Kodni kompilatsiya qilish',
-              'Fayllarni (rasm, video, hujjat) bulutda ishonchli va cheksiz miqdorda saqlash',
-              'Domen nomlarini sotish',
-              'Kompyuterni sovutish'
+              "Dastur kodini real vaqtda tezkor kompilyatsiya qilib, test natijalarini ekranga chiqarish uchun",
+              "Domen nomlarini xalqaro auksionda qulay narxlarda sotib olish va ularni boshqarish uchun",
+              "Fayllarni (rasm, video, hujjat) bulutda ishonchli va cheksiz miqdorda saqlash uchun",
+              "Server kompyuterining protsessorini va operativ xotirasini masofadan sovutib turish uchun"
             ],
-            correctAnswer: 1,
-            explanation: 'S3 — dunyodagi eng yirik va ishonchli obyektli fayllar saqlash xizmati (Object Storage).'
+            correctAnswer: 2,
+            explanation: "S3 fayllarni ob'yektli xotirada (Bucket) 99.999999999% ishonchlilik bilan xavfsiz saqlaydi."
           },
           {
-            id: 'm3l4-q2',
-            question: 'AWS EC2 nima?',
+            id: "m3l4-q2",
+            question: "AWS EC2 (Elastic Compute Cloud) xizmati nima vazifani bajaradi?",
             options: [
-              'Elektron pochtalar ro\'yxati',
-              'Bulutdagi virtual hisoblash serveri (Virtual Machine)',
-              'Faqat ma\'lumotlar bazasi',
-              'Antivirus dasturi'
+              "Foydalanuvchilarning elektron pochtalarini tartibga solib, yangi xabarlarni saralash xizmati",
+              "Dasturlarni ishga tushirish uchun bulutdagi virtual serverlarni (Virtual Machine) taqdim etadi",
+              "Sayt dizaynidagi barcha shriftlar va rasmlarni avtomatik tarzda qayta chizib beruvchi grafik modul",
+              "Kompyuterni zararli viruslardan va tarmoq xurujlaridan tozalovchi lokal dastur hisoblanadi"
             ],
             correctAnswer: 1,
-            explanation: 'EC2 (Elastic Compute Cloud) — talabga ko\'ra ochiladigan virtual serverlar.'
+            explanation: "EC2 dasturchiga bir necha soniyada istalgan operatsion tizimli virtual serverni ijaraga beradi."
           },
           {
-            id: 'm3l4-q3',
-            question: 'AWS IAM qoidalarida "Least Privilege" tamoyili nimani anglatadi?',
+            id: "m3l4-q3",
+            question: "AWS IAM xavfsizlik tizimidagi \"Principle of Least Privilege\" (Minimal ruxsatlar) tamoyili nimani anglatadi?",
             options: [
-              'Hamma xodimlarga eng yuqori Admin huquqini berish',
-              'Foydalanuvchi yoki dasturga faqat o\'z ishini bajarishi uchun yetarli bo\'lgan eng minimal ruxsatlarni berish',
-              'Hech kimga umuman tizimga kirishga ruxsat bermaslik',
-              'Parollarni har soatda o\'zgartirish'
+              "Barcha yangi xodimlarga eng yuqori darajadagi administrator (Root) huquqlarini berish",
+              "Tizimga hech kim kira olmasligi uchun barcha parollarni butunlay o'chirib qo'yish",
+              "Foydalanuvchilar parollarini har o'n daqiqada yangilab turish majburiyatini yuklash",
+              "Foydalanuvchiga faqat o'z ishini bajarishi uchun zarur bo'lgan eng minimal ruxsatlarni berish"
             ],
-            correctAnswer: 1,
-            explanation: 'Minimal huquq tamoyili tizim buzilganda ham yetkazilishi mumkin bo\'lgan zararni keskin kamaytiradi.'
+            correctAnswer: 3,
+            explanation: "Minimal ruxsatlar tamoyili xavfsizlik buzilganda ham tizimning boshqa qismlarini saqlab qoladi."
           }
         ],
         summary: 'EC2, S3 va IAM — AWS bulutining uchta ustuni. Bu xizmatlarni o\'zlashtirgan mutaxassis har qanday xalqaro kompaniyada qadrlanadi.'
@@ -356,30 +376,40 @@ ping -c 4 google.com`,
         },
         quiz: [
           {
-            id: 'm3l5-q1',
-            question: 'DNS tizimining asosiy vazifasi nima?',
+            id: "m3l5-q1",
+            question: "Internetdagi DNS (Domain Name System) tizimining asosiy vazifasi nimadan iborat?",
             options: [
-              'Foydalanuvchilarga kino ko\'rsatish',
-              'Sayt domen nomlarini (masalan, itlab11.uz) serverning raqamli IP manziliga o\'girib berish',
-              'Kompyuterni elektr bilan ta\'minlash',
-              'Spam xatlarni tozalash'
+              "Foydalanuvchilarga onlayn video va filmlarni bepul tomosha qilish imkonini berish",
+              "Sayt domen nomlarini (masalan, itlab11.uz) serverning raqamli IP manziliga o'girib berish",
+              "Server kompyuterini elektr quvvati bilan uzluksiz ta'minlash jarayonini boshqarish",
+              "Elektron pochtalarga kelayotgan keraksiz spam xabarlarni avtomatik tozalash"
             ],
             correctAnswer: 1,
-            explanation: 'DNS internetning telefon kitobi kabi nomlarni raqamli IP manzillarga bog\'laydi.'
+            explanation: "DNS bu internetning telefon kitobidir: inson tushunadigan nomlarni raqamli IP ga o'giradi."
           },
           {
-            id: 'm3l5-q2',
-            question: 'Domen nomini aniq IPv4 manzilga bog\'lovchi DNS yozuvi qaysi?',
-            options: ['CNAME', 'MX', 'A Record', 'TXT'],
-            correctAnswer: 2,
-            explanation: '\'A\' (Address) yozuvi domenni to\'g\'ridan-to\'g\'ri serverning IPv4 manziliga yo\'naltiradi.'
-          },
-          {
-            id: 'm3l5-q3',
-            question: 'Bitta domenni ikkinchi domen nomiga yo\'naltiruvchi (alias) DNS yozuvi nima deb ataladi?',
-            options: ['CNAME', 'A', 'PTR', 'NS'],
+            id: "m3l5-q2",
+            question: "Domen nomini aniq bir IPv4 raqamli manziliga bog'lash uchun qaysi DNS yozuvi turi ishlatiladi?",
+            options: [
+              "A Record yozuvi",
+              "CNAME yozuvi",
+              "MX Record yozuvi",
+              "TXT Record yozuvi"
+            ],
             correctAnswer: 0,
-            explanation: 'CNAME (Canonical Name) boshqa domen nomiga taxallus sifatida xizmat qiladi.'
+            explanation: "A Record (Address) domenni to'g'ridan-to'g'ri serverning IPv4 manziliga bog'laydi."
+          },
+          {
+            id: "m3l5-q3",
+            question: "Bitta domen yoki subdomenni boshqa bir domen nomiga yo'naltirish uchun qaysi DNS yozuvi qo'llaniladi?",
+            options: [
+              "PTR yozuvi",
+              "NS yozuvi",
+              "CNAME yozuvi",
+              "A yozuvi"
+            ],
+            correctAnswer: 2,
+            explanation: "CNAME (Canonical Name) bir domen nomini ikkinchi domen nomiga taxallus (alias) qilib yo'naltiradi."
           }
         ],
         summary: 'DNS va domenlar internetning navigatsiya tizimidir. Uni to\'g\'ri sozlash orqali millionlab foydalanuvchilar sizning saytingizga adashmasdan kirib keladi.'
@@ -419,30 +449,40 @@ sudo certbot renew --dry-run`,
         },
         quiz: [
           {
-            id: 'm3l6-q1',
-            question: 'HTTPS protokolining oddiy HTTP dan asosiy farqi nima?',
+            id: "m3l6-q1",
+            question: "HTTPS protokolining an'anaviy ochiq HTTP dan eng asosiy xavfsizlik ustunligi nimada?",
             options: [
-              'HTTPS da barcha ma\'lumotlar SSL/TLS orqali to\'liq shifrlanadi',
-              'HTTPS faqat telefonlarda ishlaydi',
-              'HTTPS saytni sekinlashtiradi',
-              'Hech qanday farqi yo\'q'
+              "HTTPS protokoli orqali barcha jo'natilgan ma'lumotlar SSL/TLS orqali to'liq shifrlanadi",
+              "HTTPS protokoli faqat kichik ekranli mobil telefonlarda ishlash uchun mo'ljallangan",
+              "HTTPS protokoli internet sarfini 50 foizga kamaytirib, saytni tezroq yuklaydi",
+              "HTTPS protokoli va oddiy HTTP protokoli o'rtasida hech qanday xavfsizlik farqi yo'q"
             ],
             correctAnswer: 0,
-            explanation: 'HTTPS uzatilayotgan barcha ma\'lumotlarni shifrlab, xakerlar tutib olishining oldini oladi.'
+            explanation: "HTTPS ma'lumotlarni tranzit vaqtida shifrlab, oraliqdagi vositachilar uni o'g'irlashini oldini oladi."
           },
           {
-            id: 'm3l6-q2',
-            question: 'Butun dunyoga bepul SSL sertifikatlari beruvchi eng mashhur xizmat qaysi?',
-            options: ['Let\'s Encrypt', 'Google Play', 'Wikipedia', 'Microsoft Store'],
-            correctAnswer: 0,
-            explanation: 'Let\'s Encrypt ochiq va bepul SSL/TLS sertifikatlarini taqdim etuvchi notijorat markazdir.'
+            id: "m3l6-q2",
+            question: "Butun dunyo bo'ylab bepul va avtomatik SSL/TLS sertifikatlarini taqdim etuvchi eng mashhur tashkilot qaysi?",
+            options: [
+              "Microsoft Azure Store",
+              "Google Play Market",
+              "Wikipedia Foundation",
+              "Let's Encrypt xizmati"
+            ],
+            correctAnswer: 3,
+            explanation: "Let's Encrypt ochiq va bepul SSL sertifikatlari berib, butun internetni HTTPS ga o'tkazishga hissa qo'shgan."
           },
           {
-            id: 'm3l6-q3',
-            question: 'HTTPS standarti bo\'yicha xavfsiz ulanish qaysi port orqali amalga oshiriladi?',
-            options: ['80', '21', '443', '25'],
-            correctAnswer: 2,
-            explanation: 'Oddiy HTTP 80-portda, xavfsiz shifrlangan HTTPS esa 443-portda ishlaydi.'
+            id: "m3l6-q3",
+            question: "HTTPS standarti bo'yicha xavfsiz shifrlangan veb-trafik odatda qaysi standart port orqali qabul qilinadi?",
+            options: [
+              "80-port (HTTP)",
+              "443-port (HTTPS)",
+              "21-port (FTP)",
+              "25-port (SMTP)"
+            ],
+            correctAnswer: 1,
+            explanation: "Standart veb-trafikda HTTP 80-portdan, xavfsiz HTTPS esa 443-portdan foydalanadi."
           }
         ],
         summary: 'Bugungi kunda SSL/HTTPS ixtiyoriy emas, balki qat\'iy majburiydir. Busiz Google Chrome saytingizni "Xavfli sayt" deb belgilaydi.'
@@ -482,40 +522,40 @@ Sayt oldiga qalqon (Shield) bo'lib turuvchi maxsus xizmat. U kelayotgan har bir 
         },
         quiz: [
           {
-            id: 'm3l7-q1',
-            question: 'DDoS hujumining asosiy maqsadi nima?',
+            id: "m3l7-q1",
+            question: "DDoS (Taqsimlangan xizmat ko'rsatishni rad etish) kiberhujumining asosiy niyati nima?",
             options: [
-              'Sayt parolini o\'zgartirish',
-              'Serverni millionlab soxta so\'rovlar bilan to\'ldirib, uni ishlamay qolish holatiga (qotishga) olib kelish',
-              'Foydalanuvchilarga bepul pul tarqatish',
-              'Kompyuterga yangi o\'yin o\'rnatish'
+              "Foydalanuvchilarning shaxsiy hisob raqamlariga bepul reklama kuponlarini tarqatib berish",
+              "Sayt ma'lumotlar bazasidagi barcha maxfiy parollarni va jadvallarni bittama-bitta o'chirish",
+              "Serverni millionlab soxta so'rovlar bilan to'ldirib, uni ishlamay qolish holatiga olib kelish",
+              "Lokal kompyuter xotirasiga antivirus dasturlarining so'nggi versiyalarini o'rnatib berish"
             ],
-            correctAnswer: 1,
-            explanation: 'DDoS server resurslarini to\'liq tugatib, oddiy odamlarga xizmat ko\'rsatishni to\'xtatib qo\'yishga qaratilgan.'
+            correctAnswer: 2,
+            explanation: "DDoS server resurslarini soxta bot trafigi bilan haddan tashqari to'ldirib, haqiqiy foydalanuvchilarni to'sadi."
           },
           {
-            id: 'm3l7-q2',
-            question: 'WAF (Web Application Firewall) nimadan himoya qiladi?',
+            id: "m3l7-q2",
+            question: "WAF (Web Application Firewall) tizimi veb-ilovani qanday xavflardan himoya qiladi?",
             options: [
-              'Elektr tarmog\'i uzilishidan',
-              'Veb-ilovaga qaratilgan zararli so\'rovlar, SQL injection va botlardan',
-              'Kompyuter monitorining sinishidan',
-              'Hech narsadan'
+              "Elektr energiyasining to'satdan o'chib qolishidan va kabel sinishidan",
+              "Dasturchi kompyuteri monitorining tasodifiy qorayib qolish xavfidan",
+              "Foydalanuvchilarning internet tezligi sekinlashib qolishidan",
+              "Veb-ilovaga qaratilgan zararli so'rovlar, SQL injection va zararli botlardan"
             ],
-            correctAnswer: 1,
-            explanation: 'WAF HTTP/HTTPS so\'rovlaridagi zararli trafikni filtrlash uchun filtr vazifasini bajaradi.'
+            correctAnswer: 3,
+            explanation: "WAF HTTP so'rovlarni tahlil qilib, SQLi, XSS va zararli botlarni serverga yetmasidan bloklaydi."
           },
           {
-            id: 'm3l7-q3',
-            question: 'Foydalanuvchi parollarini bazada qanday saqlash eng xavfsiz?',
+            id: "m3l7-q3",
+            question: "Foydalanuvchilarning maxfiy parollarini ma'lumotlar bazasida saqlashning eng xavfsiz standarti qaysi?",
             options: [
-              'Ochiq matn ko\'rinishida',
-              'Kriptografik hash (masalan: bcrypt yoki argon2) ko\'rinishida',
-              'Excel jadvalida',
-              'Skrinshot qilib'
+              "Ochiq matn (Plaintext) ko'rinishida oddiy jadvalda saqlash",
+              "Skrinshot qilib fayllar serveriga rasm sifatida joylashtirish",
+              "Excel jadvalida barcha xodimlar ko'rishi uchun ochiq saqlash",
+              "Bir tomonlama kriptografik hash (masalan: bcrypt yoki argon2) ko'rinishida"
             ],
-            correctAnswer: 1,
-            explanation: 'Hashlangan parollarni orqaga qaytarib bo\'lmaydi, shuning uchun hatto baza o\'g\'irlansa ham parollar oshkor bo\'lmaydi.'
+            correctAnswer: 3,
+            explanation: "Parollar hech qachon ochiq saqlanmaydi, faqat qaytarib bo'lmaydigan kriptografik hash holida saqlanadi."
           }
         ],
         summary: 'Xavfsiz tizim — bu mijozlar ishonchi garovidir. Bulut xavfsizligi bo\'yicha mutaxassislar bugungi kunda eng yuqori maosh oluvchi IT mutaxassislari hisoblanadi.'
@@ -564,40 +604,40 @@ app.post('/api/lessons/create', requireRole('teacher'), createLesson);`,
         },
         quiz: [
           {
-            id: 'm3l8-q1',
-            question: 'Autentifikatsiya va Avtorizatsiya o\'rtasidagi farq nima?',
+            id: "m3l8-q1",
+            question: "Autentifikatsiya (Authentication) va Avtorizatsiya (Authorization) o'rtasidagi mantiqiy farq nima?",
             options: [
-              'Ikkalasi bir xil so\'z',
-              'Autentifikatsiya — shaxsni aniqlash ("Siz kimsiz?"), Avtorizatsiya — huquqlarni tekshirish ("Sizga nima ruxsat etilgan?")',
-              'Autentifikatsiya faqat banklarda ishlatiladi',
-              'Avtorizatsiya faqat Wi-Fi ga ulanishda kerak'
-            ],
-            correctAnswer: 1,
-            explanation: 'AuthN — kimligingizni isbotlash, AuthZ — ruxsat etilgan amallar chegarasini belgilash.'
-          },
-          {
-            id: 'm3l8-q2',
-            question: 'JWT (JSON Web Token) qanday qismlardan iborat?',
-            options: [
-              'Faqat matn',
-              '3 qismdan: Header (Sarlavha), Payload (Ma\'lumotlar) va Signature (Raqamli imzo)',
-              'Faqat raqamlar',
-              '4 ta fayldan'
-            ],
-            correctAnswer: 1,
-            explanation: 'JWT nuqta bilan ajratilgan 3 qismdan: header.payload.signature dan iborat bo\'ladi.'
-          },
-          {
-            id: 'm3l8-q3',
-            question: 'Ikki bosqichli tasdiqlash (2FA/MFA) hisob xavfsizligini qanday oshiradi?',
-            options: [
-              'Parol oshkor bo\'lib qolganda ham ikkinchi dinamik kodsiz hisobga kirishning oldini oladi',
-              'Saytni tezroq yuklaydi',
-              'Parolni eslab qolishni osonlashtiradi',
-              'Internet tezligini oshiradi'
+              "Autentifikatsiya — shaxsni aniqlash (\"Siz kimsiz?\"), Avtorizatsiya — huquqlarni tekshirish (\"Nima qila olasiz?\")",
+              "Ikkalasi aynan bir xil ma'noni anglatuvchi texnik terminlar bo'lib, bir-birining o'rniga ishlatiladi",
+              "Autentifikatsiya faqat bankomatlarda, Avtorizatsiya esa faqat mobil telefonlarda qo'llaniladi",
+              "Autentifikatsiya parollarni tiklash jarayoni, Avtorizatsiya esa internet tezligini o'lchash tizimidir"
             ],
             correctAnswer: 0,
-            explanation: '2FA paroldan tashqari telefoningizdagi ikkinchi tasdiqlash faktorini talab qilib, buzib kirishni deyarli imkonsiz qiladi.'
+            explanation: "Autentifikatsiya kimligingizni tasdiqlaydi, avtorizatsiya esa sizga berilgan ruxsatlarni tekshiradi."
+          },
+          {
+            id: "m3l8-q2",
+            question: "Zamonaviy JWT (JSON Web Token) tuzilmasi qaysi 3 ta asosiy qismdan tashkil topgan?",
+            options: [
+              "HTML sahifasi, CSS stillar kaskadi va JavaScript skriptlari bloklaridan",
+              "Foydalanuvchi logini, maxfiy paroli va SMS tasdiqlash kodlari blokidan",
+              "Header (Sarlavha), Payload (Ma'lumot) va Signature (Raqamli imzo) dan",
+              "Tizim protsessori, operativ xotira sarfi va qattiq disk jildlaridan"
+            ],
+            correctAnswer: 2,
+            explanation: "JWT uch qismdan iborat bo'lib, nuqta bilan ajratiladi: header.payload.signature."
+          },
+          {
+            id: "m3l8-q3",
+            question: "Ikki bosqichli tasdiqlash (2FA/MFA) tizimi hisob xavfsizligini qanday mustahkamlaydi?",
+            options: [
+              "Foydalanuvchining internet provayderi orqali ulanish tezligini 2 barobarga oshirish orqali",
+              "Parol fosh bo'lganda ham ikkinchi dinamik kodsiz hisobga kirishni to'liq bloklash orqali",
+              "Sayt dizaynining ranglari va fon rasmlarini foydalanuvchi didiga moslab chiroyli qilish orqali",
+              "Kompyuterga yangi dasturiy ta'minotlarni o'rnatish jarayonini bir necha soniyada bajarish orqali"
+            ],
+            correctAnswer: 1,
+            explanation: "2FA tizimida parolni bilgan odam ham telefoningizdagi ikkinchi kodsiz hisobingizga kira olmaydi."
           }
         ],
         summary: 'To\'g\'ri sozlangan Access Control tizimi sizning loyihangizni ichki va tashqi xavflardan ishonchli himoya qiladi.'

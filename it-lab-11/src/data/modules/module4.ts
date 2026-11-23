@@ -66,30 +66,40 @@ Frilanserning 3 ta ustuni:
         },
         quiz: [
           {
-            id: 'm4l1-q1',
-            question: 'Frilanserning odatiy ofis xodimidan asosiy farqi nima?',
+            id: "m4l1-q1",
+            question: "Frilanser (mustaqil mutaxassis) ning an'anaviy ofis xodimidan asosiy farqi nimada?",
             options: [
-              'Frilanser umuman ishlamaydi',
-              'Frilanser ish joyi, vaqti va mijozlarini o\'zi mustaqil tanlaydi',
-              'Frilanserga maosh berilmaydi',
-              'Frilanser faqat kechasi ishlaydi'
+              "Frilanser hech qachon kompyuter texnologiyalaridan foydalanmaydi",
+              "Frilanser ish joyi, vaqti va mijozlarini o'zi mustaqil tanlaydi",
+              "Frilanserga bajarilgan ishlari uchun hech qanday haq to'lanmaydi",
+              "Frilanser faqat kechasi va dam olish kunlarida ishlashga majburdir"
             ],
             correctAnswer: 1,
-            explanation: 'Frilans — bu geografik va vaqt jihatdan to\'liq erkinlik hamda shaxsiy mas\'uliyat demakdir.'
+            explanation: "Frilanser erkin jadval asosida bir nechta global mijozlar bilan to'g'ridan-to'g'ri shartnoma qiladi."
           },
           {
-            id: 'm4l1-q2',
-            question: 'Global frilans bozorida (Upwork, Fiverr) ishlash uchun qaysi tilni bilish hal qiluvchi ahamiyatga ega?',
-            options: ['Faqat lotin tili', 'Ingliz tili', 'Faqat o\'zbek tili', 'Fransuz tili'],
-            correctAnswer: 1,
-            explanation: 'Ingliz tili xalqaro biznes muloqotining umumiy tili bo\'lib, jahon bozoriga eshik ochadi.'
+            id: "m4l1-q2",
+            question: "Global frilans bozorida (Upwork, Fiverr) muvaffaqiyatli buyurtmalar olish uchun qaysi til hal qiluvchi hisoblanadi?",
+            options: [
+              "Ingliz tili (xalqaro muloqot tili)",
+              "Faqat lotin tili grammatikasi",
+              "Faqat fransuz tili adabiyoti",
+              "Faqat mahalliy qadimiy lahjalar"
+            ],
+            correctAnswer: 0,
+            explanation: "Ingliz tili butun dunyodagi mijozlar bilan tushunishish va loyihalarni himoya qilishda asosiy kalitdir."
           },
           {
-            id: 'm4l1-q3',
-            question: 'Frilansda eng qimmatbaho aktiv nima?',
-            options: ['Qimmat noutbuk', 'Mijozlarning ijobiy sharhlari (5-yulduzli reyting) va ishonch', 'Ko\'p o\'yinlar', 'Tez klaviatura'],
-            correctAnswer: 1,
-            explanation: 'Platformalardagi yuksak reyting va haqiqiy mijozlar sharhi yangi buyurtmalarni jalb qilishning kafolatidir.'
+            id: "m4l1-q3",
+            question: "Frilans faoliyatida buyurtmachilar ishonchini qozonish uchun eng qimmatli aktiv nima?",
+            options: [
+              "Eng oxirgi modeldagi qimmatbaho stol kompyuteri",
+              "Kompyuter o'yinlarida to'plangan virtual ballar",
+              "Ijtimoiy tarmoqlardagi tasodifiy obunachilar soni",
+              "Mijozlarning ijobiy sharhlari (5-star review) va ishonch"
+            ],
+            correctAnswer: 3,
+            explanation: "Mijozlarning 5 yulduzli tavsiflari va toza obro' yangi qimmatbaho shartnomalarni jalb qiladi."
           }
         ],
         summary: 'Frilans — bu o\'z-o\'zini boshqarish san\'ati. O\'zbekistonda turib xalqaro valyutada daromad topish 11-sinf o\'quvchisi uchun ham mutlaqo real imkoniyatdir.'
@@ -129,35 +139,40 @@ Mukammal portfolio sahifasi tarkibi:
         },
         quiz: [
           {
-            id: 'm4l2-q1',
-            question: 'IT sohasida yangi boshlovchi dasturchi uchun eng muhim hujjat nima?',
-            options: ['Qog\'oz diplom', 'Real loyihalar joylangan shaxsiy Portfolio va GitHub profili', 'Sertifikatlar to\'plami', 'Tavsiyanoma'],
-            correctAnswer: 1,
-            explanation: 'Portfolio — sizning haqiqiy amaliy bilimlaringizning yagona inkor etib bo\'lmas isbotidir.'
-          },
-          {
-            id: 'm4l2-q2',
-            question: 'Portfoliodagi har bir loyiha uchun qaysi elementlar bo\'lishi shart?',
+            id: "m4l2-q1",
+            question: "IT sohasida endi ish boshlayotgan yosh mutaxassis uchun eng ishonchli va kuchli hujjat nima?",
             options: [
-              'Faqat bitta rasm',
-              'Jonli sayt havolasi (Live Demo), ochiq GitHub kodi va hal qilingan muammo tavsifi',
-              'Loyiha narxi',
-              'Faqat matn'
+              "Qog'ozda chop etilgan ko'p sahifali rezyume va rasmiy diplom",
+              "Real loyihalar joylangan shaxsiy Portfolio va GitHub profili",
+              "Ijtimoiy tarmoqdagi fotosuratlar va qiziqishlar to'plami",
+              "Turli tadbirlarda qatnashilganligi haqidagi qog'oz guvohnoma"
             ],
             correctAnswer: 1,
-            explanation: 'Jonli havola orqali mijoz saytni bir zumda sinab ko\'ra oladi.'
+            explanation: "Dasturchining haqiqiy kuchi uning tirik, ishlayotgan loyihalari va GitHub dagi kodi bilan o'lchanadi."
           },
           {
-            id: 'm4l2-q3',
-            question: 'Portfolioga 50 ta chala loyiha qo\'ygan ma\'qulmi yoki 3 ta ideal sifatli loyihami?',
+            id: "m4l2-q2",
+            question: "Portfolioga qo'yilgan har bir amaliy loyiha uchun qaysi uchlik mavjud bo'lishi shart?",
             options: [
-              '50 ta chala loyiha ko\'proq ko\'rinadi',
-              '3-4 ta to\'liq yakunlangan, xatosiz, chiroyli va real foydali loyihalar',
-              'Umuman loyiha qo\'ymaslik',
-              'Faqat boshqalarning kodini ko\'chirish'
+              "Jonli sayt havolasi (Live Demo), ochiq GitHub kodi va muammo tavsifi",
+              "Faqat loyiha egasining telefon raqami, fotosurati va yashash manzili",
+              "Loyiha necha pulga sotilganligi haqidagi bank cheki va to'lov qog'ozi",
+              "Faqat foydalanuvchilar tomonidan yozilgan salbiy e'tirozlar ro'yxati"
             ],
-            correctAnswer: 1,
-            explanation: 'Sifat har doim son-sanoqsiz qoralama ishlardan ustun turadi.'
+            correctAnswer: 0,
+            explanation: "Ish beruvchi loyihani ko'zi bilan ko'rib (Demo), kod sifatini (GitHub) tekshira olishi shart."
+          },
+          {
+            id: "m4l2-q3",
+            question: "Portfolioni shakllantirishda qaysi strategiya ish beruvchida eng yuqori taassurot qoldiradi?",
+            options: [
+              "Internetdan ko'chirib olingan 50 ta chala va ishlamaydigan oddiy sahifa",
+              "Hech qanday kod ko'rsatmasdan faqat quruq va'dalar yozilgan varaq",
+              "Boshqa dasturchilar yozgan kodlarni o'z nomidan soxta qilib ko'rsatish",
+              "3-4 ta to'liq yakunlangan, xatosiz, chiroyli va real muammoni yechuvchi loyiha"
+            ],
+            correctAnswer: 3,
+            explanation: "Sifat miqdordan doimo ustun: bir nechta to'liq mukammal loyiha 50 ta chala loyihadan ancha qimmatli."
           }
         ],
         summary: 'Kuchli portfolio siz uxlab yotganingizda ham siz uchun yangi mijozlar va ish takliflarini topib beradi.'
@@ -203,40 +218,40 @@ Chiroyli GitHub profili sirlari:
         },
         quiz: [
           {
-            id: 'm4l3-q1',
-            question: 'GitHub profilida faollik kalendari (yashil katakchalar) nimani bildiradi?',
+            id: "m4l3-q1",
+            question: "GitHub profilidagi faollik grafigi (yashil katakchalar jadvali) ish beruvchiga nimani ko'rsatadi?",
             options: [
-              'O\'yin o\'ynagan vaqtni',
-              'Dasturchining qanchalik muntazam commit qilganini va kod yozganini',
-              'Internet tezligini',
-              'Kompyuter haroratini'
+              "Dasturchi kompyuterida qaysi operatsion tizim o'rnatilganligini",
+              "Dasturchining qanchalik muntazam kod yozgani va intizomini",
+              "Kompaniya ofisidagi internet aloqasining uzluksiz tezligini",
+              "Kompyuter protsessorining o'rtacha harorati va yuklanishini"
             ],
             correctAnswer: 1,
-            explanation: 'Yashil katakchalar dasturchining intizomi va muntazam mehnatini ko\'rsatadi.'
+            explanation: "Yashil kvadratlar dasturchining haftalar va oylar davomidagi muntazam mehnatini yaqqol aks ettiradi."
           },
           {
-            id: 'm4l3-q2',
-            question: 'Repozitoriy README.md faylida nimalar bo\'lishi tavsiya etiladi?',
+            id: "m4l3-q2",
+            question: "Loyiha repozitoriysidagi README.md faylida qanday ma'lumotlar yoritilishi shart?",
             options: [
-              'Faqat muallifning telefoni',
-              'Loyiha tavsifi, skrinshotlar, ishlatilgan texnologiyalar va ishga tushirish qo\'llanmasi',
-              'Hech narsa yozmaslik kerak',
-              'Faqat xatolar ro\'yxati'
+              "Faqat dasturchining shaxsiy avtobiografiyasi va maktab baholari",
+              "Hech qanday matnsiz faqat dasturning litsenziya kodi raqamlari",
+              "Loyiha maqsadi, skrinshotlar, texnologiyalar va ishga tushirish yo'riqnomasi",
+              "Faqat kompyuterga operatsion tizimni qayta o'rnatish bo'yicha darslik"
             ],
-            correctAnswer: 1,
-            explanation: 'README har qanday dasturchiga loyihani 2 daqiqada tushunish va kompyuterida yurgizishga yordam beradi.'
+            correctAnswer: 2,
+            explanation: "README — loyihaning yuzi bo'lib, boshqa dasturchilarga kodni tushunish va ishga tushirishga yordam beradi."
           },
           {
-            id: 'm4l3-q3',
-            question: 'Case Study yondashuvining an\'anaviy tavsifdan afzalligi nima?',
+            id: "m4l3-q3",
+            question: "Loyiha tavsifida Case Study yondashuvi qo'llanilganda qaysi uch bosqich ochib beriladi?",
             options: [
-              'U faqat rasm bo\'ladi',
-              'U muammoni, unga topilgan texnik yechimni va biznes natijasini ko\'rsatib beradi',
-              'U juda qisqa',
-              'U pullik'
+              "Muammo (Problem) -> Texnik yechim (Solution) -> Biznes natija (Result)",
+              "Dasturlash tili -> Matn muharriri -> Shaxsiy kompyuter monitori",
+              "Shartnoma tuzish -> Pulni qabul qilish -> Butun aloqani uzib qo'yish",
+              "Faylni yuklab olish -> Arxivni ochish -> Papka nomini o'zgartirish"
             ],
-            correctAnswer: 1,
-            explanation: 'Case Study sizning biznes fikrlashingizni va real foyda keltira olishingizni namoyish qiladi.'
+            correctAnswer: 0,
+            explanation: "Case Study loyihaning qanday qiyin muammoni hal qilganini va qanday naf keltirganini isbotlaydi."
           }
         ],
         summary: 'Tartibli GitHub profili — butun dunyo dasturchilari o\'rtasidagi universal rezyumedir.'
@@ -278,40 +293,40 @@ Keling, tafsilotlarni qisqa suhbatda muhokama qilamiz!"`,
         },
         quiz: [
           {
-            id: 'm4l4-q1',
-            question: 'Frilansda Proposal yozishda eng katta xato nima?',
+            id: "m4l4-q1",
+            question: "Frilans birjalarida mijozning loyihasiga taklif (Proposal) yozishda eng katta xato nima?",
             options: [
-              'Mijozga savol berish',
-              'Barcha mijozlarga bir xil tayyor nusxalangan (copy-paste) matnni yuborish',
-              'O\'z portfolio havolasini qo\'shish',
-              'Xushmuomala bo\'lish'
+              "Mijozning muammosiga mos ravishda aniq va o'rinli texnik savollar berish",
+              "O'zining shaxsiy portfolio loyihalariga to'g'ridan-to'g'ri havolalar ko'rsatish",
+              "Barcha mijozlarga bir xil tayyor nusxalangan (copy-paste) shablon xat yuborish",
+              "Mijoz bilan doimo xushmuomala, professional va madaniyatli tilda muloqot qilish"
             ],
-            correctAnswer: 1,
-            explanation: 'Nusxalangan shablonlar samimiy emasligini mijozlar darhol anglaydi va rad etadi.'
+            correctAnswer: 2,
+            explanation: "Bir xil shablon xatlar mijoz tomonidan darhol spam deb qabul qilinadi va e'tibordan chetda qoladi."
           },
           {
-            id: 'm4l4-q2',
-            question: 'Proposal matnining birinchi 2 qatori nega eng muhim?',
+            id: "m4l4-q2",
+            question: "Proposal xatining dastlabki 2 ta qatori nega butun loyihani yutib olishda eng muhim qism hisoblanadi?",
             options: [
-              'Chunki u faqat rasmlardan iborat',
-              'Chunki mijoz xatlar ro\'yxatida faqat birinchi 2 qatorni ko\'radi va o\'qish yoki o\'chirishni hal qiladi',
-              'Hech qanday ahamiyati yo\'q',
-              'Faqat narxni ko\'rsatish uchun'
+              "Chunki mijoz arizalar ro'yxatida faqat birinchi 2 qatorni ko'rib, o'qish yoki o'chirishni hal qiladi",
+              "Chunki qolgan qatorlar xalqaro qonunchilikka ko'ra brauzerlar tomonidan ko'rsatilmaydi",
+              "Chunki taklif xatining birinchi qatorlariga faqat grafik rasm va kulgichlar qo'yiladi",
+              "Chunki birinchi ikki qatorda dasturchining bank kartasi ma'lumotlari yozilishi shart"
             ],
-            correctAnswer: 1,
-            explanation: 'Mijozning e\'tiborini birinchi soniyalardayoq jalb qilish hal qiluvchi rol o\'ynaydi.'
+            correctAnswer: 0,
+            explanation: "Mijoz 50 ta taklif orasidan birinchi 2 qatori uning muammosiga to'g'ri kelgan arizalarnigina ochib o'qiydi."
           },
           {
-            id: 'm4l4-q3',
-            question: 'Mijoz bilan bahsli vaziyat yuzaga kelganda qanday yo\'l tutish kerak?',
+            id: "m4l4-q3",
+            question: "Mijoz bilan loyiha davomida kutilmagan bahsli vaziyat yuzaga kelsa, professional dasturchi qanday yo'l tutadi?",
             options: [
-              'Qo\'pol muomala qilib aloqani uzish',
-              'Vazminlik bilan mijozning xavotirini tinglash va o\'zaro manfaatli yechim taklif qilish',
-              'Barcha aybni mijozga to\'nkash',
-              'Loyihani yarim yo\'lda tashlab ketish'
+              "Mijozga qo'pol so'zlar yozib, uning barcha akkauntlarini butunlay bloklab qo'yadi",
+              "Barcha texnik kamchiliklarda faqat buyurtmachini ayblab, darhol kompyuterni o'chiradi",
+              "Loyihani yarim yo'lda tashlab, boshqa yangi buyurtmachi va mijozlar qidirishga o'tadi",
+              "Vazminlik bilan mijozning xavotirini tinglab, o'zaro manfaatli muqobil yechim taklif qiladi"
             ],
-            correctAnswer: 1,
-            explanation: 'Professionalizm har doim sabr-toqat va konstruktiv muloqotni talab qiladi.'
+            correctAnswer: 3,
+            explanation: "Vazminlik, faktlar bilan muloqot va murosaga tayyorlik uzoq muddatli professional obro'ni saqlab qoladi."
           }
         ],
         summary: 'Muloqot san\'ati — buyurtmalarni jalb qilishning kalitidir. Tinglashni bilgan dasturchi har doim talabgir bo\'ladi.'
@@ -355,40 +370,40 @@ Oltin Qoidalar:
         },
         quiz: [
           {
-            id: 'm4l5-q1',
-            question: 'Fixed-Price (qat\'iy narx) loyihalarida eng asosiy xavf nima?',
+            id: "m4l5-q1",
+            question: "Fixed-Price (qat'iy narxli) loyihalarda dasturchi uchun eng katta potensial xavf nima hisoblanadi?",
             options: [
-              'Mijozning qo\'shimcha bepul talablar qo\'shib (scope creep) ish hajmini haddan tashqari oshirib yuborishi',
-              'Pulning ko\'payib ketishi',
-              'Internetning tezlashishi',
-              'Hech qanday xavf yo\'q'
-            ],
-            correctAnswer: 0,
-            explanation: 'Vazifalar chegarasi aniq belgilanmasa, dasturchi 1 haftalik narxga 2 oy ishlashga majbur bo\'lib qolishi mumkin.'
-          },
-          {
-            id: 'm4l5-q2',
-            question: 'Yangi boshlayotgan frilanserga ish boshlashdan oldin nima tavsiya etiladi?',
-            options: [
-              'Hech qanday pul olmasdan butun ishni tugatib berish',
-              'Kamida 30-50% oldindan avans to\'lovini olish',
-              'Parollarni mijozga darhol berib yuborish',
-              'Faqat og\'zaki kelishish'
+              "Loyiha ustida ishlash jarayonida internet aloqasi tezligi me'yordan oshib ketishi xavfi",
+              "Mijozning qo'shimcha bepul talablar qo'shib (scope creep) ish hajmini haddan tashqari oshirishi",
+              "Dasturchi kompyuteri xotirasidagi bo'sh joyning kutilmaganda birdaniga ko'payib ketishi xavfi",
+              "Mijoz dasturchiga oldindan belgilangan kelishuvdan 2 barobar ko'proq mukofot puli to'lashi xavfi"
             ],
             correctAnswer: 1,
-            explanation: 'Oldindan to\'lov mijozning niyati jiddiyligini tasdiqlaydi va aldanishdan himoya qiladi.'
+            explanation: "Scope Creep — shartnomada bo'lmagan yangi vazifalar qo'shilishi natijasida ishning cho'zilib ketishidir."
           },
           {
-            id: 'm4l5-q3',
-            question: 'O\'z soatlik stavkangizni (Hourly Rate) qanday belgilash kerak?',
+            id: "m4l5-q2",
+            question: "To'g'ridan-to'g'ri mijoz bilan yangi shartnoma tuzganda moliyaviy xavfsizlik uchun qanday qoidaga amal qilinadi?",
             options: [
-              'Doim $1 qilish kerak',
-              'O\'z tajribangiz, bozordagi o\'rtacha narxlar va sarflanadigan xarajatlar asosida',
-              'Har kuni tasodifiy raqam tanlash',
-              'Eng qimmat narxni qo\'yish'
+              "Hech qanday oldindan to'lov olmasdan butun ishni to'liq bitkazib topshirish",
+              "Loyiha boshlanishidan oldin kamida 30-50 foiz avans to'lovini rasmiylashtirib olish",
+              "Barcha server parollarini mijozga birinchi kundan tekinga taqdim etish",
+              "Faqat og'zaki kelishuvga tayanib, yozma shartnomalar tuzmasdan ishlash"
             ],
             correctAnswer: 1,
-            explanation: 'Adolatli narxlash raqobatbardosh bo\'lish bilan birga mehnatingizni qadrlash imkonini beradi.'
+            explanation: "Avans to'lovi mijozning niyati jiddiy ekanligini kafolatlaydi va vaqtni bekor ketishidan asraydi."
+          },
+          {
+            id: "m4l5-q3",
+            question: "O'z xizmatlari uchun soatlik yoki loyiha narxini belgilashda qaysi omillar asos qilib olinadi?",
+            options: [
+              "Har kuni ertalab tasodifiy raqamlar generatori orqali narx tanlash",
+              "Faqat eng past narxni qo'yib, boshqa barcha dasturchilar bilan urishish",
+              "O'z malakangiz, sarflanadigan vaqt, xarajatlar va bozordagi o'rtacha narxlar tahlili",
+              "Barcha loyihalar uchun dunyodagi eng qimmat narxni istisnosiz belgilash"
+            ],
+            correctAnswer: 2,
+            explanation: "Narx shakllantirish o'z tajribangiz, bozor talabi va sarflanadigan aniq soatlar tahliliga asoslanadi."
           }
         ],
         summary: 'O\'z mehnatingizni qadrlang. Shaffof narx va yozma kelishuv — uzoq muddatli halol biznesning poydevoridir.'
@@ -426,40 +441,40 @@ Eng zo'r g'oyalar osmondan tushmaydi, balki kundalik hayotdagi haqiqiy og'riq va
         },
         quiz: [
           {
-            id: 'm4l6-q1',
-            question: 'Startapning an\'anaviy kichik biznesdan asosiy farqi nima?',
+            id: "m4l6-q1",
+            question: "Texnologik startapning an'anaviy kichik biznesdan (masalan, novvoyxona) eng asosiy farqi nima?",
             options: [
-              'Startap doim zarar ko\'radi',
-              'Startap texnologiya hisobiga tez va ulkan masshtablash (global kengayish) salohiyatiga ega',
-              'Startapda kompyuter bo\'lmaydi',
-              'Startap faqat qishloqda ochiladi'
+              "Startap texnologiya hisobiga tez va ulkan masshtablash (global kengayish) salohiyatiga ega",
+              "Startap doimiy ravishda faqat moliyaviy zarar ko'rish uchun tashkil qilinadi",
+              "Startap jamoasida hech qachon zamonaviy kompyuter va internetdan foydalanilmaydi",
+              "Startap faqat bitta mahalla yoki qishloq hududida xizmat ko'rsatish bilan cheklanadi"
             ],
-            correctAnswer: 1,
-            explanation: 'Texnologik startaplar minimal qo\'shimcha xarajat bilan butun dunyoga kengaya oladi.'
+            correctAnswer: 0,
+            explanation: "Startap innovatsion dasturiy yechimlar yordamida dunyo bo'ylab millionlab mijozlarga tezkor kengaya oladi."
           },
           {
-            id: 'm4l6-q2',
-            question: 'Startap uchun eng yaxshi g\'oyalar qayerdan paydo bo\'ladi?',
+            id: "m4l6-q2",
+            question: "Kelajakda muvaffaqiyatli bo'ladigan startap uchun eng to'g'ri va ishonchli g'oyalar qayerdan topiladi?",
             options: [
-              'Faqat ilmiy fantastik kinolardan',
-              'Odamlar kundalik hayotda duch kelayotgan real og\'riq va muammolarni kuzatishdan',
-              'Boshqalarning loyihalarini 100% nusxalashdan',
-              'Tasodifiy o\'yinlardan'
+              "Faqat ilmiy-fantastik badiiy filmlar va multfilmlarni tomosha qilishdan",
+              "Boshqa mashhur dasturlarning dizaynini 100 foiz o'zgarishsiz ko'chirib olishdan",
+              "Odamlar kundalik hayotda duch kelayotgan real og'riq va muammolarni chuqur kuzatishdan",
+              "Internetdagi tasodifiy o'yinlarni shunchaki boshqa nom bilan qayta nomlashdan"
             ],
-            correctAnswer: 1,
-            explanation: 'Haqiqiy muammoni hal qiluvchi mahsulotlargagina odamlar bajonidil pul to\'laydi.'
+            correctAnswer: 2,
+            explanation: "Eng kuchli startaplar (Uber, Airbnb, Telegram) insoniyatning mavjud katta og'riqli muammosini hal qilgan."
           },
           {
-            id: 'm4l6-q3',
-            question: 'Startap asoschisi o\'z g\'oyasiga oshiq bo\'lib qolishi nimaga olib kelishi mumkin?',
+            id: "m4l6-q3",
+            question: "Yangi boshlayotgan startap asoschilarining 90 foizi qaysi xato tufayli muvaffaqiyatsizlikka uchraydi?",
             options: [
-              'Tez boyib ketishga',
-              'Bozor talabini va mijozlar fikrini e\'tiborsiz qoldirib, hech kimga kerak bo\'lmagan mahsulot yaratishga',
-              'Litsenziya olishga',
-              'Hamma narsa yaxshi bo\'ladi'
+              "Bozorga rejalashtirilgan muddatdan ancha erta chiqib ketganliklari tufayli",
+              "Loyiha uchun eng so'nggi zamonaviy dasturlash tillarini tanlaganliklari tufayli",
+              "Kompaniyaga rasmiy yuridik nom tanlashda uzoq vaqt ikkilanib qolganliklari tufayli",
+              "Bozor talabini tekshirmasdan, hech kimga kerak bo'lmagan mahsulot yaratganliklari tufayli"
             ],
-            correctAnswer: 1,
-            explanation: 'G\'oyaga emas, muammoga oshiq bo\'lish kerak. Bozor va mijoz har doim haq.'
+            correctAnswer: 3,
+            explanation: "Mijozlarga kerak bo'lmagan mahsulotni ishlab chiqish (No market need) startaplar halokatining 1-raqamli sababidir."
           }
         ],
         summary: 'G\'oya — bu faqat 1%. Qolgan 99% esa uning qanday amalga oshirilishi (Execution) va mehnatga bog\'liqdir.'
@@ -506,40 +521,40 @@ MVP tamoyili:
         },
         quiz: [
           {
-            id: 'm4l7-q1',
-            question: 'MVP (Minimum Viable Product) ning bosh maqsadi nima?',
+            id: "m4l7-q1",
+            question: "MVP (Minimum Viable Product — minimal ishchi mahsulot) ning bosh maqsadi nima?",
             options: [
-              'Dunyodagi eng chiroyli dizaynni yaratish',
-              'Minimal xarajat va vaqt bilan g\'oyaning tirikligini real foydalanuvchilar orqali tekshirish',
-              'Loyiha kodini maxfiy saqlash',
-              'Kompaniyani darhol sotish'
+              "Dunyodagi eng mukammal va eng chiroyli animatsiyalarga ega bo'lgan dizaynni yaratish",
+              "Minimal xarajat va vaqt bilan g'oyaning tirikligini real foydalanuvchilar orqali tekshirish",
+              "Loyiha kodini hech kimga ko'rsatmasdan 10 yil davomida qat'iy maxfiy saqlab turish",
+              "Kompaniyani hali dastur yozilmasidan oldin zudlik bilan chet ellik investorlarga sotish"
             ],
             correctAnswer: 1,
-            explanation: 'MVP taxminlarni real bozor faktlari orqali eng erta bosqichda tekshirishga xizmat qiladi.'
+            explanation: "MVP ortiqcha vaqt yo'qotmasdan g'oyaning bozorga kerakligini eng arzon va tez usulda sinovdan o'tkazadi."
           },
           {
-            id: 'm4l7-q2',
-            question: 'Reid Hoffman (LinkedIn asoschisi) MVP haqida qanday mashhur gap aytgan?',
+            id: "m4l7-q2",
+            question: "LinkedIn asoschisi Reid Hoffman MVP haqida qanday mashhur qoidani ilgari surgan?",
             options: [
-              '"Hech qachon shoshilmang"',
-              '"Agar mahsulotingizning birinchi versiyasidan uyalmasangiz, demak siz bozorga juda kech chiqibsiz!"',
-              '"Faqat mukammal dastur sotiladi"',
-              '"Kodni hech kimga ko\'rsatmang"'
+              "Hech qachon shoshilmang, dastur mukammal bo'lmaguncha uni hech kimga ko'rsatmang",
+              "Har qanday yangi startap kamida 10 million dollar byudjet bilan boshlanishi shart",
+              "Agar mahsulotingizning birinchi versiyasidan uyalmasangiz, demak siz bozorga juda kech chiqibsiz",
+              "Dastur kodini faqat o'z oila a'zolaringiz sinovdan o'tkazishi eng to'g'ri yo'ldir"
             ],
-            correctAnswer: 1,
-            explanation: 'Mukammallikka intilib yillab o\'tirish — startapning o\'limidir. Tezroq bozorga chiqish shart.'
+            correctAnswer: 2,
+            explanation: "Mukammallikka intilib yillab o'tirish — startapning o'limidir. Tezroq bozorga chiqib xatolardan o'rganish shart."
           },
           {
-            id: 'm4l7-q3',
-            question: 'Build - Measure - Learn (Qur - O\'lcha - O\'rgan) sikli nima uchun kerak?',
+            id: "m4l7-q3",
+            question: "Startapdagi \"Build - Measure - Learn\" (Qur - O'lcha - O'rgan) doiraviy sikli nima vazifani bajaradi?",
             options: [
-              'Mijozlar fikri asosida mahsulotni to\'xtovsiz yaxshilab borish uchun',
-              'Faqat maktab darslarida baho olish uchun',
-              'Kompyuterni o\'lchash uchun',
-              'Kitob o\'qish uchun'
+              "Mijozlar fikri va tahliliy ma'lumotlar asosida mahsulotni to'xtovsiz takomillashtirib borish",
+              "Faqat maktab imtihonlarida a'lo baholar olish uchun nazariy konspektlar yozib borish",
+              "Kompyuter protsessorining haroratini soat sayin maxsus asboblar bilan o'lchab turish",
+              "Faqat kitob do'konlaridan startaplar haqidagi yangi adabiyotlarni xarid qilish"
             ],
             correctAnswer: 0,
-            explanation: 'Muntazam takomillashtirish orqali startap mijozlar sevadigan haqiqiy mahsulotga aylanadi.'
+            explanation: "Muntazam takomillashtirish orqali startap mijozlar sevadigan haqiqiy mahsulotga aylanadi."
           }
         ],
         summary: 'Tez yarat, bozorga ko\'rsat, xatodan o\'rgan va takomillashtir. MVP — startapchining eng kuchli quroli.'
@@ -587,35 +602,40 @@ Lean Canvas ning 9 ta bloki:
         },
         quiz: [
           {
-            id: 'm4l8-q1',
-            question: 'Lean Canvas nechta asosiy blokdan iborat?',
-            options: ['3 ta', '5 ta', '9 ta', '25 ta'],
+            id: "m4l8-q1",
+            question: "Startap biznes modelini 1 ta varaqda ifodalovchi Lean Canvas necha asosiy blokdan iborat?",
+            options: [
+              "3 ta blokdan",
+              "5 ta blokdan",
+              "9 ta blokdan",
+              "25 ta blokdan"
+            ],
             correctAnswer: 2,
-            explanation: 'Lean Canvas biznes modelining barcha jabhalarini qamrab oluvchi 9 ta blokdan iborat.'
+            explanation: "Lean Canvas muammo, mijoz, qiymat, yechim, daromad kabi 9 ta muhim blokni bitta varaqqa jamlaydi."
           },
           {
-            id: 'm4l8-q2',
-            question: 'Unique Value Proposition (Yagona qimmatli taklif) nimani anglatadi?',
+            id: "m4l8-q2",
+            question: "Lean Canvas dagi \"Unique Value Proposition\" (Noyob qimmatli taklif) nimani ifodalaydi?",
             options: [
-              'Loyiha narxini',
-              'Sizning mahsulotingiz raqobatchilardan nimasi bilan tubdan yaxshiroqligi va mijoz nega sizni tanlashi kerakligining aniq ifodasi',
-              'Foydalanuvchi parolini',
-              'Saytning rangi'
+              "Dasturiy mahsulotning yillik obuna narxi qancha dollar ekanligining aniq raqami",
+              "Foydalanuvchilar veb-saytga kirish uchun kiritadigan maxfiy shifrlangan paroli",
+              "Mahsulotning server xotirasidan qancha megabayt joy egallashi haqidagi ma'lumot",
+              "Mahsulotingiz raqobatchilardan nimasi bilan yaxshiroqligi va mijoz nega sizni tanlashi sababi"
             ],
-            correctAnswer: 1,
-            explanation: 'Qimmatli taklif mijozga keltiradigan asosiy foydani 1 ta jumlada ifodalaydi.'
+            correctAnswer: 3,
+            explanation: "Value Proposition mijozga taklif qilinayotgan asosiy foydani 1 ta jumlada aniq ifodalaydi."
           },
           {
-            id: 'm4l8-q3',
-            question: 'Lean Canvas ning 50 betlik an\'anaviy biznes-rejadan afzalligi nima?',
+            id: "m4l8-q3",
+            question: "Lean Canvas ning 50 betlik qalin an'anaviy biznes-rejalardan ustunligi nimada?",
             options: [
-              'Uni o\'qish shart emas',
-              'Tezkor, ixcham, osongina yangilanadigan va barcha muhim jihatlarni bir varaqda ko\'rsatadigan vositaligi',
-              'Faqat qog\'ozni tejash',
-              'Unda raqamlar bo\'lmaydi'
+              "Ixcham, tezkor o'zgartirish oson va barcha muhim jihatlarni bir varaqda yaqqol ko'rsatadi",
+              "Unda umuman hech qanday moliyaviy hisob-kitoblar, daromadlar va raqamlar bo'lmasligi bilan",
+              "Uni faqat qog'ozda chizish mumkin bo'lib, kompyuterda fayl ochish butunlay taqiqlanishi bilan",
+              "U faqat xalqaro yirik moliya tashkilotlari tomonidan qabul qilinadigan yagona rasmiy qog'ozdir"
             ],
-            correctAnswer: 1,
-            explanation: 'Startap har hafta o\'zgaradi, shuning uchun ixcham va chaqqon reja eng samaralisidir.'
+            correctAnswer: 0,
+            explanation: "Startap tez o'zgaradi, shuning uchun ixcham va chaqqon reja eng samarali vositadir."
           }
         ],
         summary: 'Lean Canvas — startap arxitektorining kompasidir. Rejangiz qanchalik aniq bo\'lsa, xatolarga shunchalik kam pul sarflaysiz.'
@@ -658,40 +678,40 @@ Hozirgacha 500 dan ortiq o'quvchi platformamizda ta'lim oldi. Bugun biz loyihani
         },
         quiz: [
           {
-            id: 'm4l9-q1',
-            question: '"Elevator Pitch" atamasi nimani anglatadi?',
+            id: "m4l9-q1",
+            question: "Investorlar uchun tayyorlanadigan Pitch Deck taqdimot slaydlarida qaysi qoidaga amal qilinadi?",
             options: [
-              'Lift buzilib qolgandagi signal',
-              'G\'oyani liftdagi qisqa safar vaqtida (30-60 soniyada) juda qiziqarli tushuntirib berish san\'ati',
-              'Faqat lift ishlab chiqaruvchilar nutqi',
-              'Uzoq 2 soatlik ma\'ruza'
+              "Har bir slaydga 500 ta so'zdan iborat mayda matnlarni to'ldirib yozish",
+              "Matnni minimal qilib, katta vizual suratlar, grafiklar va asosiy raqamlarni aks ettirish",
+              "Barcha slaydlarni faqat qora va oq ranglarda, hechsiz oddiy qilib tayyorlash",
+              "Taqdimotda hech qanday raqamlar, grafiklar yoki loyiha natijalarini ko'rsatmaslik"
             ],
             correctAnswer: 1,
-            explanation: 'Elevator pitch o\'ta ixcham, aniq va esda qolarli taqdimot formatidir.'
+            explanation: "Investorlar slayddagi uzun matnni o'qishdan ko'ra, sizning nutqingiz va asosiy raqamlarga e'tibor qaratadi."
           },
           {
-            id: 'm4l9-q2',
-            question: 'Pitch Deck taqdimot slaydlarida eng muhim qoida nima?',
+            id: "m4l9-q2",
+            question: "Elevator Pitch (Lift taqdimoti) formati o'zining qanday xususiyati bilan mashhur?",
             options: [
-              'Har bir slaydga 500 ta so\'z mayda matn yozish',
-              'Ko\'p matndan qochish, katta rasmlar, infografika va qisqa asosiy raqamlarni ko\'rsatish',
-              'Slaydlarni qora-oq qilish',
-              'Hech qanday rasm qo\'ymaslik'
+              "Faqat lift ichida gapirish shart bo'lgan qat'iy qoidaga egaligi bilan",
+              "Kamida 3 soat davom etadigan ilmiy konferensiya ma'ruzasi ekanligi bilan",
+              "Faqat yozma ravishda xat orqali yuboriladigan hujjat shakli hisoblanishi bilan",
+              "Loyiha mohiyatini 30-60 soniya ichida o'ta lo'nda va esda qolarli tushuntirib berish bilan"
             ],
-            correctAnswer: 1,
-            explanation: 'Tomoshabinlar slayddagi uzun matnni o\'qish bilan chalg\'imasdan, sizning nutqingizni tinglashi kerak.'
+            correctAnswer: 3,
+            explanation: "Elevator Pitch qisqa vaqt ichida investor qiziqishini uyg'otish uchun eng samarali taqdimotdir."
           },
           {
-            id: 'm4l9-q3',
-            question: 'Sahnada Pitch qilayotganda qanday holat ishonch uyg\'otadi?',
+            id: "m4l9-q3",
+            question: "Investorlar oldida sahnada taqdimot qilayotganda qanday xatti-harakat eng katta ishonchni shakllantiradi?",
             options: [
-              'Varaqqa qarab pichirlab o\'qish',
-              'Zal bilan ko\'z bilan aloqa o\'rnatish, tabassum, dadil ovoz va o\'z loyihasiga ishonch',
-              'Zalga orqa o\'girib turish',
-              'Tez-tez soatga qarash'
+              "Qog'ozga qarab past ovozda pichirlab, tomoshabinlarga va zalga umuman qaramasdan so'zlash",
+              "Sahnada turib zaldagi tinglovchilarga orqa o'girib, faqat slayd matnini to'liq o'qib berish",
+              "Zal bilan ko'z orqali aloqa, dadil ovoz, tabassum va o'z loyihasi yechimiga to'liq ishonch",
+              "Nutq davomida tez-tez soatga qarab, taqdimot vaqti qachon tugashini kutib xavotirda turish"
             ],
-            correctAnswer: 1,
-            explanation: 'Investorlar birinchi navbatda loyihaga emas, uni taqdim etayotgan ishonchli insonlarga sarmoya kiritadi.'
+            correctAnswer: 2,
+            explanation: "Investorlar birinchi navbatda loyihaning o'ziga emas, uni taqdim etayotgan dadil asoschilarga ishonadilar."
           }
         ],
         summary: 'Zo\'r g\'oya agar uni hech kimga tushuntirib bera olmasangiz, qorong\'ulikda qolib ketadi. Pitch qilish qobiliyati — g\'oyaga qanot beradi.'
@@ -732,40 +752,40 @@ Qoida: Agar bitta burchak o'zgarsa (masalan, muddat qisqarsa), qolgan burchaklar
         },
         quiz: [
           {
-            id: 'm4l10-q1',
-            question: 'Loyiha boshqaruvining "Temir Uchburchagi" qaysi 3 ta omildan iborat?',
+            id: "m4l10-q1",
+            question: "Loyiha boshqaruvidagi mashhur \"Muhandislik uchburchagi\" (Triple Constraint) qaysi elementlardan iborat?",
             options: [
-              'Monitor, klaviatura, sichqoncha',
-              'Ko\'lam (Scope), Vaqt (Time) va Narx (Cost)',
-              'HTML, CSS, JavaScript',
-              'Nonushta, tushlik, kechki ovqat'
+              "Monitor, klaviatura va kompyuter sichqonchasi",
+              "HTML teglari, CSS stillari va JavaScript funksiyalari",
+              "Ish hajmi (Scope), Muddat (Time) va Xarajat/Byudjet (Cost)",
+              "Ertalabki reja, tushlik tanaffusi va kechki hisobot"
             ],
-            correctAnswer: 1,
-            explanation: 'Vaqt, xarajat va ish ko\'lami o\'zaro chambarchas bog\'liq bo\'lgan asosiy cheklovlardir.'
+            correctAnswer: 2,
+            explanation: "Hajm, vaqt va xarajat — loyihaning sifatini belgilovchi va o'zaro bog'liq 3 ta asosiy cheklovdir."
           },
           {
-            id: 'm4l10-q2',
-            question: 'Loyiha menejeri (Project Manager) nima ish qiladi?',
+            id: "m4l10-q2",
+            question: "IT jamoasida Loyiha Menejeri (Project Manager) ning asosiy mas'uliyati nimadan iborat?",
             options: [
-              'Faqat kompyuter o\'rnatadi',
-              'Jamoa ishini rejalashtiradi, to\'siqlarni olib tashlaydi va loyiha o\'z vaqtida bitishini ta\'minlaydi',
-              'Dasturchilar o\'rniga kod yozadi',
-              'Faqat jarima qo\'yadi'
+              "Jamoa ishini rejalashtirish, to'siqlarni bartaraf etish va loyihani o'z vaqtida yakunlash",
+              "Faqat ofis kompyuterlariga yangi tizim drayverlari va operatsion dasturlarni o'rnatish",
+              "Barcha dasturchilarning o'rniga mustaqil kod yozib, ularga dam olishga ruxsat berish",
+              "Kompaniya ofisidagi barcha xodimlarga har kuni kechikkanlik uchun jarimalar belgilash"
             ],
-            correctAnswer: 1,
-            explanation: 'PM loyihaning reja bo\'yicha silliq va xatosiz borishiga mas\'ul yetakchidir.'
+            correctAnswer: 0,
+            explanation: "PM loyihaning belgilangan muddat va byudjet doirasida silliq harakatlanishiga mas'ul yetakchidir."
           },
           {
-            id: 'm4l10-q3',
-            question: '"Deadline" so\'zi nimani anglatadi?',
+            id: "m4l10-q3",
+            question: "Agile (Egiluvchan) loyiha boshqaruvi metodologiyasining eng ustuvor qadriyati nima?",
             options: [
-              'Kompyuter o\'chishi',
-              'Topshiriq yoki loyiha topshirilishi shart bo\'lgan oxirgi qat\'iy muddat',
-              'Tushlik tanaffusi',
-              'Dastur xatosi'
+              "Qat'iy qog'ozbozlik va o'zgarmas ko'p yillik rejalarga ko'r-ko'rona amal qilish",
+              "O'zgarishlarga tezkor moslashish, ishlaydigan dastur va mijoz bilan uzluksiz hamkorlik",
+              "Mijozlar bilan loyiha bitguniga qadar hech qanday muloqot qilmaslik",
+              "Loyiha davomida xavfsizlik va sifatni tekshiruvchi testlarni butunlay bekor qilish"
             ],
             correctAnswer: 1,
-            explanation: 'Deadline — muddatga qat\'iy amal qilish intizomini belgilaydi.'
+            explanation: "Agile o'zgaruvchan bozor sharoitida mijoz talablariga moslashib tezkor natija chiqarishga urg'u beradi."
           }
         ],
         summary: 'Tartibsiz jamoada xaos hukm suradi. Loyiha boshqaruvi — buyuk maqsadlarni tartibli qadamlar bilan zabt etish vositasidir.'
@@ -811,40 +831,40 @@ Ish jarayonini vizual doska (Board) orqali boshqarish. Asosiy ustunlar: To Do (Q
         },
         quiz: [
           {
-            id: 'm4l11-q1',
-            question: 'Scrum tizimida "Sprint" nima?',
+            id: "m4l11-q1",
+            question: "Scrum metodologiyasidagi \"Sprint\" tushunchasi nimani anglatadi?",
             options: [
-              'Yugurish musobaqasi',
-              'Jamoa aniq rejalashtirilgan vazifalarni bajarib tayyor natija chiqaradigan 1-2 haftalik qisqa ish sikli',
-              'Yillik hisobot',
-              'Tushlik vaqti'
+              "Kompaniya xodimlari o'rtasida o'tkaziladigan sport yugurish musobaqasi",
+              "Loyiha jamoasi har yili bir marotaba topshiradigan rasmiy yakuniy hisobot",
+              "Jamoa aniq vazifalarni bajarib tayyor natija chiqaradigan 1-2 haftalik qisqa ish davri",
+              "Kompaniya ofisidagi barcha kompyuterlarni tozalash uchun ajratilgan kun"
             ],
-            correctAnswer: 1,
-            explanation: 'Sprintlar katta loyihani kichik, boshqariladigan bo\'laklarga ajratib bajarish imkonini beradi.'
+            correctAnswer: 2,
+            explanation: "Sprintlar katta loyihani kichik, boshqariladigan bo'laklarga ajratib bajarish imkonini beradi."
           },
           {
-            id: 'm4l11-q2',
-            question: 'Kanban doskasining klassik 3 ta asosiy ustuni qaysi?',
+            id: "m4l11-q2",
+            question: "Kanban doskasining klassik va eng mashhur 3 ta asosiy ustuni qaysi tartibda bo'ladi?",
             options: [
-              'Start, Pause, Stop',
-              'To Do (Rejada), In Progress (Jarayonda), Done (Bajarildi)',
-              'Boshi, O\'rtasi, Oxiri',
-              'Oson, O\'rta, Qiyin'
+              "To Do (Rejada) -> In Progress (Jarayonda) -> Done (Bajarildi)",
+              "Start (Boshlash) -> Pause (To'xtatish) -> Stop (Tugatish)",
+              "Easy (Oson) -> Medium (O'rtacha) -> Hard (Qiyin)",
+              "Input (Kirish) -> Cache (Xotira) -> Output (Chiqish)"
             ],
-            correctAnswer: 1,
-            explanation: 'Bu ustunlar vazifalarning harakatini ko\'z bilan yaqqol ko\'rib turish imkonini beradi.'
+            correctAnswer: 0,
+            explanation: "To Do, In Progress va Done ustunlari vazifalarning harakatini ko'z bilan yaqqol ko'rish imkonini beradi."
           },
           {
-            id: 'm4l11-q3',
-            question: 'Daily Standup yig\'ilishi nega tik turib (standup) o\'tkaziladi?',
+            id: "m4l11-q3",
+            question: "Scrum jamoalarida Daily Standup (har kungi 15 daqiqalik yig'ilish) nega tik turgan holda o'tkaziladi?",
             options: [
-              'Kreslo yetishmagani uchun',
-              'Yig\'ilish cho\'zilib ketmasligi, tez va ixcham (15 daqiqa) yakunlanishi uchun',
-              'Boshliqlarning talabi shunday',
-              'Uyqu kelmasligi uchun'
+              "Kompaniya ofisida qulay stul va yumshoq kreslolar xodimlar soniga yetishmasligi tufayli",
+              "Dasturchilarning ertalabdan jismoniy mashqlar va badantarbiya bilan shug'ullanishi uchun",
+              "Ofis xonalarini shamollatish va pollarini tozalash vaqtida xalaqit bermaslik maqsadida",
+              "Yig'ilish cho'zilib ketmasligi, tez va faqat eng muhim masalalarga qaratilishi uchun"
             ],
-            correctAnswer: 1,
-            explanation: 'Tik turish odamlarni ortiqcha chalg\'imasdan faqat eng muhim masalalarni gapirishga undaydi.'
+            correctAnswer: 3,
+            explanation: "Tik turish uzoq gap sotishni to'xtatib, barchani qisqa, aniq va londa gapirishga undaydi."
           }
         ],
         summary: 'Agile va Scrum butun dunyo IT kompaniyalarining standart ish uslubidir. Ushbu madaniyatni bilgan o\'quvchi har qanday jamoaga birinchi kundan oson kirib keta oladi.'
@@ -892,40 +912,40 @@ Yangi avlodning o'ta tezkor, zamonaviy va chiroyli loyiha boshqaruv vositalari.`
         },
         quiz: [
           {
-            id: 'm4l12-q1',
-            question: 'Jira da "Backlog" nimani anglatadi?',
+            id: "m4l12-q1",
+            question: "Jira va Trello kabi boshqaruv tizimlarida \"Backlog\" nima vazifani bajaradi?",
             options: [
-              'O\'chirilgan kompyuterlar ro\'yxati',
-              'Kelajakda bajarilishi rejalashtirilgan barcha g\'oya va vazifalar to\'plami',
-              'Foydalanuvchilar parollari',
-              'Server xatoliklari jurnali'
+              "Serverda yuzaga kelgan barcha xatoliklar va nosozliklar jurnali",
+              "Foydalanuvchilarning shaxsiy parollari va to'lov ma'lumotlari arxivi",
+              "O'chirilgan kompyuterlar va eskirgan monitorlarning hisob ro'yxati",
+              "Kelajakda bajarilishi rejalashtirilgan barcha g'oya va vazifalar xazinasi"
             ],
-            correctAnswer: 1,
-            explanation: 'Backlog — sprintlarga hali olinmagan vazifalar xazinasi bo\'lib, u yerdan eng muhimlari tanlab olinadi.'
+            correctAnswer: 3,
+            explanation: "Backlog — sprintlarga hali olinmagan vazifalar xazinasi bo'lib, u yerdan eng muhimlari tanlab olinadi."
           },
           {
-            id: 'm4l12-q2',
-            question: 'Trello platformasining asosiy vizual modeli nima?',
+            id: "m4l12-q2",
+            question: "Trello platformasining vizual boshqaruv modeli qaysi metodologiyaga asoslangan?",
             options: [
-              'Oddiy matnli fayllar',
-              'Kanban doskalari, ustunlar va kartochkalar',
-              'Faqat audio yozuvlar',
-              'Excel formulalari'
+              "Faqat audio yozuvlar va ovozli xabarlar almashinuvi tizimiga",
+              "Kanban doskalari, tematik ustunlar va vazifa kartochkalari tizimiga",
+              "Murakkab matematik formulalar va jadval hisob-kitoblariga",
+              "Faqat qog'oz hujjatlarni skaner qilib saqlash bazasiga"
             ],
             correctAnswer: 1,
-            explanation: 'Trello vizual kartochkalar va ustunlar orqali ish jarayonini o\'ta qulay boshqarish imkonini beradi.'
+            explanation: "Trello vizual kartochkalar va ustunlar orqali ish jarayonini o'ta qulay boshqarish imkonini beradi."
           },
           {
-            id: 'm4l12-q3',
-            question: 'IT jamoalarida Jira va Trello kabi vositalardan foydalanishning eng katta yutug\'i nima?',
+            id: "m4l12-q3",
+            question: "Zamonaviy IT jamoalarida Jira va Trello tizimlaridan foydalanishning eng katta yutug'i nima?",
             options: [
-              'Internet sarfini kamaytirishi',
-              'Har bir topshiriqning kimga yuklangani, muddati va bajarilish holati shaffof ko\'rinib turishi',
-              'Kompyuterni tezlashtirishi',
-              'Faqat vaqtni o\'ldirish'
+              "Kompaniyaning oylik internet trafigi va elektr energiyasi sarfini 50 foizga tejab berishi",
+              "Kompyuter protsessorining va operativ xotirasining ishlash tezligini ikki barobar oshirishi",
+              "Dasturchilarning bir-biri bilan hech qachon shaxsiy muloqot qilmasligini ta'minlashi",
+              "Har bir topshiriqning kimga yuklangani, muddati va bajarilish holati shaffof ko'rinishi"
             ],
-            correctAnswer: 1,
-            explanation: 'Shaffoflik va mas\'uliyat jamoaning muvofiqligini ta\'minlaydi va hech bir vazifa yo\'qolib qolmaydi.'
+            correctAnswer: 3,
+            explanation: "Shaffoflik va mas'uliyat jamoaning muvofiqligini ta'minlaydi va hech bir vazifa yo'qolib qolmaydi."
           }
         ],
         summary: 'Jira va Trello kabi asboblarni bilish — professional IT korporativ dunyosida ishlash uchun zarur bo\'lgan amaliy ko\'nikmadir.'

@@ -61,35 +61,40 @@ SDLC odatda 6 ta asosiy bosqichdan iborat:
         },
         quiz: [
           {
-            id: 'm1l1-q1',
-            question: 'SDLC ning to\'g\'ri bosqichlari ketma-ketligi qaysi javobda ko\'rsatilgan?',
+            id: "m1l1-q1",
+            question: "SDLC ning to'g'ri bosqichlari ketma-ketligi qaysi javobda to'liq ko'rsatilgan?",
             options: [
-              'Kod yozish -> Testlash -> Tahlil -> Deployment',
-              'Tahlil -> Dizayn -> Dasturlash -> Testlash -> Deployment -> Qo\'llab-quvvatlash',
-              'Deployment -> Testlash -> Kod yozish -> Dizayn',
-              'Dizayn -> Kod yozish -> Tahlil -> Sotish'
+              "Dasturlash -> Tahlil -> Dizayn -> Testlash -> Qo'llab-quvvatlash -> Deployment",
+              "Dizayn -> Dasturlash -> Tahlil -> Deployment -> Testlash -> Qo'llab-quvvatlash",
+              "Tahlil -> Dizayn -> Dasturlash -> Testlash -> Deployment -> Qo'llab-quvvatlash",
+              "Deployment -> Testlash -> Dasturlash -> Dizayn -> Tahlil -> Qo'llab-quvvatlash"
             ],
-            correctAnswer: 1,
-            explanation: 'Dastur yaratish doimo tahlildan boshlanib, qo\'llab-quvvatlash bilan yakunlanadi.'
-          },
-          {
-            id: 'm1l1-q2',
-            question: 'QA (Quality Assurance) mutaxassisi SDLC ning qaysi bosqichida eng faol qatnashadi?',
-            options: ['Dizayn', 'Deployment', 'Testlash (Testing)', 'Talablarni yig\'ish'],
             correctAnswer: 2,
-            explanation: 'QA mutaxassislari dasturning xatolarini aniqlash va testlash bosqichida asosiy mas\'ul shaxs hisoblanadi.'
+            explanation: "Dasturiy ta'minot yaratish doimo chuqur tahlildan boshlanib, qo'llab-quvvatlash bilan yakunlanadi."
           },
           {
-            id: 'm1l1-q3',
-            question: 'SDLC nima uchun kerak?',
+            id: "m1l1-q2",
+            question: "QA (Quality Assurance) muhandisi SDLC ning qaysi bosqichida eng asosiy mas'ul hisoblanadi?",
             options: [
-              'Faqat qog\'ozbozlik uchun',
-              'Loyiha sifatli, o\'z vaqtida va byudjet doirasida xatosiz chiqishi uchun',
-              'Dasturchilarga kamroq maosh to\'lash uchun',
-              'Faqat kompyuter o\'yinlarini yaratishda ishlatiladi'
+              "Dasturiy ta'minotni sinovdan o'tkazish (Testing)",
+              "Grafik interfeys va vizual maketlar chizish (Design)",
+              "Server infratuzilmasiga kodni joylashtirish (Deploy)",
+              "Mijozdan boshlang'ich talablarni yig'ish (Analysis)"
             ],
-            correctAnswer: 1,
-            explanation: 'SDLC loyiha xatolarini minimallashtiradi va jamoa faoliyatini tartibga soladi.'
+            correctAnswer: 0,
+            explanation: "QA mutaxassislari dasturning sifatini tekshirish va xatolarni aniqlash bosqichida bosh mas'uldir."
+          },
+          {
+            id: "m1l1-q3",
+            question: "SDLC metodologiyasi dasturiy ta'minot loyihalariga nima uchun joriy qilinadi?",
+            options: [
+              "Kodni faqat bir dasturchi yozishini ta'minlash va boshqarish uchun",
+              "Dasturni internetga tezroq va hech qanday rejasiz yuklash uchun",
+              "Loyihada faqat dizaynerlar mas'uliyatini oshirib borish uchun",
+              "Loyihani sifatli, o'z vaqtida va belgilangan byudjetda yakunlash uchun"
+            ],
+            correctAnswer: 3,
+            explanation: "SDLC loyiha xatolarini minimallashtiradi, byudjetni tejaydi va jamoa faoliyatini tartibga soladi."
           }
         ],
         summary: 'SDLC — har bir professional dasturchi bilishi shart bo\'lgan tizim. Dastur yozishdan oldin reja va dizayn, yozgandan keyin esa qat\'iy testlash bo\'lishi shart.'
@@ -139,30 +144,40 @@ git log --oneline`,
         },
         quiz: [
           {
-            id: 'm1l2-q1',
-            question: 'Yangi bo\'sh Git repozitoriyni ishga tushiruvchi buyruq qaysi?',
-            options: ['git start', 'git create', 'git init', 'git new'],
-            correctAnswer: 2,
-            explanation: '\'git init\' joriy jildda yangi yashirin .git papkasini yaratib, uni Git boshqaruviga oladi.'
-          },
-          {
-            id: 'm1l2-q2',
-            question: 'Fayllarni Staging Areaga (kutilayotgan commitga) qo\'shish uchun qaysi buyruq ishlatiladi?',
-            options: ['git push', 'git add', 'git save', 'git commit'],
-            correctAnswer: 1,
-            explanation: '\'git add <fayl>\' o\'zgarishlarni navbatdagi commit ro\'yxatiga qo\'shadi.'
-          },
-          {
-            id: 'm1l2-q3',
-            question: 'Git va GitHub o\'rtasidagi asosiy farq nima?',
+            id: "m1l2-q1",
+            question: "Yangi bo'sh Git repozitoriyni ishga tushiruvchi boshlang'ich buyruq qaysi?",
             options: [
-              'Ikkalasi aynan bitta narsa',
-              'Git — bu kompyuterdagi vosita (dastur), GitHub — bu masofaviy bulutli xizmat (veb-sayt)',
-              'GitHub bepul, Git esa pullik',
-              'Git faqat Windowsda ishlaydi, GitHub esa faqat Linuxda'
+              "git start --new",
+              "git init",
+              "git create-repo",
+              "git setup ."
             ],
             correctAnswer: 1,
-            explanation: 'Git lokal versiya boshqaruvchi, GitHub esa repozitoriylarni saqlash va hamkorlik veb-portali.'
+            explanation: "'git init' joriy jildda yangi yashirin .git papkasini yaratib, uni Git boshqaruviga oladi."
+          },
+          {
+            id: "m1l2-q2",
+            question: "Fayllardagi o'zgarishlarni navbatdagi commit ro'yxatiga (Staging) kiritish buyrug'i qaysi?",
+            options: [
+              "git push origin",
+              "git commit -m",
+              "git save --all",
+              "git add ."
+            ],
+            correctAnswer: 3,
+            explanation: "'git add <fayl>' yoki 'git add .' o'zgarishlarni navbatdagi commit tayyorgarlik zonasiga qo'shadi."
+          },
+          {
+            id: "m1l2-q3",
+            question: "Git va GitHub tizimlari o'rtasidagi tub printsipial farq nimada?",
+            options: [
+              "Git — lokal versiya nazoratchisi, GitHub esa repozitoriylarni saqlovchi bulutli platformadir",
+              "Git faqat veb-saytda ishlaydi, GitHub esa faqat shaxsiy kompyuter xotirasida ishlaydi",
+              "Git pullik tijoriy xizmat bo'lib, GitHub uning ochiq kodli bepul dasturiy analogidir",
+              "Git faqat Linux operatsion tizimida, GitHub esa faqat Windows muhitida qo'llaniladi"
+            ],
+            correctAnswer: 0,
+            explanation: "Git — bu lokal versiya boshqaruvchi dastur, GitHub esa masofaviy repozitoriylar veb-portalidir."
           }
         ],
         summary: 'Git va GitHub — dasturchining eng asosiy pasporti va ish quroli. Har bir o\'quvchi o\'z portfolio kodlarini GitHub orqali ko\'rsatadi.'
@@ -205,35 +220,40 @@ git merge feature/dark-mode`,
         },
         quiz: [
           {
-            id: 'm1l3-q1',
-            question: 'Yangi branch (tarmoq) ochish va unga bir vaqtda o\'tish buyrug\'i qaysi?',
-            options: ['git branch new', 'git checkout -b <nom>', 'git switch main', 'git merge <nom>'],
-            correctAnswer: 1,
-            explanation: '\'git checkout -b <nom>\' yoki \'git switch -c <nom>\' yangi tarmoq ochib o\'sha zahoti unga o\'tkazadi.'
+            id: "m1l3-q1",
+            question: "Yangi tarmoq (branch) ochib, bir vaqtning o'zida unga o'tish uchun qaysi buyruq yoziladi?",
+            options: [
+              "git branch --switch <nom>",
+              "git switch --create-only",
+              "git checkout -b <nom>",
+              "git merge --new-branch"
+            ],
+            correctAnswer: 2,
+            explanation: "'git checkout -b <nom>' yoki 'git switch -c <nom>' yangi tarmoq ochib o'sha zahoti unga o'tkazadi."
           },
           {
-            id: 'm1l3-q2',
-            question: 'Pull Request nima maqsadda yaratiladi?',
+            id: "m1l3-q2",
+            question: "GitHub platformasida Pull Request (PR) ochishdan ko'zlangan asosiy maqsad nima?",
             options: [
-              'GitHub dan loyihani o\'chirib tashlash uchun',
-              'O\'zgarishlarni ko\'rib chiqish va asosiy tarmoqqa birlashtirishni so\'rash uchun',
-              'Foydalanuvchilarga bildirishnoma yuborish uchun',
-              'Kompilatsiya qilish uchun'
+              "O'zgarishlarni ko'rib chiqish (Code Review) va asosiy tarmoqqa xavfsiz qo'shish",
+              "Loyiha repozitoriysidagi eski va keraksiz fayllarni butunlay o'chirib tashlash",
+              "Barcha foydalanuvchilar kompyuteriga yangi versiya haqida reklama yuborish",
+              "Loyiha kodini avtomatik tarzda boshqa dasturlash tiliga tarjima qilib berish"
             ],
-            correctAnswer: 1,
-            explanation: 'Pull Request orqali jamoa a\'zolari kodni tekshirishadi va sifat kafolatlangan holda merge qilinadi.'
+            correctAnswer: 0,
+            explanation: "Pull Request orqali jamoa a'zolari kodni tekshirishadi va sifat kafolatlangan holda merge qilinadi."
           },
           {
-            id: 'm1l3-q3',
-            question: 'Merge Conflict qachon yuz beradi?',
+            id: "m1l3-q3",
+            question: "Git da Merge Conflict (birlashtirish to'qnashuvi) qanday vaziyatda yuzaga keladi?",
             options: [
-              'Internet uzilib qolganda',
-              'Ikkita branch bitta faylning ayni qatorlarini turlicha o\'zgartirib birlashtirilganda',
-              'Kompyuter xotirasi to\'lganda',
-              'Fayl nomi juda uzun bo\'lganda'
+              "Loyiha hajmida belgilangan bepul fayl xotirasi to'lib qolganda",
+              "Serverga yuklanayotgan paytda internet aloqasi kutilmaganda uzilganda",
+              "Fayl nomida lotin alifbosidan tashqari maxsus belgilar ishlatilganda",
+              "Ikkita tarmoqda ayni bir faylning bir xil qatorlari turlicha tahrirlanganda"
             ],
-            correctAnswer: 1,
-            explanation: 'Git avtomatik hal qila olmagan ziddiyatli o\'zgarishlar merge conflict deb ataladi.'
+            correctAnswer: 3,
+            explanation: "Git bir xil qatorlardagi ziddiyatli o'zgarishlarni avtomatik hal qila olmaganda konflikt hosil qiladi."
           }
         ],
         summary: 'Branching jamoada parallel ishlash imkonini beradi. Har bir yangi vazifa uchun alohida tarmoq ochish — oltin qoidadir.'
@@ -285,40 +305,40 @@ class EmailNotificationService {
         },
         quiz: [
           {
-            id: 'm1l4-q1',
-            question: 'SOLID tamoyillaridagi "S" harfi nimani anglatadi?',
+            id: "m1l4-q1",
+            question: "SOLID tamoyillaridagi \"S\" (Single Responsibility) harfi nimani talab qiladi?",
             options: [
-              'System Speed (Tizim tezligi)',
-              'Single Responsibility Principle (Yagona javobgarlik tamoyili)',
-              'Security First (Birinchi o\'rinda xavfsizlik)',
-              'Server Optimization'
+              "Barcha ma'lumotlar bazasi so'rovlarini bitta katta faylda birlashtirishni",
+              "Har bir sinf yoki modul faqat bitta yagona vazifaga javobgar bo'lishini",
+              "Dasturning tezligini oshirish uchun barcha xavfsizlik tekshiruvlarini o'chirishni",
+              "Har bir dasturchi faqat o'zi yozgan kodini tushunadigan uslubda yozishini"
             ],
             correctAnswer: 1,
-            explanation: 'Single Responsibility Principle — bitta sinf yoki modul faqat bitta o\'zgarish sababiga ega bo\'lishi shart.'
+            explanation: "Single Responsibility Principle — har bir sinf faqat bitta o'zgarish sababiga ega bo'lishi shart."
           },
           {
-            id: 'm1l4-q2',
-            question: 'Clean Code da o\'zgaruvchilarni qanday nomlash tavsiya etiladi?',
+            id: "m1l4-q2",
+            question: "Clean Code talablariga muvofiq o'zgaruvchilarni nomlashda qaysi qoidaga amal qilinadi?",
             options: [
-              'Mumkin qadar 1 ta harfdan iborat (masalan: a, b, x, y)',
-              'O\'z vazifasini aniq tushuntiruvchi ma\'noli so\'zlar bilan (masalan: isUserLoggedIn, totalCartPrice)',
-              'Faqat sonlar bilan',
-              'O\'zbekcha va inglizcha so\'zlarni aralashtirib'
+              "O'zgaruvchilarni har doim 1 ta tasodifiy harf bilan belgilash (masalan: a, b, c)",
+              "Faqat tizim buyruqlari nomlari bilan bir xil so'zlarni tanlash (masalan: var, let)",
+              "O'z vazifasini aniq bildiruvchi mazmunli so'zlarni qo'llash (masalan: isUserActive)",
+              "Barcha nomlarni faqat o'zbek va lotin so'zlarini aralashtirib yozish (masalan: puliSum)"
             ],
-            correctAnswer: 1,
-            explanation: 'O\'zgaruvchining nomi uning nima uchun yaratilganini boshqa dasturchiga ochiq bildirishi shart.'
+            correctAnswer: 2,
+            explanation: "O'zgaruvchining nomi uning nima maqsadda yaratilganini boshqa dasturchiga ochiq bildirishi shart."
           },
           {
-            id: 'm1l4-q3',
-            question: 'DRY qoidasining ma\'nosi nima?',
+            id: "m1l4-q3",
+            question: "Dasturlashdagi mashhur DRY qoidasining to'g'ri kengaytmasi va ma'nosi qaysi?",
             options: [
-              'Don\'t Repeat Yourself (O\'zingizni takrorlamang)',
-              'Do Repeat Yearly (Har yili takrorlang)',
-              'Data Rapid Yield',
-              'Direct Route Yield'
+              "Don't Repeat Yourself — bir xil mantiqiy kodni loyihada qayta-qayta takrorlamaslik",
+              "Do Repeat Yearly — har yili butun loyiha kodini noldan qayta yozib chiqish",
+              "Direct Route Yield — ma'lumotlar oqimini eng qisqa yo'l orqali serverga yo'naltirish",
+              "Data Rapid Yield — operativ xotirada ma'lumotlarni zudlik bilan arxivlab saqlash"
             ],
             correctAnswer: 0,
-            explanation: 'DRY — bir xil mantiqiy kodni loyihada qayta-qayta nusxalamasdan, umumiy funksiya yoki komponentga ajratish.'
+            explanation: "DRY — bir xil mantiqiy kodni nusxalamasdan, umumiy funksiya yoki komponentga ajratish demakdir."
           }
         ],
         summary: 'Kodni shunday yozingki, uni kelajakda o\'qiydigan dasturchi sizga rahmat aytsin. Clean Code professional dasturchilikning eng oliy belgisidir.'
@@ -371,35 +391,40 @@ console.log(db1 === db2); // true — ikkisi aynan bitta obyekt!`,
         },
         quiz: [
           {
-            id: 'm1l5-q1',
-            question: 'Singleton andozasining bosh maqsadi nima?',
+            id: "m1l5-q1",
+            question: "Singleton dizayn andozasi (Design Pattern) nima maqsadda ishlatiladi?",
             options: [
-              'Dasturni 2 barobar tezlashtirish',
-              'Sinfdan faqat bitta nusxa yaratilishini kafolatlash',
-              'Fayllarni shifrlash',
-              'Foydalanuvchini ro\'yxatdan o\'tkazish'
+              "Dastur algoritmlarini parallel tarzda bir necha protsessorga taqsimlash uchun",
+              "Foydalanuvchilarning parollarini murakkab shifrlar yordamida himoyalash uchun",
+              "Serverdagi barcha ochiq fayllarni avtomatik tarzda arxivlab borish uchun",
+              "Loyiha doirasida ma'lum bir sinfdan faqat bitta yagona nusxa yaratilishini kafolatlash uchun"
             ],
-            correctAnswer: 1,
-            explanation: 'Singleton loyiha davomida bitta yagona obyekt mavjudligini ta\'minlaydi.'
+            correctAnswer: 3,
+            explanation: "Singleton butun ilova bo'yicha bitta umumiy kirish nuqtasi (masalan, DB aloqasi) bo'lishini ta'minlaydi."
           },
           {
-            id: 'm1l5-q2',
-            question: 'Hodisalarga obuna bo\'lish va bildirishnomalar yuborish uchun qaysi andoza eng mos keladi?',
-            options: ['Observer', 'Singleton', 'Prototype', 'Adapter'],
-            correctAnswer: 0,
-            explanation: 'Observer — bir obyekt holati o\'zgarganda barcha kuzatuvchilarni xabardor qilish andozasidir.'
-          },
-          {
-            id: 'm1l5-q3',
-            question: 'Factory andozasi qachon qo\'llaniladi?',
+            id: "m1l5-q2",
+            question: "Bir obyekt holati o'zgarganda boshqa barcha bog'liq obyektlarga xabar yuboruvchi andoza qaysi?",
             options: [
-              'Fayllarni yuklab olishda',
-              'Obyektlarni yaratish mantiqi murakkab bo\'lib, ularni umumiy interfeys orqali dinamik hosil qilish zarur bo\'lganda',
-              'CSS stillarini yozishda',
-              'Kompilatorni o\'rnatishda'
+              "Singleton andozasi",
+              "Observer andozasi",
+              "Adapter andozasi",
+              "Prototype andozasi"
             ],
             correctAnswer: 1,
-            explanation: 'Factory mijoz kodini aniq sinf nomlariga bog\'lanib qolishdan saqlaydi.'
+            explanation: "Observer — hodisalarga obuna bo'lish va o'zgarishlar haqida avtomatik bildirishnoma yuborish andozasidir."
+          },
+          {
+            id: "m1l5-q3",
+            question: "Factory (Fabrika) andozasi dastur arxitekturasida qachon eng ko'p qo'llaniladi?",
+            options: [
+              "Dasturdagi barcha xatoliklarni matnli faylga yozib borish jarayonida",
+              "Veb-sahifaning ranglari va shriftlarini CSS orqali bezatish bosqichida",
+              "Obyektlarni yaratish mantiqi murakkab bo'lib, umumiy interfeys orqali hosil qilishda",
+              "Ma'lumotlar bazasidagi jadvallarni o'chirib qayta tiklash amaliyotida"
+            ],
+            correctAnswer: 2,
+            explanation: "Factory mijoz kodini aniq sinf konstruktorlariga qattiq bog'lanib qolishdan xalos etadi."
           }
         ],
         summary: 'Dizayn andozalari — bu velosipedni qaytadan ixtiro qilmaslik siri. Ularni bilish sizni oddiy kod yozuvchidan haqiqiy dastur arxitektoriga aylantiradi.'
@@ -452,25 +477,40 @@ async function getStudentData() {
         },
         quiz: [
           {
-            id: 'm1l6-q1',
-            question: 'Yangi ma\'lumot yaratish uchun qaysi HTTP metodi qo\'llaniladi?',
-            options: ['GET', 'DELETE', 'POST', 'OPTIONS'],
-            correctAnswer: 2,
-            explanation: 'POST metodi serverga yangi resurs yaratish so\'rovini yuboradi.'
+            id: "m1l6-q1",
+            question: "Serverda yangi ma'lumot resursini yaratish uchun qaysi HTTP metodi standarti ishlatiladi?",
+            options: [
+              "POST metodi",
+              "GET metodi",
+              "PUT metodi",
+              "HEAD metodi"
+            ],
+            correctAnswer: 0,
+            explanation: "POST metodi serverga yangi ma'lumot yoki yozuv qo'shish uchun standart hisoblanadi."
           },
           {
-            id: 'm1l6-q2',
-            question: '404 HTTP status kodi nimani bildiradi?',
-            options: ['Barcha amallar muvaffaqiyatli', 'Serverda nosozlik', 'So\'ralgan sahifa yoki resurs topilmadi', 'Foydalanuvchi paroli xato'],
-            correctAnswer: 2,
-            explanation: '404 Not Found — serverda so\'ralgan manzil mavjud emasligini anglatadi.'
+            id: "m1l6-q2",
+            question: "Veb-server qaytaradigan 404 HTTP status kodi nimani anglatadi?",
+            options: [
+              "Mijoz tomonidan yuborilgan so'rov to'liq va muvaffaqiyatli bajarildi",
+              "Server ichki xatoligi tufayli so'rovni vaqtincha bajara olmadi",
+              "Foydalanuvchi tizimga kirish uchun noto'g'ri login yoki parol kiritdi",
+              "Mijoz so'ragan veb-sahifa yoki resurs ko'rsatilgan manzilda topilmadi"
+            ],
+            correctAnswer: 3,
+            explanation: "404 Not Found — serverda so'ralgan manzil mavjud emasligini bildiradi."
           },
           {
-            id: 'm1l6-q3',
-            question: 'JSON formatida ma\'lumotlar qanday tuziladi?',
-            options: ['XML teglari orqali', 'Kalit va qiymat (key: value) juftliklari ko\'rinishida', 'Faqat oddiy matn satrlari', 'Ikkilik (binary) sanoq tizimida'],
+            id: "m1l6-q3",
+            question: "JSON (JavaScript Object Notation) formatida ma'lumotlar qanday tuzilishda saqlanadi?",
+            options: [
+              "Murakkab XML teglari va atributlarining iyerarxik daraxti shaklida",
+              "Kalit va qiymat (key: value) juftliklari ko'rinishidagi obyektlarda",
+              "Faqat vergul bilan ajratilgan oddiy matnli satrlar qatorlari shaklida",
+              "Kompilyatsiya qilingan ikkilik (binary) baytlar ketma-ketligi ko'rinishida"
+            ],
             correctAnswer: 1,
-            explanation: 'JSON obyektlari {"key": "value"} ko\'rinishidagi kalit-qiymat tuzilmasiga ega.'
+            explanation: "JSON ma'lumotlari {\"key\": \"value\"} ko'rinishidagi o'qishga oson juftliklardan iborat."
           }
         ],
         summary: 'REST API va JSON — butun internetning qon tomiri. Frontend va Backend tizimlari ayni shu standartlar orqali bog\'lanadi.'
@@ -505,40 +545,40 @@ Asosiy jamoaviy qoidalar:
         },
         quiz: [
           {
-            id: 'm1l7-q1',
-            question: 'IT jamoalarida professional muloqotning eng yaxshi namunasi qaysi?',
+            id: "m1l7-q1",
+            question: "IT jamoalarida professional muloqot va hamkorlikning eng to'g'ri tamoyili qaysi?",
             options: [
-              'Savol tug\'ilganda jamoaga bildirmasdan haftalab kutish',
-              'Kontekst va muammoni to\'liq tushuntirib, xushmuomala yozish',
-              'Faqat kechasi telefon qilib bezovta qilish',
-              'Boshqalarning xatolarini mazax qilish'
-            ],
-            correctAnswer: 1,
-            explanation: 'Muammo va kontekstni aniq bayon qilish vaqtni tejaydi va jamoada ishonchni mustahkamlaydi.'
-          },
-          {
-            id: 'm1l7-q2',
-            question: 'Code Review paytida e\'tiroz bildirishda nima muhim?',
-            options: [
-              'Dasturchining shaxsiyatini muhokama qilish',
-              'Faqat shaxsiy didga asoslanish',
-              'Faqat kod sifatiga e\'tibor qaratish va taklif kiritish',
-              'Iloji boricha qo\'pol gapirish'
+              "Muammo tug'ilganda hech kimga aytmasdan haftalab mustaqil kutib o'tirish",
+              "Barcha muhim xabarlarni faqat kechasi shaxsiy telefon orqali qo'ng'iroq qilib aytish",
+              "Kontekst va muammoni to'liq tushuntirib, xushmuomala tarzda yozma bayon etish",
+              "Boshqa dasturchilar xatolarini jamoa chatida masxara qilib tanqid qilish"
             ],
             correctAnswer: 2,
-            explanation: 'Code Review — bu shaxsni emas, kodni yaxshilash jarayonidir.'
+            explanation: "Kontekstni aniq bayon qilish vaqtni tejaydi va jamoada ishonchli muhit yaratadi."
           },
           {
-            id: 'm1l7-q3',
-            question: 'Soft skills (yumshoq ko\'nikmalar) dasturchiga nima uchun kerak?',
+            id: "m1l7-q2",
+            question: "Code Review jarayonida hamkasb kodiga fikr bildirishda eng asosiy qoida nima?",
             options: [
-              'Kompyuterni tezroq o\'chirish uchun',
-              'Mijozlar va jamoa bilan samarali hamkorlik qilib, murakkab loyihalarni birgalikda bitirish uchun',
-              'Faqat ingliz tili grammatikasini bilish uchun',
-              'Hech narsaga kerak emas'
+              "Dasturchi shaxsiyatiga emas, balki faqat kod sifati va yaxshilanishiga e'tibor qaratish",
+              "Faqat shaxsiy did va qulaylikka asoslanib, hamkasbdan uslubni o'zgartirishni talab qilish",
+              "Har qanday xatolik uchraganda kodni darhol o'chirib tashlashni buyurish",
+              "Loyihadagi barcha kodlarni faqat bitta dasturchi yozishi shartligini ta'kidlash"
             ],
-            correctAnswer: 1,
-            explanation: 'Dasturchi faqat texnik emas, balki odamlar bilan til topisha oladigan jamoa o\'yinchisi bo\'lishi kerak.'
+            correctAnswer: 0,
+            explanation: "Code Review — bu shaxsni emas, balki kod sifatini birgalikda oshirish madaniyatidir."
+          },
+          {
+            id: "m1l7-q3",
+            question: "Dasturchi uchun Soft Skills (muloqot va moslashuvchanlik) nima sababdan juda muhim?",
+            options: [
+              "Kompyuter tizimidagi operativ xotirani va drayverlarni tezroq tozalashni yaxshi o'rganish uchun",
+              "Faqat xorijiy do'stlar bilan ijtimoiy tarmoqlarda muntazam ravishda inglizcha yozishib turish uchun",
+              "Dastur kodini kompilyatsiya qilish va serverga yuklash tezligini sezilarli darajada oshirish uchun",
+              "Mijozlar va jamoa bilan samarali hamkorlik qilib, murakkab loyihalarni muvaffaqiyatli topshirish uchun"
+            ],
+            correctAnswer: 3,
+            explanation: "Texnik bilim bilan birga kuchli muloqot qobiliyati dasturchini haqiqiy yetakchiga aylantiradi."
           }
         ],
         summary: 'Kod kompyuter uchun, aloqa esa insonlar uchun yoziladi. Zo\'r dasturchi — avvalo yaxshi jamoaviy sherikdir.'
@@ -584,40 +624,40 @@ Asosiy vaqt boshqaruvi metodlari:
         },
         quiz: [
           {
-            id: 'm1l8-q1',
-            question: 'Pomodoro texnikasining klassik vaqt taqsimoti qanday?',
+            id: "m1l8-q1",
+            question: "Pomodoro vaqtni boshqarish texnikasining klassik qoidasi qanday vaqt taqsimotini taklif qiladi?",
             options: [
-              '60 daqiqa ish, 60 daqiqa dam',
-              '25 daqiqa diqqat bilan ishlash, 5 daqiqa tanaffus',
-              'Kun bo\'yi to\'xtovsiz ishlash',
-              '10 daqiqa ish, 50 daqiqa o\'yin'
+              "50 daqiqa to'xtovsiz o'yin o'ynash va 10 daqiqa dars qilish",
+              "25 daqiqa to'liq diqqat bilan ishlash va 5 daqiqa qisqa tanaffus qilish",
+              "60 daqiqa chalg'imasdan ishlash va 60 daqiqa uxlash rejasi",
+              "Butun kun davomida hech qanday tanaffussiz kompyuterda ishlash"
             ],
             correctAnswer: 1,
-            explanation: '25 daqiqalik konsentratsiya va 5 daqiqalik dam olish miya charchashining oldini oladi.'
+            explanation: "25 daqiqalik konsentratsiya va 5 daqiqalik qisqa dam olish miya toliqishini keskin kamaytiradi."
           },
           {
-            id: 'm1l8-q2',
-            question: 'Eyzenxauer matritsasiga ko\'ra eng katta diqqat qaysi sohaga qaratilishi kerak?',
+            id: "m1l8-q2",
+            question: "Eyzenxauer matritsasiga ko'ra, eng katta strategik e'tibor qaysi toifadagi vazifalarga qaratilishi zarur?",
             options: [
-              'Muhim, ammo shoshilinch bo\'lmagan (kelajakka investitsiya) vazifalarga',
-              'Faqat ijtimoiy tarmoqlardagi xabarlarga javob berishga',
-              'Faqat eng oxirgi daqiqadagi ishlarga',
-              'Hech qanday reja tuzmaslikka'
+              "Shoshilinch bo'lgan, lekin kelajak uchun hech qanday foyda keltirmaydigan ishlarga",
+              "Faqat ijtimoiy tarmoqlardagi tasodifiy bildirishnomalarni ko'rib chiqishga",
+              "Muhim, ammo shoshilinch bo'lmagan (kelajak va rivojlanishga xizmat qiladigan) vazifalarga",
+              "Kunlik rejasiz, faqat eng oxirgi daqiqalarda yuzaga keladigan favqulodda ishlarga"
             ],
-            correctAnswer: 0,
-            explanation: 'Kelajakdagi muvaffaqiyat muhim strategik ishlarni muntazam bajarish orqali shakllanadi.'
+            correctAnswer: 2,
+            explanation: "Uzoq muddatli yutuqlar muhim, lekin shoshilinch bo'lmagan strategik vazifalarga bog'liqdir."
           },
           {
-            id: 'm1l8-q3',
-            question: 'IT loyihada haqiqiy yetakchi (lider) qanday yo\'l tutadi?',
+            id: "m1l8-q3",
+            question: "IT loyihasida haqiqiy muhandislik yetakchisi (Tech Lead) qiyin vaziyatda qanday yo'l tutadi?",
             options: [
-              'Xatolikda barcha aybni sheriklariga ag\'daradi',
-              'Mas\'uliyatni oladi, yechim taklif qiladi va jamoani qo\'llab-quvvatlaydi',
-              'Hech kim bilan gaplashmaydi',
-              'Barcha ishlarni yolg\'iz o\'zi yashirincha qiladi'
+              "Yuzaga kelgan barcha texnik nosozliklarda faqat yangi kelgan xodimlarni ayblaydi",
+              "Mas'uliyatni o'z zimmasiga oladi, aniq yechim taklif qiladi va jamoani qo'llab-quvvatlaydi",
+              "Muammo hal bo'lguniga qadar hech kim bilan muloqot qilmasdan chetda turadi",
+              "Loyiha kodini o'chirib tashlab, ishni boshqa kompaniyaga topshirishni talab qiladi"
             ],
             correctAnswer: 1,
-            explanation: 'Liderlik — mas\'uliyatni o\'z zimmasiga olish va jamoaga yordam berish qobiliyatidir.'
+            explanation: "Liderlik — mas'uliyatni olish, bosim ostida xotirjamlikni saqlash va jamoaga yordam berishdir."
           }
         ],
         summary: 'Vaqtni boshqarish va yetakchilik qobiliyati oddiy dasturchini jamoa sardori va texnik direktor darajasiga ko\'taradi.'

@@ -84,7 +84,10 @@ export default function TeacherPanelPage() {
   const setTeacherRole = () => {
     setUser({
       id: 'teacher-1',
+      firstName: 'Rustam',
+      lastName: 'Karimov',
       name: 'Rustam Karimov (Informatika O\'qituvchisi)',
+      birthDate: '1985-06-15',
       role: 'teacher',
       grade: '11-sinflar',
       joinedAt: '2024-09-01'

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { getLessonById, getModuleById } from '@/data/courses';
 import { useAppStore } from '@/lib/store';
+import { cn } from '@/lib/utils';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { AuthModal } from '@/components/ui/AuthModal';
@@ -503,14 +504,32 @@ export default function LessonPage() {
                             optionStyle = 'border-blue-600 bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-semibold shadow-sm';
                           }
 
+                          const optionLetters = ['A', 'B', 'C', 'D'];
+
                           return (
                             <button
                               key={optIdx}
                               onClick={() => handleSelectOption(q.id, optIdx)}
                               disabled={quizSubmitted}
-                              className={`w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between ${optionStyle}`}
+                              className={`w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between group ${optionStyle}`}
                             >
-                              <span>{option}</span>
+                              <div className="flex items-center gap-3">
+                                <span className={cn(
+                                  "w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 border transition-all",
+                                  quizSubmitted
+                                    ? isThisCorrect
+                                      ? "bg-emerald-600 text-white border-emerald-600"
+                                      : isSelected
+                                        ? "bg-rose-600 text-white border-rose-600"
+                                        : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700"
+                                    : isSelected
+                                      ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 group-hover:border-blue-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                                )}>
+                                  {optionLetters[optIdx]}
+                                </span>
+                                <span className="leading-relaxed">{option}</span>
+                              </div>
                               {quizSubmitted && isThisCorrect && (
                                 <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 ml-2" />
                               )}
